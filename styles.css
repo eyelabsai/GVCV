@@ -536,6 +536,93 @@ body {
     left: 0;
 }
 
+/* Clinical & Research Focus */
+#focus .section-title {
+    background: linear-gradient(135deg, var(--accent-cool) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 3px 15px rgba(136, 192, 208, 0.2);
+}
+
+.focus-intro {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.focus-tile {
+    padding: 18px 20px;
+    background: linear-gradient(135deg, rgba(246, 248, 251, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border: 1px solid rgba(129, 161, 193, 0.18);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.focus-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(136, 192, 208, 0.18);
+    border-color: var(--accent-cool);
+}
+
+.focus-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.focus-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.focus-link {
+    font-size: 0.82rem;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.focus-link:hover {
+    color: var(--accent-cool);
+}
+
+/* FAQ */
+#faq .section-title {
+    background: linear-gradient(135deg, var(--accent-soft) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 3px 15px rgba(180, 142, 173, 0.2);
+}
+
+.faq-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-q {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.faq-a {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
 /* Footer */
 .footer {
     text-align: center;

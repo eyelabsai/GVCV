@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /seo-experiment.html
+
+Sitemap: https://gurpalvirdi.com/sitemap.xml
