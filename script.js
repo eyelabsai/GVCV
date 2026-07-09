@@ -52,6 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Show more / show less collapsible sections
+    const showMoreButtons = document.querySelectorAll('.show-more-btn');
+    showMoreButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const target = document.getElementById(button.getAttribute('data-target'));
+            if (!target) return;
+            const expanded = target.classList.toggle('expanded');
+            button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            button.textContent = expanded ? 'Show less' : 'Show more';
+        });
+    });
+
     // Keyboard navigation support
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey || e.metaKey) {

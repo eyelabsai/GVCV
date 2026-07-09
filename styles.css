@@ -342,6 +342,33 @@ body {
     margin-top: 8px;
 }
 
+/* Collapsible show-more content */
+.collapsible-content {
+    display: none;
+}
+
+.collapsible-content.expanded {
+    display: block;
+}
+
+.show-more-btn {
+    margin-top: 8px;
+    padding: 4px 0;
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.show-more-btn:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
 /* Service, Awards, and Other Item Styles */
 .service-item,
 .award-item,
