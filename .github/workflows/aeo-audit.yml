@@ -1,0 +1,35 @@
+name: AEO audit
+
+# Automated weekly technical-AEO scorecard for all web properties.
+# Regenerates aeo/index.html + aeo/data.json and commits them (GitHub Pages then serves
+# https://gurpalvirdi.com/aeo). Also runnable on demand from the Actions tab.
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays 13:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run AEO audit
+        run: node scripts/aeo-audit.mjs
+      - name: Commit dashboard if changed
+        run: |
+          git config user.name "aeo-audit-bot"
+          git config user.email "actions@github.com"
+          git add aeo/
+          if git diff --staged --quiet; then
+            echo "No changes."
+          else
+            git commit -m "AEO audit: update dashboard [skip ci]"
+            git push
+          fi

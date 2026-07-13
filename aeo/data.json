@@ -1,0 +1,489 @@
+{
+  "runs": [
+    {
+      "date": "2026-07-13T02:23:54.075Z",
+      "sites": [
+        {
+          "domain": "iclsurgery.com",
+          "score": 97
+        },
+        {
+          "domain": "iclfit.com",
+          "score": 84
+        },
+        {
+          "domain": "gurpalvirdi.com",
+          "score": 94
+        },
+        {
+          "domain": "refractivefoundations.com",
+          "score": 86
+        },
+        {
+          "domain": "iolreference.com",
+          "score": 62
+        }
+      ]
+    }
+  ],
+  "latest": {
+    "date": "2026-07-13T02:23:54.075Z",
+    "sites": [
+      {
+        "domain": "iclsurgery.com",
+        "label": "ICL Info (patient)",
+        "score": 97,
+        "checks": [
+          {
+            "key": "live",
+            "label": "Site live (HTTP 200)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "https",
+            "label": "HTTPS",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "title",
+            "label": "Title tag",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "description",
+            "label": "Meta description",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "canonical",
+            "label": "Canonical URL",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "og",
+            "label": "Open Graph tags",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "schema",
+            "label": "JSON-LD schema (WebSite, Organization, MedicalWebPage, Physician)",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sameas",
+            "label": "Entity sameAs links (3)",
+            "pass": true,
+            "weight": 6
+          },
+          {
+            "key": "content",
+            "label": "Content in raw HTML (extractable)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "robots",
+            "label": "robots.txt present",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "aibots",
+            "label": "AI crawlers allowed",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sitemap",
+            "label": "Sitemap present (9 URLs)",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "pubmed",
+            "label": "PubMed/authority citations",
+            "pass": false,
+            "weight": 3
+          },
+          {
+            "key": "llms",
+            "label": "llms.txt present (informational)",
+            "pass": true,
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "domain": "iclfit.com",
+        "label": "ICL Fit (AI sizing)",
+        "score": 84,
+        "checks": [
+          {
+            "key": "live",
+            "label": "Site live (HTTP 200)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "https",
+            "label": "HTTPS",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "title",
+            "label": "Title tag",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "description",
+            "label": "Meta description",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "canonical",
+            "label": "Canonical URL",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "og",
+            "label": "Open Graph tags",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "schema",
+            "label": "JSON-LD schema (Organization, WebSite, SoftwareApplication, Offer, MedicalAudience, MedicalWebPage)",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sameas",
+            "label": "Entity sameAs links (1)",
+            "pass": true,
+            "weight": 6
+          },
+          {
+            "key": "content",
+            "label": "Content in raw HTML (extractable)",
+            "pass": false,
+            "weight": 10
+          },
+          {
+            "key": "robots",
+            "label": "robots.txt present",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "aibots",
+            "label": "AI crawlers allowed",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sitemap",
+            "label": "Sitemap present (6 URLs)",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "pubmed",
+            "label": "PubMed/authority citations",
+            "pass": false,
+            "weight": 3
+          },
+          {
+            "key": "llms",
+            "label": "llms.txt present (informational)",
+            "pass": false,
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "domain": "gurpalvirdi.com",
+        "label": "Gurpal Virdi, MD",
+        "score": 94,
+        "checks": [
+          {
+            "key": "live",
+            "label": "Site live (HTTP 200)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "https",
+            "label": "HTTPS",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "title",
+            "label": "Title tag",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "description",
+            "label": "Meta description",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "canonical",
+            "label": "Canonical URL",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "og",
+            "label": "Open Graph tags",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "schema",
+            "label": "JSON-LD schema (Physician, MedicalProcedure, MedicalOrganization, EducationalOrganization, Organization, PostalAddress)",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sameas",
+            "label": "Entity sameAs links (4)",
+            "pass": true,
+            "weight": 6
+          },
+          {
+            "key": "content",
+            "label": "Content in raw HTML (extractable)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "robots",
+            "label": "robots.txt present",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "aibots",
+            "label": "AI crawlers allowed",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sitemap",
+            "label": "Sitemap present (1 URLs)",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "pubmed",
+            "label": "PubMed/authority citations",
+            "pass": false,
+            "weight": 3
+          },
+          {
+            "key": "llms",
+            "label": "llms.txt present (informational)",
+            "pass": false,
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "domain": "refractivefoundations.com",
+        "label": "Refractive Foundations",
+        "score": 86,
+        "checks": [
+          {
+            "key": "live",
+            "label": "Site live (HTTP 200)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "https",
+            "label": "HTTPS",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "title",
+            "label": "Title tag",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "description",
+            "label": "Meta description",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "canonical",
+            "label": "Canonical URL",
+            "pass": false,
+            "weight": 4
+          },
+          {
+            "key": "og",
+            "label": "Open Graph tags",
+            "pass": false,
+            "weight": 4
+          },
+          {
+            "key": "schema",
+            "label": "JSON-LD schema (EducationalOrganization, Physician)",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sameas",
+            "label": "Entity sameAs links (2)",
+            "pass": true,
+            "weight": 6
+          },
+          {
+            "key": "content",
+            "label": "Content in raw HTML (extractable)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "robots",
+            "label": "robots.txt present",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "aibots",
+            "label": "AI crawlers allowed",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sitemap",
+            "label": "Sitemap present (9 URLs)",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "pubmed",
+            "label": "PubMed/authority citations",
+            "pass": false,
+            "weight": 3
+          },
+          {
+            "key": "llms",
+            "label": "llms.txt present (informational)",
+            "pass": false,
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "domain": "iolreference.com",
+        "label": "IOL Reference",
+        "score": 62,
+        "checks": [
+          {
+            "key": "live",
+            "label": "Site live (HTTP 200)",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "key": "https",
+            "label": "HTTPS",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "title",
+            "label": "Title tag",
+            "pass": true,
+            "weight": 5
+          },
+          {
+            "key": "description",
+            "label": "Meta description",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "canonical",
+            "label": "Canonical URL",
+            "pass": false,
+            "weight": 4
+          },
+          {
+            "key": "og",
+            "label": "Open Graph tags",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "schema",
+            "label": "JSON-LD schema",
+            "pass": false,
+            "weight": 15
+          },
+          {
+            "key": "sameas",
+            "label": "Entity sameAs links",
+            "pass": false,
+            "weight": 6
+          },
+          {
+            "key": "content",
+            "label": "Content in raw HTML (extractable)",
+            "pass": false,
+            "weight": 10
+          },
+          {
+            "key": "robots",
+            "label": "robots.txt present",
+            "pass": true,
+            "weight": 4
+          },
+          {
+            "key": "aibots",
+            "label": "AI crawlers allowed",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "key": "sitemap",
+            "label": "Sitemap present (108 URLs)",
+            "pass": true,
+            "weight": 8
+          },
+          {
+            "key": "pubmed",
+            "label": "PubMed/authority citations",
+            "pass": false,
+            "weight": 3
+          },
+          {
+            "key": "llms",
+            "label": "llms.txt present (informational)",
+            "pass": true,
+            "weight": 3
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AEO Readiness Dashboard — Bimini web properties</title>
+<style>
+  :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}
+  *{box-sizing:border-box}body{margin:0;font:15px/1.5 -apple-system,Segoe UI,Inter,sans-serif;color:var(--ink);background:var(--bg)}
+  .wrap{max-width:1000px;margin:0 auto;padding:40px 20px}
+  h1{font-size:26px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 24px}
+  .top{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+  .big{font-size:44px;font-weight:700}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+  .dom{font-weight:700}.lbl{color:var(--muted);font-size:13px}
+  .score{font-size:30px;font-weight:700}.score span{font-size:14px;color:var(--muted);font-weight:400}
+  .checks{list-style:none;margin:0;padding:0;font-size:13px}
+  .checks li{padding:3px 0;display:flex;gap:8px;align-items:flex-start}
+  .checks li span{font-weight:700}
+  .ok span{color:#15803d}.no{color:#b91c1c}.no span{color:#b91c1c}
+  table{border-collapse:collapse;width:100%;margin-top:14px;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--line)}
+  th{background:#f1f5f9;font-size:12px}td.d{text-align:left;color:var(--muted)}
+  h2{font-size:18px;margin:34px 0 6px}.note{color:var(--muted);font-size:13px}
+  a{color:#2563eb}
+</style></head>
+<body><div class="wrap">
+  <h1>AEO Readiness Dashboard</h1>
+  <p class="sub">Automated technical-AEO health across Bimini / Refractive Foundations web properties. Last run: <strong>2026-07-13 02:23 UTC</strong>.</p>
+  <div class="top"><div><div class="big" style="color:#b45309">85<span style="font-size:18px;color:var(--muted)">/100 avg</span></div></div>
+  <div class="note" style="max-width:520px">Scores objective on-site signals that make pages eligible for AI-answer citation (crawler access, schema, sitemap, extractable content, entity links). Does <em>not</em> measure actual LLM citations — track those with the monthly probe log.</div></div>
+  <div class="grid">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="dom">iclsurgery.com</div>
+            <div class="lbl">ICL Info (patient)</div>
+          </div>
+          <div class="score" style="color:#15803d">97<span>/100</span></div>
+        </div>
+        <ul class="checks">
+          <li class="ok"><span>✓</span>Site live (HTTP 200)</li><li class="ok"><span>✓</span>HTTPS</li><li class="ok"><span>✓</span>Title tag</li><li class="ok"><span>✓</span>Meta description</li><li class="ok"><span>✓</span>Canonical URL</li><li class="ok"><span>✓</span>Open Graph tags</li><li class="ok"><span>✓</span>JSON-LD schema (WebSite, Organization, MedicalWebPage, Physician)</li><li class="ok"><span>✓</span>Entity sameAs links (3)</li><li class="ok"><span>✓</span>Content in raw HTML (extractable)</li><li class="ok"><span>✓</span>robots.txt present</li><li class="ok"><span>✓</span>AI crawlers allowed</li><li class="ok"><span>✓</span>Sitemap present (9 URLs)</li><li class="no"><span>✕</span>PubMed/authority citations</li><li class="ok"><span>✓</span>llms.txt present (informational)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="dom">iclfit.com</div>
+            <div class="lbl">ICL Fit (AI sizing)</div>
+          </div>
+          <div class="score" style="color:#b45309">84<span>/100</span></div>
+        </div>
+        <ul class="checks">
+          <li class="ok"><span>✓</span>Site live (HTTP 200)</li><li class="ok"><span>✓</span>HTTPS</li><li class="ok"><span>✓</span>Title tag</li><li class="ok"><span>✓</span>Meta description</li><li class="ok"><span>✓</span>Canonical URL</li><li class="ok"><span>✓</span>Open Graph tags</li><li class="ok"><span>✓</span>JSON-LD schema (Organization, WebSite, SoftwareApplication, Offer, MedicalAudience, MedicalWebPage)</li><li class="ok"><span>✓</span>Entity sameAs links (1)</li><li class="no"><span>✕</span>Content in raw HTML (extractable)</li><li class="ok"><span>✓</span>robots.txt present</li><li class="ok"><span>✓</span>AI crawlers allowed</li><li class="ok"><span>✓</span>Sitemap present (6 URLs)</li><li class="no"><span>✕</span>PubMed/authority citations</li><li class="no"><span>✕</span>llms.txt present (informational)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="dom">gurpalvirdi.com</div>
+            <div class="lbl">Gurpal Virdi, MD</div>
+          </div>
+          <div class="score" style="color:#15803d">94<span>/100</span></div>
+        </div>
+        <ul class="checks">
+          <li class="ok"><span>✓</span>Site live (HTTP 200)</li><li class="ok"><span>✓</span>HTTPS</li><li class="ok"><span>✓</span>Title tag</li><li class="ok"><span>✓</span>Meta description</li><li class="ok"><span>✓</span>Canonical URL</li><li class="ok"><span>✓</span>Open Graph tags</li><li class="ok"><span>✓</span>JSON-LD schema (Physician, MedicalProcedure, MedicalOrganization, EducationalOrganization, Organization, PostalAddress)</li><li class="ok"><span>✓</span>Entity sameAs links (4)</li><li class="ok"><span>✓</span>Content in raw HTML (extractable)</li><li class="ok"><span>✓</span>robots.txt present</li><li class="ok"><span>✓</span>AI crawlers allowed</li><li class="ok"><span>✓</span>Sitemap present (1 URLs)</li><li class="no"><span>✕</span>PubMed/authority citations</li><li class="no"><span>✕</span>llms.txt present (informational)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="dom">refractivefoundations.com</div>
+            <div class="lbl">Refractive Foundations</div>
+          </div>
+          <div class="score" style="color:#b45309">86<span>/100</span></div>
+        </div>
+        <ul class="checks">
+          <li class="ok"><span>✓</span>Site live (HTTP 200)</li><li class="ok"><span>✓</span>HTTPS</li><li class="ok"><span>✓</span>Title tag</li><li class="ok"><span>✓</span>Meta description</li><li class="no"><span>✕</span>Canonical URL</li><li class="no"><span>✕</span>Open Graph tags</li><li class="ok"><span>✓</span>JSON-LD schema (EducationalOrganization, Physician)</li><li class="ok"><span>✓</span>Entity sameAs links (2)</li><li class="ok"><span>✓</span>Content in raw HTML (extractable)</li><li class="ok"><span>✓</span>robots.txt present</li><li class="ok"><span>✓</span>AI crawlers allowed</li><li class="ok"><span>✓</span>Sitemap present (9 URLs)</li><li class="no"><span>✕</span>PubMed/authority citations</li><li class="no"><span>✕</span>llms.txt present (informational)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="dom">iolreference.com</div>
+            <div class="lbl">IOL Reference</div>
+          </div>
+          <div class="score" style="color:#b91c1c">62<span>/100</span></div>
+        </div>
+        <ul class="checks">
+          <li class="ok"><span>✓</span>Site live (HTTP 200)</li><li class="ok"><span>✓</span>HTTPS</li><li class="ok"><span>✓</span>Title tag</li><li class="ok"><span>✓</span>Meta description</li><li class="no"><span>✕</span>Canonical URL</li><li class="ok"><span>✓</span>Open Graph tags</li><li class="no"><span>✕</span>JSON-LD schema</li><li class="no"><span>✕</span>Entity sameAs links</li><li class="no"><span>✕</span>Content in raw HTML (extractable)</li><li class="ok"><span>✓</span>robots.txt present</li><li class="ok"><span>✓</span>AI crawlers allowed</li><li class="ok"><span>✓</span>Sitemap present (108 URLs)</li><li class="no"><span>✕</span>PubMed/authority citations</li><li class="ok"><span>✓</span>llms.txt present (informational)</li>
+        </ul>
+      </div></div>
+  <h2>Score history</h2>
+  <table><thead><tr><th class="d" style="text-align:left">Date</th><th>iclsurgery</th><th>iclfit</th><th>gurpalvirdi</th><th>refractivefoundations</th><th>iolreference</th></tr></thead>
+  <tbody><tr><td class="d">2026-07-13</td><td style="color:#15803d">97</td><td style="color:#b45309">84</td><td style="color:#15803d">94</td><td style="color:#b45309">86</td><td style="color:#b91c1c">62</td></tr></tbody></table>
+  <p class="note" style="margin-top:20px">Generated by <code>scripts/aeo-audit.mjs</code>. Re-runs weekly via GitHub Action. Not indexed.</p>
+</div></body></html>
