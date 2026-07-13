@@ -1,3 +1,36 @@
+# AI answer-engine crawlers (citation/search agents) — explicitly allowed.
+# These are the agents that surface pages in ChatGPT search, Claude, Perplexity,
+# Copilot and Google AI Overviews. Kept separate from training crawlers by design.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 User-agent: *
 Allow: /
 Disallow: /seo-experiment.html
