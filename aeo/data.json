@@ -24,10 +24,35 @@
           "score": 81
         }
       ]
+    },
+    {
+      "date": "2026-07-18T17:10:14.181Z",
+      "sites": [
+        {
+          "domain": "iclsurgery.com",
+          "score": 97
+        },
+        {
+          "domain": "iclfit.com",
+          "score": 87
+        },
+        {
+          "domain": "gurpalvirdi.com",
+          "score": 94
+        },
+        {
+          "domain": "refractivefoundations.com",
+          "score": 86
+        },
+        {
+          "domain": "iolreference.com",
+          "score": 87
+        }
+      ]
     }
   ],
   "latest": {
-    "date": "2026-07-13T15:38:49.572Z",
+    "date": "2026-07-18T17:10:14.181Z",
     "sites": [
       {
         "domain": "iclsurgery.com",
@@ -102,7 +127,7 @@
           },
           {
             "key": "sitemap",
-            "label": "Sitemap present (9 URLs)",
+            "label": "Sitemap present (13 URLs)",
             "pass": true,
             "weight": 8
           },
@@ -123,7 +148,7 @@
       {
         "domain": "iclfit.com",
         "label": "ICL Fit (AI sizing)",
-        "score": 84,
+        "score": 87,
         "checks": [
           {
             "key": "live",
@@ -163,13 +188,13 @@
           },
           {
             "key": "schema",
-            "label": "JSON-LD schema (Organization, WebSite, SoftwareApplication, Offer, MedicalAudience, MedicalWebPage)",
+            "label": "JSON-LD schema (Organization, Physician, WebSite, SoftwareApplication, Offer, MedicalAudience)",
             "pass": true,
             "weight": 15
           },
           {
             "key": "sameas",
-            "label": "Entity sameAs links (1)",
+            "label": "Entity sameAs links (3)",
             "pass": true,
             "weight": 6
           },
@@ -206,7 +231,7 @@
           {
             "key": "llms",
             "label": "llms.txt present (informational)",
-            "pass": false,
+            "pass": true,
             "weight": 3
           }
         ]
@@ -396,7 +421,7 @@
       {
         "domain": "iolreference.com",
         "label": "IOL Reference",
-        "score": 81,
+        "score": 87,
         "checks": [
           {
             "key": "live",
@@ -436,14 +461,14 @@
           },
           {
             "key": "schema",
-            "label": "JSON-LD schema (WebSite, Organization)",
+            "label": "JSON-LD schema (WebSite, Person, Organization)",
             "pass": true,
             "weight": 15
           },
           {
             "key": "sameas",
-            "label": "Entity sameAs links",
-            "pass": false,
+            "label": "Entity sameAs links (4)",
+            "pass": true,
             "weight": 6
           },
           {
