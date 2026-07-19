@@ -1,0 +1,39 @@
+name: AEO monitor
+
+# Daily AEO PROGRESS monitor — tracks live signals that change over time (entity graph growth,
+# ORCID/PubMed counts, site uptime, and — if PERPLEXITY_API_KEY is set — real LLM citations).
+# Regenerates monitor/index.html + monitor/data.json and commits them; GitHub Pages then serves
+# https://gurpalvirdi.com/monitor. Also runnable on demand from the Actions tab.
+
+on:
+  schedule:
+    - cron: "0 12 * * *" # every day 12:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run AEO monitor
+        env:
+          # Optional: add a PERPLEXITY_API_KEY repo secret to enable the live citation probe.
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+        run: node scripts/aeo-monitor.mjs
+      - name: Commit monitor if changed
+        run: |
+          git config user.name "aeo-monitor-bot"
+          git config user.email "actions@github.com"
+          git add monitor/
+          if git diff --staged --quiet; then
+            echo "No changes."
+          else
+            git commit -m "AEO monitor: daily update [skip ci]"
+            git push
+          fi
