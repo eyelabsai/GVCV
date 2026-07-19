@@ -61,6 +61,11 @@
         ul.pubs .lk a:hover{border-color:var(--accent2)}
         .simple{color:#39424f}
         .xlinks{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:34px 0}
+        .figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:20px 0}
+        figure.fig{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+        figure.fig img{width:100%;height:auto;border-radius:8px;display:block;background:#fff}
+        figure.fig figcaption{font-size:14px;line-height:1.55;color:var(--muted);margin-top:10px}
+        figure.fig figcaption strong{color:var(--ink)}
         .disc{color:var(--muted);font-size:13px;margin:24px 0 40px}
         footer.site{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:14px}
         footer.site a{color:var(--muted);text-decoration:none;margin-right:16px}
@@ -83,6 +88,15 @@
             <li><span class="badge">Cureus</span><span class="t">Accuracy of Reported Sizes of the EVO/EVO+ Visian Implantable Collamer Lens</span><div class="j">Cureus · 2025</div><div class="lk"><a href="https://doi.org/10.7759/cureus.90468" target="_blank" rel="noopener">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/40978817/" target="_blank" rel="noopener">PubMed</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12445073/" target="_blank" rel="noopener">Full text</a></div></li>
             <li><span class="badge">Clinical Ophthalmology</span><span class="t">Dynamic Changes in ICL Vault and Anterior Chamber Angle Under Varying Lighting</span><div class="j">Clinical Ophthalmology · 2026</div><div class="lk"><a href="https://doi.org/10.2147/OPTH.S603534" target="_blank" rel="noopener">DOI</a><a href="https://pubmed.ncbi.nlm.nih.gov/42094804/" target="_blank" rel="noopener">PubMed</a></div></li>
         </ul>
+
+        <h2>Featured data: vault is dynamic</h2>
+        <p class="simple">From <em>Dynamic Changes in ICL Vault and Anterior Chamber Angle Under Varying Lighting Conditions</em> (Clinical Ophthalmology, 2026), where we imaged 100 post-ICL eyes under scotopic, mesopic, and photopic lighting. The finding underpins how I approach sizing: vault is a physiologic <strong>range</strong>, not a fixed micron target — so the goal is best fit for the individual eye.</p>
+        <div class="figs">
+            <figure class="fig"><img src="/research/figures/dynamic-vault-fig1-vault-by-lighting.jpg" alt="Box plot of ICL vault in microns across scotopic, mesopic, and photopic lighting, showing mean vault falling from about 496 to 394 microns as lighting brightens." loading="lazy" width="750" height="430"><figcaption><strong>Vault by lighting.</strong> Mean vault dropped from 495.6 µm (dark) to 393.8 µm (bright) — a ~100 µm swing in the same eye (p &lt; 0.0001).</figcaption></figure>
+            <figure class="fig"><img src="/research/figures/dynamic-vault-fig2-angle-by-lighting.jpg" alt="Box plot of anterior chamber angle in degrees across scotopic, mesopic, and photopic lighting, showing the angle widening in brighter light." loading="lazy" width="750" height="430"><figcaption><strong>Angle by lighting.</strong> The anterior chamber angle widened from 27.2° to 29.7° under bright light — vault and angle track with pupil size.</figcaption></figure>
+            <figure class="fig"><img src="/research/figures/dynamic-vault-fig3-variability-vs-vault.jpg" alt="Scatter plot showing eyes with higher mean vault also have greater vault variability across lighting." loading="lazy" width="750" height="430"><figcaption><strong>Higher vaults vary more.</strong> Variability rose with mean vault (ρ = 0.395, p &lt; 0.0001): the highest vaults are also the least stable.</figcaption></figure>
+            <figure class="fig"><img src="/research/figures/dynamic-vault-fig4-variability-vs-power.jpg" alt="Scatter plot showing only a weak relationship between ICL power and vault variability." loading="lazy" width="750" height="430"><figcaption><strong>Power barely matters.</strong> ICL power had only a weak effect (ρ = −0.224); vault is driven by lens size, haptic position, and sulcus anatomy.</figcaption></figure>
+        </div>
 
         <h2>Conference presentations</h2>
         <ul class="pubs">
