@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Tracking — Gurpal Virdi, MD</title>
+    <!-- Private personal dashboard: de-identified aggregate data only. Not for indexing. -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f6f8fb">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root{
+            --primary:#4c566a; --secondary:#5e81ac; --accent:#81a1c1;
+            --warm:#d08770; --cool:#88c0d0; --soft:#b48ead; --green:#a3be8c; --yellow:#ebcb8b;
+            --text:#2e3440; --muted:#6b7280; --bg:#fdfdfd; --surface:#f8f9fa;
+            --border:#e9ecef;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+            color:var(--text);
+            background:linear-gradient(135deg,#f6f8fb 0%,#fdfdfd 40%,#faf9f7 100%);
+            background-attachment:fixed; min-height:100vh; line-height:1.5;
+        }
+        .wrap{max-width:1080px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+        header{margin-bottom:2rem}
+        .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+        h1{font-size:1.9rem;font-weight:700;margin:.25rem 0 .35rem}
+        .sub{color:var(--muted);font-size:.95rem}
+        a.back{display:inline-block;margin-bottom:1.5rem;color:var(--secondary);text-decoration:none;font-weight:500;font-size:.9rem}
+        a.back:hover{text-decoration:underline}
+
+        .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.75rem}
+        .kpi{background:rgba(255,255,255,.75);border:1px solid var(--border);border-radius:16px;padding:1.15rem 1.25rem;backdrop-filter:blur(6px)}
+        .kpi .n{font-size:2rem;font-weight:700;color:var(--secondary);line-height:1}
+        .kpi .l{font-size:.82rem;color:var(--muted);margin-top:.4rem;font-weight:500}
+
+        .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+        @media(max-width:720px){.grid{grid-template-columns:1fr}}
+        .card{background:rgba(255,255,255,.8);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.35rem;backdrop-filter:blur(6px)}
+        .card.wide{grid-column:1/-1}
+        .card h2{font-size:1rem;font-weight:600;margin-bottom:.15rem}
+        .card .hint{font-size:.8rem;color:var(--muted);margin-bottom:.9rem}
+        .chart-box{position:relative;height:260px}
+        .chart-box.tall{height:320px}
+
+        footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem}
+        .badge{display:inline-block;background:rgba(163,190,140,.18);color:#5f7a45;border-radius:999px;padding:.15rem .6rem;font-size:.75rem;font-weight:600;margin-left:.4rem}
+        .err{background:rgba(208,135,112,.12);border:1px solid var(--warm);border-radius:12px;padding:1rem;color:#a85a3f}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a class="back" href="/">← gurpalvirdi.com</a>
+        <header>
+            <div class="eyebrow">Surgical Logbook</div>
+            <h1>Cataract &amp; Refractive Tracking <span class="badge">De-identified</span></h1>
+            <p class="sub">Aggregate outcomes for cases performed by Gurpal Virdi, MD · updated <span id="gen">—</span></p>
+        </header>
+
+        <div id="app"></div>
+
+        <footer>
+            Aggregate, de-identified statistics only — no patient identifiers, dates, or individual
+            records are stored or shown here. Post-op visual acuity reflects uncorrected distance in
+            the operated eye at the most recent recorded visit.
+        </footer>
+    </div>
+
+    <script>
+    const PALETTE = ['#5e81ac','#88c0d0','#81a1c1','#b48ead','#d08770','#a3be8c','#ebcb8b','#4c566a'];
+    Chart.defaults.font.family = "'Inter',sans-serif";
+    Chart.defaults.color = '#4c566a';
+    Chart.defaults.plugins.legend.labels.boxWidth = 12;
+    Chart.defaults.plugins.legend.labels.font = {size: 12};
+
+    function kpi(n,l){return `<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`}
+    function card(id,title,hint,tall){return `<div class="card"><h2>${title}</h2><div class="hint">${hint}</div><div class="chart-box${tall?' tall':''}"><canvas id="${id}"></canvas></div></div>`}
+
+    function sortObj(o){return Object.entries(o).sort((a,b)=>b[1]-a[1])}
+
+    fetch('stats.json?v='+Date.now()).then(r=>r.json()).then(s=>{
+        document.getElementById('gen').textContent = s.generated;
+        const t = s.totals;
+        const cataracts = (s.procedure && s.procedure['Cataract']) || 0;
+
+        const app = document.getElementById('app');
+        app.innerHTML =
+            `<div class="kpis">
+                ${kpi(t.eyes,'Eyes operated')}
+                ${kpi(t.patients,'Patients')}
+                ${kpi(cataracts,'Cataract cases')}
+                ${kpi(t.premium_pct+'%','Premium IOLs')}
+            </div>
+            <div class="grid">
+                ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
+                ${card('cat','Lens category','Distribution across optic classes')}
+                ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
+                ${card('va','Post-op VA — operated eye','Uncorrected distance, most recent visit')}
+            </div>`;
+
+        // Monofocal vs Premium doughnut
+        const mv = sortObj(s.premiumVsStandard);
+        new Chart(mix,{type:'doughnut',data:{labels:mv.map(x=>x[0]),
+            datasets:[{data:mv.map(x=>x[1]),backgroundColor:[PALETTE[3],PALETTE[0]],borderWidth:2,borderColor:'#fff'}]},
+            options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+
+        // Category bar
+        const c = sortObj(s.category);
+        new Chart(cat,{type:'bar',data:{labels:c.map(x=>x[0]),
+            datasets:[{data:c.map(x=>x[1]),backgroundColor:PALETTE,borderRadius:6}]},
+            options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
+
+        // Family horizontal bar
+        const f = sortObj(s.family);
+        new Chart(fam,{type:'bar',data:{labels:f.map(x=>x[0]),
+            datasets:[{data:f.map(x=>x[1]),backgroundColor:PALETTE[1],borderRadius:6}]},
+            options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
+
+        // VA bar (ordered)
+        const order = ['20/20 or better','20/25','20/30–20/40','worse than 20/40'];
+        const vlabels = order.filter(k=>s.va[k]);
+        if(vlabels.length){
+            new Chart(va,{type:'bar',data:{labels:vlabels,
+                datasets:[{data:vlabels.map(k=>s.va[k]),backgroundColor:PALETTE[5],borderRadius:6}]},
+                options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
+        } else {
+            va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
+        }
+    }).catch(e=>{
+        document.getElementById('app').innerHTML =
+            '<div class="err">Could not load <code>stats.json</code>. Regenerate it with <code>python3 bin/build_stats.py</code>.</div>';
+    });
+    </script>
+</body>
+</html>

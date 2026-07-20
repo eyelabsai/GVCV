@@ -1,0 +1,40 @@
+{
+  "generated": "2026-07-20",
+  "totals": {
+    "eyes": 20,
+    "patients": 18,
+    "premium": 5,
+    "standard": 15,
+    "premium_pct": 25,
+    "va_recorded": 13
+  },
+  "premiumVsStandard": {
+    "Premium (presbyopia-correcting)": 5,
+    "Standard monofocal": 15
+  },
+  "category": {
+    "Monofocal": 10,
+    "EDOF": 3,
+    "Toric monofocal": 4,
+    "LAL": 2,
+    "Enhanced monofocal": 1
+  },
+  "family": {
+    "Tecnis (DCB00)": 5,
+    "Envy (ETNU/ENU)": 1,
+    "Tecnis Toric (ZCU)": 4,
+    "LAL (Light Adjustable)": 2,
+    "Tecnis (ZCB00)": 5,
+    "PureSee (DEN00V)": 2,
+    "Eyhance": 1
+  },
+  "procedure": {
+    "Cataract": 20
+  },
+  "va": {
+    "20/30\u201320/40": 5,
+    "20/25": 2,
+    "20/20 or better": 4,
+    "worse than 20/40": 2
+  }
+}
