@@ -53,7 +53,23 @@
     </style>
 </head>
 <body>
-    <div class="wrap">
+    <div id="gate" style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+         background:linear-gradient(135deg,#f6f8fb 0%,#fdfdfd 40%,#faf9f7 100%)">
+        <div style="text-align:center;max-width:320px;padding:2rem 1.5rem;background:rgba(255,255,255,.8);
+             border:1px solid #e9ecef;border-radius:18px;backdrop-filter:blur(6px)">
+            <div style="font-size:1.6rem;margin-bottom:.5rem">🔒</div>
+            <div style="font-weight:600;color:#2e3440;margin-bottom:.25rem">Surgical Logbook</div>
+            <div style="font-size:.85rem;color:#6b7280;margin-bottom:1.1rem">Enter PIN to view</div>
+            <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••"
+                   style="width:100%;padding:.7rem;text-align:center;font-size:1.3rem;letter-spacing:.3em;
+                          border:1px solid #d8dee9;border-radius:10px;outline:none;font-family:inherit">
+            <div id="pinerr" style="height:1.1rem;margin-top:.5rem;font-size:.8rem;color:#bf616a"></div>
+            <button id="pinbtn" style="width:100%;padding:.65rem;margin-top:.3rem;border:none;border-radius:10px;
+                    background:#5e81ac;color:#fff;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit">
+                Unlock</button>
+        </div>
+    </div>
+    <div class="wrap" style="display:none">
         <a class="back" href="/">← gurpalvirdi.com</a>
         <header>
             <div class="eyebrow">Surgical Logbook</div>
@@ -82,6 +98,26 @@
 
     function sortObj(o){return Object.entries(o).sort((a,b)=>b[1]-a[1])}
 
+    // ---- Soft PIN gate (not real security: de-identified aggregate data only) ----
+    const PIN = '4170';
+    function unlock(){
+        document.getElementById('gate').style.display='none';
+        document.querySelector('.wrap').style.display='';
+        render();
+    }
+    (function gate(){
+        if(sessionStorage.getItem('trk_ok')==='1'){ unlock(); return; }
+        const inp=document.getElementById('pin'), err=document.getElementById('pinerr'), btn=document.getElementById('pinbtn');
+        function tryPin(){
+            if(inp.value===PIN){ sessionStorage.setItem('trk_ok','1'); unlock(); }
+            else { err.textContent='Incorrect PIN'; inp.value=''; inp.focus(); }
+        }
+        btn.addEventListener('click',tryPin);
+        inp.addEventListener('keydown',e=>{ if(e.key==='Enter') tryPin(); });
+        inp.focus();
+    })();
+
+    function render(){
     fetch('stats.json?v='+Date.now()).then(r=>r.json()).then(s=>{
         document.getElementById('gen').textContent = s.generated;
         const t = s.totals;
@@ -134,6 +170,7 @@
         document.getElementById('app').innerHTML =
             '<div class="err">Could not load <code>stats.json</code>. Regenerate it with <code>python3 bin/build_stats.py</code>.</div>';
     });
+    }
     </script>
 </body>
 </html>
