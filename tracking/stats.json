@@ -6,7 +6,7 @@
     "premium": 25,
     "standard": 34,
     "premium_pct": 42,
-    "va_recorded": 23
+    "va_recorded": 24
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 25,
@@ -38,7 +38,7 @@
   "va": {
     "20/30\u201320/40": 7,
     "20/25": 5,
-    "20/20 or better": 7,
+    "20/20 or better": 8,
     "worse than 20/40": 4
   }
 }
