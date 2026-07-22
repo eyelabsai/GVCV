@@ -1,12 +1,12 @@
 {
-  "generated": "2026-07-21",
+  "generated": "2026-07-22",
   "totals": {
     "eyes": 65,
     "patients": 61,
     "premium": 25,
     "standard": 34,
     "premium_pct": 42,
-    "va_recorded": 13
+    "va_recorded": 23
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 25,
@@ -36,9 +36,9 @@
     "IOL Exchange / ICL": 2
   },
   "va": {
-    "20/30\u201320/40": 5,
-    "20/25": 2,
-    "20/20 or better": 4,
-    "worse than 20/40": 2
+    "20/30\u201320/40": 7,
+    "20/25": 5,
+    "20/20 or better": 7,
+    "worse than 20/40": 4
   }
 }
