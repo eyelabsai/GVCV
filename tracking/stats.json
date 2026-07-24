@@ -37,8 +37,9 @@
   },
   "procedure": {
     "Cataract": 75,
-    "LASIK / Refractive": 4,
-    "IOL Exchange / ICL": 3
+    "EVO ICL": 4,
+    "Pterygium": 2,
+    "Piggyback IOL": 1
   },
   "power": {
     "18\u201320": 15,
