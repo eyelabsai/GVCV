@@ -9,8 +9,9 @@
     "iol": 75,
     "toric": 14,
     "toric_pct": 19,
-    "va_recorded": 43,
-    "pow1_recorded": 3
+    "va_recorded": 40,
+    "pow1_recorded": 4,
+    "near_recorded": 4
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 33,
@@ -51,14 +52,18 @@
     "22.5\u201324": 10
   },
   "va": {
-    "20/30\u201320/40": 12,
+    "20/30\u201320/40": 11,
     "20/25": 6,
-    "20/20 or better": 19,
+    "20/20 or better": 17,
     "worse than 20/40": 6
   },
   "pow1": {
     "worse than 20/40": 1,
-    "20/20 or better": 1,
+    "20/20 or better": 2,
     "20/25": 1
+  },
+  "near": {
+    "J1 (~20/20 near)": 3,
+    "J2\u2013J3 (~20/25\u201330 near)": 1
   }
 }

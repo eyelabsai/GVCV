@@ -140,8 +140,9 @@
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
                 ${card('proc','Procedure mix','Case types across all surgery days')}
-                ${card('va','Post-op VA — POD1 (early)','Operated eye, uncorrected distance at ~post-op day 1 — improves as edema clears')}
-                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Post-op VA — POW1 (settled)','Operated eye at ~post-op week 1 — edema cleared, closer to final'):''}
+                ${card('va','Distance VA — POD1 (early)','Distance-target eyes only, uncorrected, ~post-op day 1 — improves as edema clears')}
+                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Distance VA — POW1 (settled)','Distance-target eyes at ~post-op week 1 — edema cleared, closer to final'):''}
+                ${(s.near&&Object.keys(s.near).length)?card('near','Near-target outcomes','Mini-monovision eyes — reading acuity (Jaeger); not meant for 20/20 distance'):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
             </div>`;
@@ -191,6 +192,19 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         } else {
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
+        }
+
+        // Near-target outcomes (mini-monovision) — Jaeger reading buckets
+        if(s.near && Object.keys(s.near).length && typeof near!=='undefined' && near){
+            const norder=['J1 (~20/20 near)','J2–J3 (~20/25–30 near)','J4+ (weaker near)'];
+            const ncolor={'J1 (~20/20 near)':'#a3be8c','J2–J3 (~20/25–30 near)':'#88c0d0','J4+ (weaker near)':'#ebcb8b'};
+            const nl=norder.filter(k=>s.near[k]); const nt=nl.reduce((a,k)=>a+s.near[k],0);
+            new Chart(near,{type:'bar',data:{labels:nl,
+                datasets:[{data:nl.map(k=>Math.round(100*s.near[k]/nt)),backgroundColor:nl.map(k=>ncolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                options:{plugins:{legend:{display:false},
+                    tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.near[c.label]+' eyes)'}},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
         // POW1 VA (settled) — same buckets/colors as POD1, only if data + card present
