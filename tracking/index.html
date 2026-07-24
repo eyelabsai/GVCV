@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <style>
         :root{
             --primary:#4c566a; --secondary:#5e81ac; --accent:#81a1c1;
@@ -93,6 +94,8 @@
     Chart.defaults.color = '#4c566a';
     Chart.defaults.plugins.legend.labels.boxWidth = 12;
     Chart.defaults.plugins.legend.labels.font = {size: 12};
+    Chart.register(ChartDataLabels);
+    Chart.defaults.plugins.datalabels = {display: false};   // off unless a chart opts in
 
     function kpi(n,l){return `<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`}
     function card(id,title,hint,tall){return `<div class="card"><h2>${title}</h2><div class="hint">${hint}</div><div class="chart-box${tall?' tall':''}"><canvas id="${id}"></canvas></div></div>`}
@@ -146,7 +149,7 @@
         const mv = sortObj(s.premiumVsStandard);
         new Chart(mix,{type:'doughnut',data:{labels:mv.map(x=>x[0]),
             datasets:[{data:mv.map(x=>x[1]),backgroundColor:mv.map(x=>x[0].includes('Premium')?'#a3be8c':'#5e81ac'),borderWidth:2,borderColor:'#fff'}]},
-            options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+            options:{plugins:{legend:{position:'bottom'},datalabels:{display:true,color:'#fff',font:{weight:'700',size:14},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return Math.round(100*v/t)+'%'}}},cutout:'62%'}});
 
         // Category bar
         const c = sortObj(s.category);
@@ -158,7 +161,7 @@
         const pm = sortObj(s.procedure || {});
         new Chart(proc,{type:'doughnut',data:{labels:pm.map(x=>x[0]),
             datasets:[{data:pm.map(x=>x[1]),backgroundColor:PALETTE,borderWidth:2,borderColor:'#fff'}]},
-            options:{plugins:{legend:{position:'bottom'}},cutout:'55%'}});
+            options:{plugins:{legend:{position:'bottom'},datalabels:{display:c=>c.dataset.data[c.dataIndex]/c.dataset.data.reduce((a,b)=>a+b,0)>0.06,color:'#fff',font:{weight:'700'},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return Math.round(100*v/t)+'%'}}},cutout:'55%'}});
 
         // IOL power distribution (fixed order)
         const porder = ['<15','15–17.5','18–20','20.5–22','22.5–24','≥24.5'];
@@ -178,9 +181,13 @@
         const vlabels = order.filter(k=>s.va[k]);
         if(vlabels.length){
             const vacolor={'20/20 or better':'#a3be8c','20/25':'#88c0d0','20/30–20/40':'#ebcb8b','worse than 20/40':'#d08770'};
+            const vtot=vlabels.reduce((a,k)=>a+s.va[k],0);
             new Chart(va,{type:'bar',data:{labels:vlabels,
-                datasets:[{data:vlabels.map(k=>s.va[k]),backgroundColor:vlabels.map(k=>vacolor[k]||'#81a1c1'),borderRadius:6}]},
-                options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
+                datasets:[{data:vlabels.map(k=>Math.round(100*s.va[k]/vtot)),backgroundColor:vlabels.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                options:{plugins:{legend:{display:false},
+                    tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.va[c.label]+' eyes)'}},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         } else {
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
         }
