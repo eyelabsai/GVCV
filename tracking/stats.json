@@ -1,20 +1,20 @@
 {
   "generated": "2026-07-23",
   "totals": {
-    "eyes": 77,
-    "patients": 66,
-    "premium": 32,
-    "standard": 38,
-    "premium_pct": 46,
+    "eyes": 82,
+    "patients": 70,
+    "premium": 33,
+    "standard": 42,
+    "premium_pct": 44,
     "va_recorded": 28
   },
   "premiumVsStandard": {
-    "Premium (presbyopia-correcting)": 32,
-    "Standard monofocal": 38
+    "Premium (presbyopia-correcting)": 33,
+    "Standard monofocal": 42
   },
   "category": {
-    "Monofocal": 27,
-    "EDOF": 30,
+    "Monofocal": 31,
+    "EDOF": 31,
     "Toric monofocal": 10,
     "LAL": 2,
     "Enhanced monofocal": 1,
@@ -22,10 +22,10 @@
     "Other": 1
   },
   "family": {
-    "Tecnis (ZCB00)": 17,
-    "Envy (ETNU/ENU)": 18,
+    "Tecnis (ZCB00)": 19,
+    "Envy (ETNU/ENU)": 19,
     "PureSee (DEN00V)": 12,
-    "Tecnis (DCB00)": 10,
+    "Tecnis (DCB00)": 12,
     "Tecnis Toric (ZCU)": 10,
     "LAL (Light Adjustable)": 2,
     "Eyhance": 1,
@@ -33,7 +33,7 @@
     "Other": 1
   },
   "procedure": {
-    "Cataract": 70,
+    "Cataract": 75,
     "LASIK / Refractive": 4,
     "IOL Exchange / ICL": 3
   },
