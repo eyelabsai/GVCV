@@ -9,7 +9,7 @@
     "iol": 75,
     "toric": 14,
     "toric_pct": 19,
-    "va_recorded": 38
+    "va_recorded": 43
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 33,
@@ -49,9 +49,9 @@
     "22.5\u201324": 10
   },
   "va": {
-    "20/30\u201320/40": 11,
+    "20/30\u201320/40": 12,
     "20/25": 6,
-    "20/20 or better": 16,
-    "worse than 20/40": 5
+    "20/20 or better": 19,
+    "worse than 20/40": 6
   }
 }
