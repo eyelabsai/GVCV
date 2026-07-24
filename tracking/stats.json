@@ -1,8 +1,8 @@
 {
   "generated": "2026-07-24",
   "totals": {
-    "eyes": 84,
-    "patients": 71,
+    "eyes": 87,
+    "patients": 73,
     "premium": 33,
     "standard": 42,
     "premium_pct": 44,
@@ -42,7 +42,7 @@
     "EVO ICL": 4,
     "Pterygium": 2,
     "Piggyback IOL": 1,
-    "LASIK / Refractive": 2
+    "LASIK / Refractive": 5
   },
   "power": {
     "18\u201320": 15,
