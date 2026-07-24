@@ -141,6 +141,7 @@
                 ${card('cat','Lens category','Distribution across optic classes')}
                 ${card('proc','Procedure mix','Case types across all surgery days')}
                 ${card('va','Post-op VA — POD1 (early)','Operated eye, uncorrected distance at ~post-op day 1 — improves as edema clears')}
+                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Post-op VA — POW1 (settled)','Operated eye at ~post-op week 1 — edema cleared, closer to final'):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
             </div>`;
@@ -176,11 +177,11 @@
             datasets:[{data:f.map(x=>x[1]),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
 
-        // VA bar (ordered)
+        // VA bar (ordered) — shared scale/colors for POD1 and POW1
         const order = ['20/20 or better','20/25','20/30–20/40','worse than 20/40'];
+        const vacolor={'20/20 or better':'#a3be8c','20/25':'#88c0d0','20/30–20/40':'#ebcb8b','worse than 20/40':'#d08770'};
         const vlabels = order.filter(k=>s.va[k]);
         if(vlabels.length){
-            const vacolor={'20/20 or better':'#a3be8c','20/25':'#88c0d0','20/30–20/40':'#ebcb8b','worse than 20/40':'#d08770'};
             const vtot=vlabels.reduce((a,k)=>a+s.va[k],0);
             new Chart(va,{type:'bar',data:{labels:vlabels,
                 datasets:[{data:vlabels.map(k=>Math.round(100*s.va[k]/vtot)),backgroundColor:vlabels.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
@@ -190,6 +191,17 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         } else {
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
+        }
+
+        // POW1 VA (settled) — same buckets/colors as POD1, only if data + card present
+        if(s.pow1 && Object.keys(s.pow1).length && typeof pow1!=='undefined' && pow1){
+            const wl=order.filter(k=>s.pow1[k]); const wt=wl.reduce((a,k)=>a+s.pow1[k],0);
+            new Chart(pow1,{type:'bar',data:{labels:wl,
+                datasets:[{data:wl.map(k=>Math.round(100*s.pow1[k]/wt)),backgroundColor:wl.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                options:{plugins:{legend:{display:false},
+                    tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.pow1[c.label]+' eyes)'}},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
     }).catch(e=>{
         document.getElementById('app').innerHTML =
