@@ -6,7 +6,10 @@
     "premium": 33,
     "standard": 42,
     "premium_pct": 44,
-    "va_recorded": 28
+    "iol": 75,
+    "toric": 14,
+    "toric_pct": 19,
+    "va_recorded": 33
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 33,
@@ -37,10 +40,18 @@
     "LASIK / Refractive": 4,
     "IOL Exchange / ICL": 3
   },
+  "power": {
+    "18\u201320": 15,
+    "15\u201317.5": 8,
+    "<15": 2,
+    "20.5\u201322": 13,
+    "\u226524.5": 3,
+    "22.5\u201324": 10
+  },
   "va": {
-    "20/30\u201320/40": 7,
+    "20/30\u201320/40": 9,
     "20/25": 5,
-    "20/20 or better": 12,
+    "20/20 or better": 15,
     "worse than 20/40": 4
   }
 }

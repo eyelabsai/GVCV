@@ -130,10 +130,13 @@
                 ${kpi(t.patients,'Patients')}
                 ${kpi(cataracts,'Cataract cases')}
                 ${kpi(t.premium_pct+'%','Premium IOLs')}
+                ${kpi((t.toric_pct||0)+'%','Toric (astigmatism)')}
             </div>
             <div class="grid">
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
+                ${card('proc','Procedure mix','Case types across all surgery days')}
+                ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
                 ${card('va','Post-op VA — POD1 (early)','Operated eye, uncorrected distance at ~post-op day 1 — improves as edema clears')}
             </div>`;
@@ -148,6 +151,19 @@
         const c = sortObj(s.category);
         new Chart(cat,{type:'bar',data:{labels:c.map(x=>x[0]),
             datasets:[{data:c.map(x=>x[1]),backgroundColor:PALETTE,borderRadius:6}]},
+            options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
+
+        // Procedure mix doughnut
+        const pm = sortObj(s.procedure || {});
+        new Chart(proc,{type:'doughnut',data:{labels:pm.map(x=>x[0]),
+            datasets:[{data:pm.map(x=>x[1]),backgroundColor:PALETTE,borderWidth:2,borderColor:'#fff'}]},
+            options:{plugins:{legend:{position:'bottom'}},cutout:'55%'}});
+
+        // IOL power distribution (fixed order)
+        const porder = ['<15','15–17.5','18–20','20.5–22','22.5–24','≥24.5'];
+        const pl = porder.filter(k=>(s.power||{})[k]);
+        new Chart(pow,{type:'bar',data:{labels:pl,
+            datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:PALETTE[2],borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
         // Family horizontal bar
