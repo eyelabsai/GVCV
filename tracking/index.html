@@ -164,21 +164,22 @@
         const porder = ['<15','15–17.5','18–20','20.5–22','22.5–24','≥24.5'];
         const pl = porder.filter(k=>(s.power||{})[k]);
         new Chart(pow,{type:'bar',data:{labels:pl,
-            datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:PALETTE[2],borderRadius:6}]},
+            datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:pl.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
         // Family horizontal bar
         const f = sortObj(s.family);
         new Chart(fam,{type:'bar',data:{labels:f.map(x=>x[0]),
-            datasets:[{data:f.map(x=>x[1]),backgroundColor:PALETTE[1],borderRadius:6}]},
+            datasets:[{data:f.map(x=>x[1]),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
 
         // VA bar (ordered)
         const order = ['20/20 or better','20/25','20/30–20/40','worse than 20/40'];
         const vlabels = order.filter(k=>s.va[k]);
         if(vlabels.length){
+            const vacolor={'20/20 or better':'#a3be8c','20/25':'#88c0d0','20/30–20/40':'#ebcb8b','worse than 20/40':'#d08770'};
             new Chart(va,{type:'bar',data:{labels:vlabels,
-                datasets:[{data:vlabels.map(k=>s.va[k]),backgroundColor:PALETTE[5],borderRadius:6}]},
+                datasets:[{data:vlabels.map(k=>s.va[k]),backgroundColor:vlabels.map(k=>vacolor[k]||'#81a1c1'),borderRadius:6}]},
                 options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
         } else {
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
