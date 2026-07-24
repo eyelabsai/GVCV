@@ -87,7 +87,8 @@
     </div>
 
     <script>
-    const PALETTE = ['#5e81ac','#88c0d0','#81a1c1','#b48ead','#d08770','#a3be8c','#ebcb8b','#4c566a'];
+    // Distinct, high-contrast (adjacent hues differ clearly for pie/doughnut slices)
+    const PALETTE = ['#5e81ac','#d08770','#a3be8c','#b48ead','#ebcb8b','#88c0d0','#bf616a','#8fbcbb','#81a1c1','#4c566a'];
     Chart.defaults.font.family = "'Inter',sans-serif";
     Chart.defaults.color = '#4c566a';
     Chart.defaults.plugins.legend.labels.boxWidth = 12;
@@ -144,7 +145,7 @@
         // Monofocal vs Premium doughnut
         const mv = sortObj(s.premiumVsStandard);
         new Chart(mix,{type:'doughnut',data:{labels:mv.map(x=>x[0]),
-            datasets:[{data:mv.map(x=>x[1]),backgroundColor:[PALETTE[3],PALETTE[0]],borderWidth:2,borderColor:'#fff'}]},
+            datasets:[{data:mv.map(x=>x[1]),backgroundColor:mv.map(x=>x[0].includes('Premium')?'#a3be8c':'#5e81ac'),borderWidth:2,borderColor:'#fff'}]},
             options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
 
         // Category bar
