@@ -81,8 +81,8 @@
 
         <footer>
             Aggregate, de-identified statistics only — no patient identifiers, dates, or individual
-            records are stored or shown here. Post-op visual acuity reflects uncorrected distance in
-            the operated eye at the most recent recorded visit.
+            records are stored or shown here. Post-op visual acuity is <strong>post-op day 1 (POD1)</strong> — uncorrected distance in the
+            operated eye. POD1 is early; acuity typically improves as corneal edema clears.
         </footer>
     </div>
 
@@ -135,7 +135,7 @@
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
-                ${card('va','Post-op VA — operated eye','Uncorrected distance, most recent visit')}
+                ${card('va','Post-op VA — POD1 (early)','Operated eye, uncorrected distance at ~post-op day 1 — improves as edema clears')}
             </div>`;
 
         // Monofocal vs Premium doughnut
