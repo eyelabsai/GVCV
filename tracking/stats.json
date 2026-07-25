@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-24",
+  "generated": "2026-07-25",
   "totals": {
     "eyes": 87,
     "patients": 73,
@@ -9,7 +9,7 @@
     "iol": 75,
     "toric": 14,
     "toric_pct": 19,
-    "va_recorded": 40,
+    "va_recorded": 45,
     "pow1_recorded": 4,
     "near_recorded": 4
   },
@@ -54,8 +54,8 @@
   },
   "va": {
     "20/30\u201320/40": 11,
-    "20/25": 6,
-    "20/20 or better": 17,
+    "20/25": 9,
+    "20/20 or better": 19,
     "worse than 20/40": 6
   },
   "pow1": {
