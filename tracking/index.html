@@ -196,25 +196,28 @@
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
         }
 
-        // Refractive VA — all (LASIK + ICL combined), POD1 distance, eye counts
+        // Refractive VA — all (LASIK + ICL combined), POD1 distance — % axis, count on hover
         if(s.refractive && Object.keys(s.refractive).length && typeof refr!=='undefined' && refr){
-            const rl=order.filter(k=>s.refractive[k]);
+            const rl=order.filter(k=>s.refractive[k]); const rt=rl.reduce((a,k)=>a+s.refractive[k],0);
             new Chart(refr,{type:'bar',data:{labels:rl,
-                datasets:[{data:rl.map(k=>s.refractive[k]),backgroundColor:rl.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                datasets:[{data:rl.map(k=>Math.round(100*s.refractive[k]/rt)),backgroundColor:rl.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
-                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v,color:'#4c566a',font:{weight:'700',size:12}}},
-                    scales:{y:{beginAtZero:true,grid:{display:false},ticks:{precision:0}},x:{grid:{display:false}}}}});
+                    tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.refractive[c.label]+' eyes)'}},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // Refractive VA — LASIK vs ICL grouped bars, POD1 distance
+        // Refractive VA — LASIK vs ICL grouped bars, POD1 distance — % within each procedure
         if(s.refractive_split && Object.keys(s.refractive_split).length && typeof refrsplit!=='undefined' && refrsplit){
             const groups=Object.keys(s.refractive_split);
             const gc={'LASIK':'#5e81ac','ICL':'#a3be8c'};
+            const gt={}; groups.forEach(g=>gt[g]=Object.values(s.refractive_split[g]).reduce((a,b)=>a+b,0));
             const rl=order.filter(k=>groups.some(g=>s.refractive_split[g][k]));
             new Chart(refrsplit,{type:'bar',data:{labels:rl,
-                datasets:groups.map(g=>({label:g,data:rl.map(k=>s.refractive_split[g][k]||0),backgroundColor:gc[g]||'#b48ead',borderRadius:6}))},
-                options:{plugins:{legend:{position:'bottom'},datalabels:{display:false}},
-                    scales:{y:{beginAtZero:true,grid:{display:false},ticks:{precision:0}},x:{grid:{display:false}}}}});
+                datasets:groups.map(g=>({label:g,data:rl.map(k=>gt[g]?Math.round(100*(s.refractive_split[g][k]||0)/gt[g]):0),backgroundColor:gc[g]||'#b48ead',borderRadius:6}))},
+                options:{plugins:{legend:{position:'bottom'},datalabels:{display:false},
+                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%  ('+(s.refractive_split[c.dataset.label][c.label]||0)+' eyes)'}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
         // Near-target outcomes (mini-monovision) — Jaeger reading buckets
