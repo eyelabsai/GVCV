@@ -140,9 +140,11 @@
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
                 ${card('proc','Procedure mix','Case types across all surgery days')}
-                ${card('va','Distance VA — POD1 (early)','Distance-target eyes only, uncorrected, ~post-op day 1 — improves as edema clears')}
-                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Distance VA — POW1 (settled)','Distance-target eyes at ~post-op week 1 — edema cleared, closer to final'):''}
-                ${(s.near&&Object.keys(s.near).length)?card('near','Near-target outcomes','Mini-monovision eyes — reading acuity (Jaeger); not meant for 20/20 distance'):''}
+                ${card('va','Cataract — distance VA, POD1','IOL distance-target eyes, uncorrected, ~post-op day 1 — improves as edema clears')}
+                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Cataract — distance VA, POW1','IOL distance-target eyes at ~post-op week 1 — edema cleared, closer to final'):''}
+                ${(s.near&&Object.keys(s.near).length)?card('near','Cataract — near-target outcomes','Mini-monovision eyes — reading acuity (Jaeger); not meant for 20/20 distance'):''}
+                ${(s.refractive&&Object.keys(s.refractive).length)?card('refr','Refractive VA — all (LASIK + ICL)','POD1 uncorrected distance, refractive procedures combined (eye counts)'):''}
+                ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA — LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
             </div>`;
@@ -192,6 +194,27 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         } else {
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
+        }
+
+        // Refractive VA — all (LASIK + ICL combined), POD1 distance, eye counts
+        if(s.refractive && Object.keys(s.refractive).length && typeof refr!=='undefined' && refr){
+            const rl=order.filter(k=>s.refractive[k]);
+            new Chart(refr,{type:'bar',data:{labels:rl,
+                datasets:[{data:rl.map(k=>s.refractive[k]),backgroundColor:rl.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                options:{plugins:{legend:{display:false},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v,color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,grid:{display:false},ticks:{precision:0}},x:{grid:{display:false}}}}});
+        }
+
+        // Refractive VA — LASIK vs ICL grouped bars, POD1 distance
+        if(s.refractive_split && Object.keys(s.refractive_split).length && typeof refrsplit!=='undefined' && refrsplit){
+            const groups=Object.keys(s.refractive_split);
+            const gc={'LASIK':'#5e81ac','ICL':'#a3be8c'};
+            const rl=order.filter(k=>groups.some(g=>s.refractive_split[g][k]));
+            new Chart(refrsplit,{type:'bar',data:{labels:rl,
+                datasets:groups.map(g=>({label:g,data:rl.map(k=>s.refractive_split[g][k]||0),backgroundColor:gc[g]||'#b48ead',borderRadius:6}))},
+                options:{plugins:{legend:{position:'bottom'},datalabels:{display:false}},
+                    scales:{y:{beginAtZero:true,grid:{display:false},ticks:{precision:0}},x:{grid:{display:false}}}}});
         }
 
         // Near-target outcomes (mini-monovision) — Jaeger reading buckets
