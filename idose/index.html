@@ -117,11 +117,13 @@
   .close-slide .footer .f1{color:#cfe0f5}
   .close-slide .footer .f2{color:#9fb6d8}
   /* ---------- connect / QR wall ---------- */
-  .qrwall{display:flex;gap:64px;justify-content:center;align-items:flex-start;width:100%}
-  .qrwall .item{text-align:center}
-  .qrwall .item img{width:252px;height:252px;background:#fff;padding:16px;border-radius:18px;box-shadow:0 12px 34px rgba(0,0,0,.35);display:block}
-  .qrwall .item .lbl{margin-top:20px;color:#fff;font-size:25px;font-weight:700}
-  .qrwall .item .h{margin-top:5px;color:#9fb6d8;font-size:19px}
+  .qrwall{display:flex;gap:74px;justify-content:center;align-items:flex-start;width:100%}
+  .qrwall .item{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .qrwall .item .logo{width:58px;height:58px;color:#fff;margin-bottom:14px}
+  .qrwall .item .logo svg{width:100%;height:100%;display:block}
+  .qrwall .item .lbl{color:#fff;font-size:31px;font-weight:800;letter-spacing:.2px}
+  .qrwall .item .h{margin-top:7px;margin-bottom:22px;color:#c3d5ee;font-size:25px;font-weight:600}
+  .qrwall .item img{width:226px;height:226px;background:#fff;padding:15px;border-radius:18px;box-shadow:0 12px 34px rgba(0,0,0,.35);display:block}
   /* ---------- progress + nav ---------- */
   .pbar{position:fixed;bottom:0;left:0;height:5px;background:var(--accent);z-index:50;transition:width .25s}
   .pageno{position:fixed;bottom:16px;left:22px;font-size:13px;color:var(--muted);z-index:50;background:rgba(255,255,255,.85);padding:3px 10px;border-radius:12px}
@@ -491,19 +493,22 @@
     <div class="body">
       <div class="qrwall">
         <div class="item">
-          <img src="linkedin_qr.png" alt="LinkedIn QR">
+          <div class="logo"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></div>
           <div class="lbl">LinkedIn</div>
           <div class="h">linkedin.com/in/gurpalvirdi</div>
+          <img src="linkedin_qr.png" alt="LinkedIn QR">
         </div>
         <div class="item">
-          <img src="ig_qr.png" alt="Instagram QR">
+          <div class="logo"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.42.56.21.96.47 1.38.9.43.42.69.82.9 1.38.17.43.37 1.06.42 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.42 2.23-.21.56-.47.96-.9 1.38-.42.43-.82.69-1.38.9-.43.17-1.06.37-2.23.42-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.42-.56-.21-.96-.47-1.38-.9-.43-.42-.69-.82-.9-1.38-.17-.43-.37-1.06-.42-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.42-2.23.21-.56.47-.96.9-1.38.42-.43.82-.69 1.38-.9.43-.17 1.06-.37 2.23-.42C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.67.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.47 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.66 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.47-1.38-2.13-.67-.66-1.34-1.07-2.13-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></div>
           <div class="lbl">Instagram</div>
           <div class="h">@gurpalvirdimd</div>
+          <img src="ig_qr.png" alt="Instagram QR">
         </div>
         <div class="item">
-          <img src="web_qr.png" alt="Website QR">
+          <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></div>
           <div class="lbl">Web</div>
           <div class="h">gurpalvirdi.com</div>
+          <img src="web_qr.png" alt="Website QR">
         </div>
       </div>
     </div>
