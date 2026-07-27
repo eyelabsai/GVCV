@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iDose TR — Co-Management Overview | Gurpal Virdi, MD</title>
+<meta name="description" content="iDose TR (travoprost intracameral implant) co-management overview for referring optometrists — technology, the prostaglandin-analog class, candidates, phase 3 data, safety, the 2026 re-administration approval, MIGS comparison, coverage, and referral pearls. By Gurpal Virdi, MD, Parkhurst NuVision.">
+<meta name="author" content="Gurpal Virdi, MD">
+<link rel="canonical" href="https://gurpalvirdi.com/idose/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iDose TR — Co-Management Overview">
+<meta property="og:description" content="A referring-OD overview of the iDose TR travoprost implant: candidates, data, safety, MIGS comparison, coverage, and referral pearls.">
+<meta property="og:url" content="https://gurpalvirdi.com/idose/">
+<meta property="og:image" content="https://gurpalvirdi.com/idose/poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="iDose TR — Co-Management Overview">
+<meta name="twitter:description" content="A referring-OD overview of the iDose TR travoprost implant by Gurpal Virdi, MD.">
+<meta name="twitter:image" content="https://gurpalvirdi.com/idose/poster.jpg">
+<style>
+  :root{
+    --navy:#1b3c73;
+    --navy-2:#12294f;
+    --accent:#3a7bd5;
+    --ink:#1d2733;
+    --muted:#5b6b7d;
+    --line:#d7dee7;
+    --bg:#eef2f7;
+    --paper:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--navy-2);color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .deck{width:100vw;height:100vh;overflow:hidden;position:relative}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    padding:56px 72px 78px;
+    background:var(--paper);
+    flex-direction:column;
+  }
+  .slide.active{display:flex}
+  h1.slide-title{color:var(--navy);font-size:50px;line-height:1.06;margin-bottom:8px;font-weight:800;letter-spacing:-.5px}
+  h1.slide-title::after{content:"";display:block;width:88px;height:6px;background:var(--accent);border-radius:3px;margin-top:16px}
+  h2.sub{color:var(--muted);font-weight:600;font-size:25px;margin:18px 0 6px}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  ul.points{list-style:none;display:flex;flex-direction:column;gap:22px}
+  ul.points li{position:relative;padding-left:40px;font-size:29px;line-height:1.38;color:var(--ink)}
+  ul.points li::before{content:"";position:absolute;left:4px;top:14px;width:15px;height:15px;background:var(--accent);border-radius:3px;transform:rotate(45deg)}
+  ul.points li b{color:var(--navy)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;height:100%}
+  .stat-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:8px}
+  .stat{background:var(--bg);border-left:6px solid var(--accent);border-radius:8px;padding:22px 26px;flex:1;min-width:210px}
+  .stat .n{font-size:46px;font-weight:800;color:var(--navy);line-height:1}
+  .stat .l{font-size:19px;color:var(--muted);margin-top:10px;line-height:1.3}
+  .callout{background:#fff6e9;border-left:7px solid #e0930b;border-radius:8px;padding:22px 26px;font-size:26px;line-height:1.4}
+  .callout b{color:#a9660a}
+  .badge{display:inline-block;background:var(--navy);color:#fff;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 18px;border-radius:22px;margin-bottom:16px}
+  .src{position:absolute;left:72px;bottom:30px;font-size:14px;color:#9aa7b5}
+  video{width:100%;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);background:#000}
+  .cap{font-size:17px;color:var(--muted);margin-top:12px;text-align:center}
+  .cap a{color:var(--accent);text-decoration:none;font-weight:600}
+  .videolink{position:relative;display:block}
+  .videolink img{width:100%;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:block}
+  .videolink .playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:rgba(27,60,115,.88);color:#fff;font-size:32px;display:flex;align-items:center;justify-content:center;padding-left:6px;transition:transform .15s}
+  .videolink:hover .playbtn{transform:translate(-50%,-50%) scale(1.08)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:24px 26px}
+  .card h3{color:var(--navy);font-size:25px;margin-bottom:14px}
+  .card ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .card li{font-size:23px;line-height:1.32;padding-left:24px;position:relative;color:var(--ink)}
+  .card li::before{content:"";position:absolute;left:2px;top:9px;width:10px;height:10px;background:var(--accent);border-radius:2px}
+  .card.good{border-top:5px solid #2e9e6b}
+  .card.good h3{color:#2e9e6b}
+  .card.stop{border-top:5px solid #c0392b}
+  .card.stop h3{color:#c0392b}
+  /* comparison table */
+  table.cmp{width:100%;border-collapse:collapse;font-size:19px}
+  table.cmp th{background:var(--navy);color:#fff;text-align:left;padding:12px 15px;font-size:18px;font-weight:700}
+  table.cmp th:first-child{border-top-left-radius:8px}
+  table.cmp th:last-child{border-top-right-radius:8px}
+  table.cmp td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.32;color:var(--ink)}
+  table.cmp tr:nth-child(even) td{background:var(--bg)}
+  table.cmp td.dev{font-weight:800;color:var(--navy);white-space:nowrap}
+  table.cmp td b{color:var(--navy)}
+  table.cmp tr.hl td{background:#e6f0fb}
+  table.cmp tr.hl td.dev{color:var(--accent)}
+  .perspective{display:inline-block;background:#eaf4ee;color:#2b7d4f;border:1px solid #bcdcc4;font-size:15px;font-weight:700;padding:6px 14px;border-radius:18px;letter-spacing:.4px;margin-bottom:14px}
+  /* per-slide footer, bottom-right */
+  .footer{position:absolute;right:72px;bottom:26px;text-align:right;line-height:1.28}
+  .footer .f1{font-size:15px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--navy)}
+  .footer .f2{font-size:14px;font-weight:600;color:var(--muted)}
+  /* ---------- title slide ---------- */
+  .title-slide{background:linear-gradient(150deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;justify-content:center;align-items:flex-start;padding:0 92px}
+  .title-slide .org{display:flex;align-items:center;gap:14px;font-weight:700;letter-spacing:2px;font-size:19px;position:absolute;top:58px;left:92px}
+  .title-slide .org .eye{width:34px;height:34px;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .title-slide .org .eye::after{content:"";width:12px;height:12px;background:#fff;border-radius:50%}
+  .title-slide h1{font-size:96px;font-weight:800;letter-spacing:-2px;line-height:.98}
+  .title-slide .tag{font-size:29px;color:#b9cdea;margin-top:18px;font-weight:500}
+  .title-slide .rule{width:96px;height:6px;background:var(--accent);border-radius:3px;margin:28px 0}
+  .title-slide .presenter{margin-top:40px;font-size:30px;font-weight:700;color:#fff;letter-spacing:.3px}
+  .title-slide .socials{margin-top:16px;font-size:20px;color:#9fb6d8;line-height:1.55}
+  .title-slide .socials div{margin:4px 0}
+  .title-slide .socials b{color:#b9cdea;font-weight:700;display:inline-block;min-width:118px}
+  .title-slide .foot{position:absolute;bottom:52px;left:92px;font-size:17px;color:#8fa9cf}
+  .title-slide .title-qr{position:absolute;right:104px;top:50%;transform:translateY(-50%);text-align:center}
+  .title-slide .title-qr img{width:230px;height:230px;background:#fff;padding:14px;border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.35);display:block}
+  .title-slide .qr-cap{margin-top:16px;color:#b9cdea;font-size:17px;letter-spacing:1px;font-weight:600}
+  /* ---------- closing ---------- */
+  .close-slide{background:linear-gradient(150deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff}
+  .close-slide h1.slide-title{color:#fff}
+  .close-slide .card li{color:#eaf2ff}
+  .close-slide .card li::before{background:#8fb4e6}
+  .close-slide .footer .f1{color:#cfe0f5}
+  .close-slide .footer .f2{color:#9fb6d8}
+  /* ---------- connect / QR wall ---------- */
+  .qrwall{display:flex;gap:64px;justify-content:center;align-items:flex-start;width:100%}
+  .qrwall .item{text-align:center}
+  .qrwall .item img{width:252px;height:252px;background:#fff;padding:16px;border-radius:18px;box-shadow:0 12px 34px rgba(0,0,0,.35);display:block}
+  .qrwall .item .lbl{margin-top:20px;color:#fff;font-size:25px;font-weight:700}
+  .qrwall .item .h{margin-top:5px;color:#9fb6d8;font-size:19px}
+  /* ---------- progress + nav ---------- */
+  .pbar{position:fixed;bottom:0;left:0;height:5px;background:var(--accent);z-index:50;transition:width .25s}
+  .pageno{position:fixed;bottom:16px;left:22px;font-size:13px;color:var(--muted);z-index:50;background:rgba(255,255,255,.85);padding:3px 10px;border-radius:12px}
+  .webhint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;font-size:13px;color:var(--muted);background:rgba(255,255,255,.92);padding:5px 15px;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+  .webhint a{color:var(--accent);text-decoration:none;font-weight:700}
+  @media print{.webhint{display:none}}
+  .title-slide .pageno,.close-slide .pageno{color:#cfe;background:rgba(0,0,0,.25)}
+  /* ---------- print / PDF ---------- */
+  @page{size:1280px 720px;margin:0}
+  @media print{
+    body{background:#fff}
+    .deck{width:auto;height:auto;overflow:visible}
+    .slide{position:relative;display:flex !important;width:1280px;height:720px;page-break-after:always;break-after:page;inset:auto}
+    .pbar,.pageno{display:none}
+    video{display:none}
+    .video-print{display:block !important}
+  }
+  .video-print{display:none;width:100%;border-radius:12px}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1. TITLE -->
+  <section class="slide title-slide active">
+    <div class="org"><span class="eye"></span> PARKHURST NUVISION</div>
+    <h1>iDose&nbsp;TR</h1>
+    <div class="rule"></div>
+    <div class="tag">Travoprost intracameral implant</div>
+    <div class="presenter">Gurpal Virdi, MD</div>
+    <div class="foot">Glaukos · FDA-approved Dec 2023 · U.S. launch 2024</div>
+  </section>
+
+  <!-- 2. WHY -->
+  <section class="slide">
+    <h1 class="slide-title">The problem drops don't solve</h1>
+    <h2 class="sub">iDose TR is a pillar of "interventional glaucoma" — moving from drops to procedures earlier</h2>
+    <div class="body">
+      <ul class="points">
+        <li><b>Adherence.</b> Roughly half of glaucoma patients aren't taking drops as prescribed within a year.</li>
+        <li><b>Preservative toxicity &amp; ocular surface disease.</b> Chronic BAK exposure drives redness, burning, and unstable tear film.</li>
+        <li><b>Prostaglandin-associated periorbitopathy (PAP).</b> Orbital fat atrophy, deepened sulcus, lash changes.</li>
+        <li><b>The pitch:</b> a one-time, in-office implant that removes the daily-drop burden while it works.</li>
+      </ul>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 3. WHAT IT IS -->
+  <section class="slide">
+    <h1 class="slide-title">What it is</h1>
+    <div class="body">
+      <ul class="points" style="gap:16px;font-size:26px">
+        <li><b>Titanium implant, 1.8 × 0.5 mm</b> — smaller than a grain of rice.</li>
+        <li><b>75 mcg of preservative-free travoprost</b> held in a reservoir.</li>
+        <li>Elutes <b>continuously into the anterior chamber</b> by membrane-controlled diffusion — steady drug level, no daily dosing.</li>
+        <li>Implanted through the trabecular meshwork and back wall of Schlemm's canal, anchored in scleral tissue.</li>
+      </ul>
+      <div class="stat-row" style="margin-top:20px">
+        <div class="stat"><div class="n">1.8 × 0.5 mm</div><div class="l">Titanium reservoir implant</div></div>
+        <div class="stat"><div class="n">75 mcg</div><div class="l">Preservative-free travoprost</div></div>
+        <div class="stat"><div class="n">Continuous</div><div class="l">Membrane-controlled elution</div></div>
+      </div>
+    </div>
+    <div class="src">Glaukos · FDA-approved December 2023, U.S. launch 2024.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 3b. TRAVOPROST / PGA CLASS -->
+  <section class="slide">
+    <h1 class="slide-title">Travoprost &amp; the prostaglandin analogs</h1>
+    <div class="body">
+      <ul class="points" style="font-size:25px;gap:15px">
+        <li><b>Travoprost is a prostaglandin F2α analog</b> — same class as latanoprost, bimatoprost, tafluprost, and the most potent topical IOP-lowering class (~25–33%).</li>
+        <li><b>Prodrug → FP-receptor agonist.</b> Corneal esterases convert it to travoprost free acid, which lowers IOP mainly by increasing <b>uveoscleral outflow</b>.</li>
+        <li><b>Delivery is the differentiator, not the molecule</b> — efficacy across PGAs is broadly similar; iDose changes <i>how</i> the drug is delivered.</li>
+        <li><b>Preservative-free, intracameral, negligible systemic exposure</b> — plasma travoprost stays below the assay limit (&lt;10 pg/mL); it bypasses the ocular surface.</li>
+      </ul>
+      <div class="callout" style="margin-top:18px;font-size:21px"><b>Fewer surface &amp; cosmetic effects than drops:</b> much less hyperemia, and trials saw none of the iris / periorbital pigmentation typical of topical PGAs — though the label still lists possible, likely-permanent iris pigmentation.</div>
+    </div>
+    <div class="src">Source: iDose TR prescribing information (Glaukos), 1/2026.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 4. HOW IT GOES IN + VIDEO -->
+  <section class="slide">
+    <h1 class="slide-title">How it goes in</h1>
+    <div class="two">
+      <div>
+        <ul class="points" style="font-size:26px;gap:18px">
+          <li>Clear corneal incision, aseptic conditions — <b>in-office or OR</b>.</li>
+          <li>Delivered across the angle and <b>anchored at the iridocorneal angle</b>.</li>
+          <li><b>Gonioscopy-visible</b> — confirm position at the slit lamp.</li>
+          <li>Standalone or <b>combined with cataract surgery</b>.</li>
+        </ul>
+      </div>
+      <div>
+        <a class="videolink" href="https://www.youtube.com/watch?v=islVFcYUeiA&amp;t=26s" target="_blank" rel="noopener">
+          <img src="poster.jpg" alt="iDose implantation — watch on YouTube">
+          <span class="playbtn">▶</span>
+        </a>
+        <div class="cap">Implantation across the angle — <a href="https://www.youtube.com/watch?v=islVFcYUeiA&amp;t=26s" target="_blank" rel="noopener">watch on YouTube</a></div>
+      </div>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 5. CANDIDATES -->
+  <section class="slide">
+    <h1 class="slide-title">Who it's for</h1>
+    <div class="body">
+      <ul class="points">
+        <li><b>Mild-to-moderate open-angle glaucoma or ocular hypertension</b> needing better IOP control.</li>
+        <li>Patients with <b>poor adherence or intolerance</b> to topical drops.</li>
+        <li>Ocular surface disease, dexterity limits, or cost barriers to daily drops.</li>
+        <li>Can be performed <b>with or without cataract surgery</b>.</li>
+      </ul>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 6. THE DATA -->
+  <section class="slide">
+    <h1 class="slide-title">The data — be straight about it</h1>
+    <h2 class="sub">Two phase 3 trials (GC-010, GC-012) · 1,150 subjects · 89 sites · vs. timolol 0.5% BID</h2>
+    <div class="body">
+      <div class="stat-row" style="margin-bottom:26px">
+        <div class="stat"><div class="n">6.6–8.4</div><div class="l">mmHg IOP drop, first 3 mo (timolol 6.5–7.7)</div></div>
+        <div class="stat"><div class="n">81%</div><div class="l">completely med-free at 12 months</div></div>
+        <div class="stat"><div class="n">93% vs 67%</div><div class="l">controlled on same/fewer meds at 12 mo vs timolol</div></div>
+      </div>
+      <div class="callout">
+        <b>The honest caveat:</b> FDA found non-inferiority to timolol <b>through 3 months</b>, but <b>not</b> over the next 9 months. Effect wanes in some patients — set expectations accordingly.
+      </div>
+    </div>
+    <div class="src">Sources: Modern Optometry; Glaukos GC-010 / GC-012 phase 3 data.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 7. SAFETY -->
+  <section class="slide">
+    <h1 class="slide-title">Safety profile</h1>
+    <h2 class="sub">Across three trials, 868 implanted patients</h2>
+    <div class="body">
+      <div class="grid2">
+        <div class="card">
+          <h3>Most common ocular AEs (2–6%)</h3>
+          <ul>
+            <li>IOP increase, iritis, dry eye</li>
+            <li>Visual field defects, eye pain</li>
+            <li>Conjunctival hyperemia, reduced VA</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Under 2%</h3>
+          <ul>
+            <li>Conjunctival hemorrhage, photophobia</li>
+            <li>Punctate keratitis, blepharitis, corneal abrasion</li>
+            <li>Device dislocation, vitreous detachment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:24px"><b>Iritis 6.2% vs 0%</b> for timolol — the AE most worth flagging on postop exams.</div>
+    </div>
+    <div class="src">Sources: iDose TR HCP prescribing information; VA.gov formulary review.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 8. CONTRAINDICATIONS -->
+  <section class="slide">
+    <h1 class="slide-title">Contraindications &amp; cautions</h1>
+    <div class="body">
+      <div class="grid2">
+        <div class="card stop">
+          <h3>Do not refer / contraindicated</h3>
+          <ul>
+            <li>Active or suspected ocular / periocular infection</li>
+            <li>Corneal endothelial dystrophy — <b>Fuchs, guttata</b></li>
+            <li>Prior corneal transplant or DSAEK</li>
+            <li>Hypersensitivity to travoprost</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Use caution / counsel</h3>
+          <ul>
+            <li>Narrow angles or angle abnormalities</li>
+            <li>Monitor routinely to confirm implant position</li>
+            <li><b>Iris pigmentation</b> can occur — likely permanent</li>
+            <li><b>MRI conditional</b> — a handy practical pearl</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="src">Sources: iDose TR HCP prescribing information; Glaukos.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 9. 2026 HEADLINE -->
+  <section class="slide">
+    <span class="badge">Just changed — Jan 28, 2026</span>
+    <h1 class="slide-title">Re-administration is now approved</h1>
+    <div class="body">
+      <ul class="points" style="font-size:23px;gap:14px">
+        <li>FDA approved a labeling supplement allowing <b>re-administration in the same eye</b> — the old label said don't re-dose.</li>
+        <li><b>Requires specular microscopy:</b> the eye must meet an <b>age-based minimum endothelial cell density</b>; re-dosing is withheld if there's ≥10% ECD loss or prior device dislocation.</li>
+        <li><b>No more than once per year.</b></li>
+        <li>Backed by <b>no clinically significant endothelial cell loss through 3 years</b> across the phase 3 / 2b studies.</li>
+        <li>Exchange study: <b>place the new implant first, then remove the old one</b> — safe and tolerated over 12 months.</li>
+      </ul>
+    </div>
+    <div class="src">Sources: Glaukos; PentaVision. FDA approval Jan 28, 2026.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 9b. SUSTAINED-RELEASE LANDSCAPE -->
+  <section class="slide">
+    <h1 class="slide-title">Where iDose sits in sustained-release glaucoma</h1>
+    <div class="body">
+      <table class="cmp">
+        <tr><th>System</th><th>Drug &amp; format</th><th>Duration</th><th>Status</th></tr>
+        <tr class="hl">
+          <td class="dev">iDose TR</td>
+          <td>Travoprost — <b>titanium, non-biodegradable, re-dosable</b></td>
+          <td>Label ~3 yr</td>
+          <td><b>FDA approved 2023</b></td>
+        </tr>
+        <tr>
+          <td class="dev">Durysta</td>
+          <td>Bimatoprost — biodegradable intracameral</td>
+          <td>~3–4 mo</td>
+          <td>FDA approved 2020</td>
+        </tr>
+        <tr>
+          <td class="dev">OTX-TIC</td>
+          <td>Travoprost — biodegradable hydrogel</td>
+          <td>4–6 mo</td>
+          <td>Phase 3 (missed endpoint)</td>
+        </tr>
+        <tr>
+          <td class="dev">ENV515</td>
+          <td>Travoprost XR — biodegradable</td>
+          <td>~6 mo</td>
+          <td>Phase 2a</td>
+        </tr>
+        <tr>
+          <td class="dev">SpyGlass</td>
+          <td>Bimatoprost — drug-eluting IOL pads (at cataract)</td>
+          <td>Up to 3 yr</td>
+          <td>Phase 1/2</td>
+        </tr>
+      </table>
+      <div style="margin-top:16px;font-size:20px;color:var(--ink)"><b style="color:var(--navy)">Takeaway:</b> iDose &amp; Durysta are the only FDA-approved intracameral implants — iDose is the only <b>non-biodegradable, re-administrable</b> one, giving it by far the longest duration.</div>
+    </div>
+    <div class="src">Investigational agents shown for context; landscape per published reviews.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 10. MIGS COMPARISON -->
+  <section class="slide">
+    <span class="perspective">Our clinic's perspective — not Glaukos data</span>
+    <h1 class="slide-title">How iDose fits our MIGS toolkit</h1>
+    <div class="body">
+      <table class="cmp">
+        <tr>
+          <th>Option</th><th>Indication</th><th>On a med?</th><th>IOP drop</th><th>Notes</th>
+        </tr>
+        <tr>
+          <td class="dev">iDose TR</td>
+          <td>Mild–moderate OAG <b>+ ocular HTN</b></td>
+          <td><b>Not required</b></td>
+          <td>~20–25%</td>
+          <td>Continuous travoprost; can get OHT / one-med patients off drops</td>
+        </tr>
+        <tr>
+          <td class="dev">iStent Infinite<br><span style="font-weight:600;color:var(--muted);font-size:15px">(3 stents)</span></td>
+          <td>Mild–moderate OAG</td>
+          <td><b>Required</b> — must be on a med</td>
+          <td>~15–20% (if lucky)</td>
+          <td>Not for ocular HTN; best when noncompliant or poor ocular surface</td>
+        </tr>
+        <tr>
+          <td class="dev">OMNI</td>
+          <td>Ocular HTN + mild–moderate</td>
+          <td>Not required</td>
+          <td><b>Largest drop</b></td>
+          <td>Usually 2+ meds / more moderate disease; ↑ hyphema &amp; cyclodialysis-cleft risk → historically after iStent</td>
+        </tr>
+        <tr>
+          <td class="dev">ECP</td>
+          <td>Closed-angle cases</td>
+          <td>—</td>
+          <td>—</td>
+          <td>For closed angles; also driven by insurance coverage</td>
+        </tr>
+      </table>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 11. CLINIC EXPERIENCE -->
+  <section class="slide">
+    <span class="perspective">Our clinic's perspective — not Glaukos data</span>
+    <h1 class="slide-title">What we see in clinic</h1>
+    <div class="body">
+      <ul class="points" style="font-size:23px;gap:14px">
+        <li><b>iDose</b> — for ocular hypertension or a one-med patient, we can often get them <b>off drops entirely</b>. Labeling supports ~3 years; in our hands we typically see <b>~2 years</b> of effect.</li>
+        <li><b>iStent</b> — anecdotally a temporary drop holiday, but many are back on a drop within <b>1–2 years</b>.</li>
+        <li><b>OMNI</b> gives the biggest IOP reduction — we reserve it for 2+ meds / more moderate disease, and historically place it <b>after iStent</b> given higher hyphema and cyclodialysis-cleft risk.</li>
+        <li><b>ECP</b> — we use in <b>closed-angle</b> eyes, and where <b>insurance coverage</b> favors it.</li>
+      </ul>
+      <div class="callout" style="margin-top:20px;font-size:22px"><b>In progress at our clinic:</b> a head-to-head of <b>iDose + iStent combined vs. standalone iDose</b> — just a couple of months in.</div>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 12. CO-MANAGEMENT PEARLS -->
+  <section class="slide">
+    <h1 class="slide-title">Managing the postop patient</h1>
+    <div class="body">
+      <ul class="points" style="gap:15px;font-size:25px">
+        <li>Postop course resembles other trabecular MIGS — minimal inflammation, quick recovery.</li>
+        <li>Expect <b>gradual</b> IOP lowering as travoprost releases; effect may not be immediate.</li>
+        <li>Continue preop drops initially, then <b>taper based on IOP response</b> and your discretion.</li>
+        <li>Monitor IOP, inflammation, corneal status at routine intervals (POD1 if combined, then 1–4 wks).</li>
+        <li>Gonioscopy confirms implant position if IOP response is suboptimal.</li>
+        <li>Reinforce this is <b>not a cure</b> — ongoing glaucoma monitoring is still required.</li>
+      </ul>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 13. COVERAGE & CODING -->
+  <section class="slide">
+    <h1 class="slide-title">Coverage &amp; coding</h1>
+    <div class="body">
+      <div class="stat-row" style="margin-bottom:24px">
+        <div class="stat"><div class="n">80% + supp</div><div class="l">Medicare pays 80%; true supplemental plans cover the rest</div></div>
+        <div class="stat"><div class="n">$15–17k</div><div class="l">Pass-through payment for the implant</div></div>
+        <div class="stat"><div class="n">J7355</div><div class="l">Permanent J-code + CPT 0660T / 0661T (APC 5492)</div></div>
+      </div>
+      <ul class="points" style="font-size:24px;gap:15px">
+        <li><b>Medicare + true supplemental insurance cover iDose</b> — minimal out-of-pocket for most patients.</li>
+        <li>Available <b>buy-and-bill</b> or via <b>specialty pharmacy</b> (physician isn't paid for the drug if via specialty pharmacy).</li>
+      </ul>
+    </div>
+    <div class="src">Sources: Eyes On Eyecare; American Academy of Ophthalmology; our clinic's billing experience.</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 12. WHO TO SEND -->
+  <section class="slide close-slide">
+    <h1 class="slide-title">Who to send us</h1>
+    <div class="body">
+      <div class="grid2">
+        <div class="card good" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)">
+          <h3 style="color:#7ee0a8">Great candidates</h3>
+          <ul style="color:#eaf2ff">
+            <li>Mild-to-moderate OAG / ocular hypertension</li>
+            <li>Poor compliance / drop-intolerant</li>
+            <li>Uncomfortable eyes — poor or damaged ocular surface</li>
+            <li>Dexterity or cost barriers</li>
+            <li>Anyone heading to cataract surgery — combine it</li>
+          </ul>
+        </div>
+        <div class="card stop" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)">
+          <h3 style="color:#ff9b8f">Not for</h3>
+          <ul style="color:#eaf2ff">
+            <li>Fuchs / guttata</li>
+            <li>Prior corneal graft</li>
+            <li>Narrow angles</li>
+            <li>Advanced disease needing a low target</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="src" style="color:#9fb6d8">Refer for an iDose TR consultation</div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+  <!-- 15. LET'S CONNECT -->
+  <section class="slide close-slide">
+    <h1 class="slide-title">Let's connect</h1>
+    <h2 class="sub" style="color:#b9cdea">Gurpal Virdi, MD — scan to follow or reach out</h2>
+    <div class="body">
+      <div class="qrwall">
+        <div class="item">
+          <img src="linkedin_qr.png" alt="LinkedIn QR">
+          <div class="lbl">LinkedIn</div>
+          <div class="h">linkedin.com/in/gurpalvirdi</div>
+        </div>
+        <div class="item">
+          <img src="ig_qr.png" alt="Instagram QR">
+          <div class="lbl">Instagram</div>
+          <div class="h">@gurpalvirdimd</div>
+        </div>
+        <div class="item">
+          <img src="web_qr.png" alt="Website QR">
+          <div class="lbl">Web</div>
+          <div class="h">gurpalvirdi.com</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><div class="f1">Parkhurst NuVision</div><div class="f2">Gurpal Virdi, MD</div></div>
+  </section>
+
+</div>
+
+<div class="pbar" id="pbar"></div>
+<div class="pageno" id="pageno">1 / 17</div>
+<div class="webhint">Use ← → or click to navigate · <a href="iDose_TR_comanagement.pdf" download>Download PDF</a></div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('pbar').style.width=((i+1)/slides.length*100)+'%';
+    document.getElementById('pageno').textContent=(i+1)+' / '+slides.length;
+    document.querySelectorAll('video').forEach(v=>{if(!v.closest('.slide').classList.contains('active'))v.pause();});
+  }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);}
+    else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='f'){document.documentElement.requestFullscreen?.();}
+  });
+  document.getElementById('deck').addEventListener('click',e=>{
+    if(e.target.closest('video'))return;
+    show(e.clientX>window.innerWidth/2?i+1:i-1);
+  });
+  show(0);
+</script>
+</body>
+</html>
