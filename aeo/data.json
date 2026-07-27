@@ -74,10 +74,35 @@
           "score": 87
         }
       ]
+    },
+    {
+      "date": "2026-07-27T15:37:26.779Z",
+      "sites": [
+        {
+          "domain": "iclsurgery.com",
+          "score": 97
+        },
+        {
+          "domain": "iclfit.com",
+          "score": 87
+        },
+        {
+          "domain": "gurpalvirdi.com",
+          "score": 94
+        },
+        {
+          "domain": "refractivefoundations.com",
+          "score": 86
+        },
+        {
+          "domain": "iolreference.com",
+          "score": 87
+        }
+      ]
     }
   ],
   "latest": {
-    "date": "2026-07-20T15:02:38.944Z",
+    "date": "2026-07-27T15:37:26.779Z",
     "sites": [
       {
         "domain": "iclsurgery.com",
@@ -243,7 +268,7 @@
           },
           {
             "key": "sitemap",
-            "label": "Sitemap present (6 URLs)",
+            "label": "Sitemap present (10 URLs)",
             "pass": true,
             "weight": 8
           },
@@ -334,7 +359,7 @@
           },
           {
             "key": "sitemap",
-            "label": "Sitemap present (1 URLs)",
+            "label": "Sitemap present (2 URLs)",
             "pass": true,
             "weight": 8
           },
