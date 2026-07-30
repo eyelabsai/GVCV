@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fellowship — Month 1 | Gurpal Virdi, MD</title>
+    <meta name="robots" content="noindex">
+    <!-- Open Graph (social preview) -->
+    <meta property="og:title" content="Refractive Surgery Fellowship — Month 1">
+    <meta property="og:description" content="Cataract, EVO ICL & LASIK volume from month one of fellowship. De-identified aggregate data.">
+    <meta property="og:image" content="https://gurpalvirdi.com/og-image.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1a2233">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+            background:radial-gradient(1200px 600px at 50% -10%, #2a3752 0%, #1a2233 45%, #141b28 100%);
+            color:#e9eef6; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem 1rem;
+        }
+        .card{width:100%; max-width:900px}
+        .head{text-align:center; margin-bottom:2rem}
+        .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#88c0d0}
+        h1{font-size:2.4rem;font-weight:800;margin:.4rem 0 .3rem;letter-spacing:-.02em}
+        .who{color:#9fb0c8;font-size:1rem;font-weight:500}
+
+        .hero{text-align:center;margin:2rem 0 1.5rem}
+        .hero .big{font-size:5.5rem;font-weight:800;line-height:1;background:linear-gradient(180deg,#a3be8c,#88c0d0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .hero .lbl{font-size:1rem;color:#9fb0c8;font-weight:600;letter-spacing:.05em;margin-top:.35rem;text-transform:uppercase}
+
+        .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.75rem}
+        @media(max-width:640px){.kpis{grid-template-columns:1fr}}
+        .kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:1.3rem 1rem;text-align:center;backdrop-filter:blur(8px)}
+        .kpi .n{font-size:2.6rem;font-weight:800;line-height:1}
+        .kpi .n.green{color:#a3be8c}.kpi .n.cyan{color:#88c0d0}.kpi .n.gold{color:#ebcb8b}
+        .kpi .l{font-size:.82rem;color:#9fb0c8;margin-top:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+
+        .panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:1.4rem;backdrop-filter:blur(8px)}
+        .panel h2{font-size:1rem;font-weight:600;margin-bottom:1rem;text-align:center;color:#cfd9e8}
+        .chart-box{position:relative;height:300px}
+        footer{margin-top:1.5rem;text-align:center;color:#6b7a92;font-size:.78rem;line-height:1.5}
+        .err{background:rgba(208,135,112,.15);border-radius:12px;padding:1rem;color:#e0a58f}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="head">
+            <div class="eyebrow">Refractive &amp; Cataract Surgery Fellowship</div>
+            <h1>Month One 🚀</h1>
+            <div class="who">Gurpal Virdi, MD · Parkhurst NuVision, San Antonio</div>
+        </div>
+        <div id="app"></div>
+        <footer>
+            De-identified aggregate surgical data · no patient information shown.<br>
+            Updated <span id="gen">—</span>
+        </footer>
+    </div>
+
+    <script>
+    Chart.register(ChartDataLabels);
+    Chart.defaults.font.family="'Inter',sans-serif";
+    Chart.defaults.color='#cfd9e8';
+    const PAL=['#5e81ac','#a3be8c','#88c0d0','#ebcb8b','#b48ead','#d08770'];
+
+    fetch('stats.json?v='+Date.now()).then(r=>r.json()).then(s=>{
+        document.getElementById('gen').textContent=s.generated;
+        const t=s.totals;
+        const proc=s.procedure||{};
+        const icl=proc['EVO ICL']||0;
+        const lasik=proc['LASIK / Refractive']||proc['LASIK']||0;
+        const cat=proc['Cataract']||0;
+
+        document.getElementById('app').innerHTML=
+          `<div class="hero"><div class="big">${t.eyes}</div><div class="lbl">Eyes Operated</div></div>
+           <div class="kpis">
+             <div class="kpi"><div class="n gold">${t.premium_pct}%</div><div class="l">Premium IOLs</div></div>
+             <div class="kpi"><div class="n cyan">${icl}</div><div class="l">EVO ICL</div></div>
+             <div class="kpi"><div class="n green">${lasik}</div><div class="l">LASIK / Refractive</div></div>
+           </div>
+           <div class="panel"><h2>Case Breakdown</h2><div class="chart-box"><canvas id="mix"></canvas></div></div>`;
+
+        const e=Object.entries(proc).sort((a,b)=>b[1]-a[1]);
+        new Chart(mix,{type:'doughnut',data:{labels:e.map(x=>x[0]),
+            datasets:[{data:e.map(x=>x[1]),backgroundColor:PAL,borderWidth:3,borderColor:'#141b28'}]},
+            options:{cutout:'58%',plugins:{
+                legend:{position:'bottom',labels:{color:'#cfd9e8',padding:16,font:{size:13,weight:'600'}}},
+                datalabels:{color:'#fff',font:{weight:'800',size:15},
+                    formatter:(v,c)=>{const tot=c.dataset.data.reduce((a,b)=>a+b,0);const p=Math.round(100*v/tot);return p>=6?v:''}}
+            }}});
+    }).catch(e=>{document.getElementById('app').innerHTML='<div class="err">Could not load stats.</div>'});
+    </script>
+</body>
+</html>
