@@ -1,26 +1,26 @@
 {
   "generated": "2026-07-30",
   "totals": {
-    "eyes": 122,
-    "patients": 100,
+    "eyes": 123,
+    "patients": 101,
     "premium": 46,
-    "standard": 54,
+    "standard": 55,
     "premium_pct": 46,
-    "iol": 100,
-    "toric": 20,
-    "toric_pct": 20,
+    "iol": 101,
+    "toric": 21,
+    "toric_pct": 21,
     "va_recorded": 48,
     "pow1_recorded": 5,
     "near_recorded": 6
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 46,
-    "Standard monofocal": 54
+    "Standard monofocal": 55
   },
   "category": {
     "Monofocal": 41,
     "EDOF": 44,
-    "Toric monofocal": 12,
+    "Toric monofocal": 13,
     "LAL": 2,
     "Enhanced monofocal": 1,
     "ICL": 8,
@@ -31,14 +31,14 @@
     "Envy (ETNU/ENU)": 30,
     "PureSee (DEN00V)": 14,
     "Tecnis (DCB00)": 15,
-    "Tecnis Toric (ZCU)": 12,
+    "Tecnis Toric (ZCU)": 13,
     "LAL (Light Adjustable)": 2,
     "Eyhance": 1,
     "EVO ICL": 8,
     "Other": 4
   },
   "procedure": {
-    "Cataract": 103,
+    "Cataract": 104,
     "EVO ICL": 10,
     "Pterygium": 2,
     "Piggyback IOL": 1,
@@ -46,7 +46,7 @@
     "AC procedure": 1
   },
   "power": {
-    "18\u201320": 18,
+    "18\u201320": 19,
     "15\u201317.5": 13,
     "<15": 6,
     "20.5\u201322": 21,
