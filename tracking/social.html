@@ -28,9 +28,9 @@
         h1{font-size:2.4rem;font-weight:800;margin:.4rem 0 .3rem;letter-spacing:-.02em}
         .who{color:#9fb0c8;font-size:1rem;font-weight:500}
 
-        .hero{text-align:center;margin:2rem 0 1.5rem}
-        .hero .big{font-size:5.5rem;font-weight:800;line-height:1;background:linear-gradient(180deg,#a3be8c,#88c0d0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-        .hero .lbl{font-size:1rem;color:#9fb0c8;font-weight:600;letter-spacing:.05em;margin-top:.35rem;text-transform:uppercase}
+        .hero{text-align:center;margin:1.5rem 0 1.5rem}
+        .hero .big{font-size:3.6rem;font-weight:800;line-height:1;background:linear-gradient(180deg,#a3be8c,#88c0d0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .hero .lbl{font-size:.9rem;color:#9fb0c8;font-weight:600;letter-spacing:.05em;margin-top:.35rem;text-transform:uppercase}
 
         .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.75rem}
         @media(max-width:640px){.kpis{grid-template-columns:1fr}}
@@ -39,9 +39,11 @@
         .kpi .n.green{color:#a3be8c}.kpi .n.cyan{color:#88c0d0}.kpi .n.gold{color:#ebcb8b}
         .kpi .l{font-size:.82rem;color:#9fb0c8;margin-top:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 
-        .panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:1.4rem;backdrop-filter:blur(8px)}
-        .panel h2{font-size:1rem;font-weight:600;margin-bottom:1rem;text-align:center;color:#cfd9e8}
-        .chart-box{position:relative;height:300px}
+        .panels{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        @media(max-width:640px){.panels{grid-template-columns:1fr}}
+        .panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:1.3rem 1rem;backdrop-filter:blur(8px)}
+        .panel h2{font-size:.95rem;font-weight:600;margin-bottom:.6rem;text-align:center;color:#cfd9e8}
+        .chart-box{position:relative;height:240px;margin:0 auto}
         footer{margin-top:1.5rem;text-align:center;color:#6b7a92;font-size:.78rem;line-height:1.5}
         .err{background:rgba(208,135,112,.15);border-radius:12px;padding:1rem;color:#e0a58f}
     </style>
@@ -74,6 +76,10 @@
         const lasik=proc['LASIK / Refractive']||proc['LASIK']||0;
         const cat=proc['Cataract']||0;
 
+        const refr=icl+lasik;
+        const total=Object.values(proc).reduce((a,b)=>a+b,0);
+        const other=total-cat-refr;
+
         document.getElementById('app').innerHTML=
           `<div class="hero"><div class="big">${t.eyes}</div><div class="lbl">Eyes Operated</div></div>
            <div class="kpis">
@@ -81,16 +87,21 @@
              <div class="kpi"><div class="n cyan">${icl}</div><div class="l">EVO ICL</div></div>
              <div class="kpi"><div class="n green">${lasik}</div><div class="l">LASIK / Refractive</div></div>
            </div>
-           <div class="panel"><h2>Case Breakdown</h2><div class="chart-box"><canvas id="mix"></canvas></div></div>`;
+           <div class="panels">
+             <div class="panel"><h2>Case Types</h2><div class="chart-box"><canvas id="mix"></canvas></div></div>
+             <div class="panel"><h2>Refractive Procedures</h2><div class="chart-box"><canvas id="ref"></canvas></div></div>
+           </div>`;
 
-        const e=Object.entries(proc).sort((a,b)=>b[1]-a[1]);
-        new Chart(mix,{type:'doughnut',data:{labels:e.map(x=>x[0]),
-            datasets:[{data:e.map(x=>x[1]),backgroundColor:PAL,borderWidth:3,borderColor:'#141b28'}]},
-            options:{cutout:'58%',plugins:{
-                legend:{position:'bottom',labels:{color:'#cfd9e8',padding:16,font:{size:13,weight:'600'}}},
+        const D=(cv,labels,data,colors)=>new Chart(cv,{type:'doughnut',
+            data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:3,borderColor:'#141b28'}]},
+            options:{maintainAspectRatio:false,cutout:'56%',layout:{padding:6},plugins:{
+                legend:{position:'bottom',labels:{color:'#cfd9e8',padding:12,font:{size:12,weight:'600'}}},
                 datalabels:{color:'#fff',font:{weight:'800',size:15},
-                    formatter:(v,c)=>{const tot=c.dataset.data.reduce((a,b)=>a+b,0);const p=Math.round(100*v/tot);return p>=6?v:''}}
-            }}});
+                    formatter:(v,c)=>{const tot=c.dataset.data.reduce((a,b)=>a+b,0);return (100*v/tot)>=8?v:''}}
+            }});
+
+        D(mix,['Cataract','Refractive','Other'],[cat,refr,other],['#5e81ac','#88c0d0','#4c566a']);
+        D(ref,['EVO ICL','LASIK'],[icl,lasik],['#88c0d0','#a3be8c']);
     }).catch(e=>{document.getElementById('app').innerHTML='<div class="err">Could not load stats.</div>'});
     </script>
 </body>
