@@ -10,7 +10,7 @@
     <meta property="og:description" content="Cataract, EVO ICL & LASIK volume from month one of fellowship. De-identified aggregate data.">
     <meta property="og:image" content="https://gurpalvirdi.com/og-image.jpg">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#1a2233">
+    <meta name="theme-color" content="#35476b">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -19,8 +19,8 @@
         *{box-sizing:border-box;margin:0;padding:0}
         body{
             font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-            background:radial-gradient(1200px 600px at 50% -10%, #2a3752 0%, #1a2233 45%, #141b28 100%);
-            color:#e9eef6; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem 1rem;
+            background:radial-gradient(1200px 700px at 50% -5%, #4a6091 0%, #35476b 40%, #263450 100%);
+            color:#eef2f8; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem 1rem;
         }
         .card{width:100%; max-width:900px}
         .head{text-align:center; margin-bottom:2rem}
@@ -32,11 +32,12 @@
         .hero .big{font-size:3.6rem;font-weight:800;line-height:1;background:linear-gradient(180deg,#a3be8c,#88c0d0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         .hero .lbl{font-size:.9rem;color:#9fb0c8;font-weight:600;letter-spacing:.05em;margin-top:.35rem;text-transform:uppercase}
 
-        .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.75rem}
-        @media(max-width:640px){.kpis{grid-template-columns:1fr}}
-        .kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:1.3rem 1rem;text-align:center;backdrop-filter:blur(8px)}
-        .kpi .n{font-size:2.6rem;font-weight:800;line-height:1}
-        .kpi .n.green{color:#a3be8c}.kpi .n.cyan{color:#88c0d0}.kpi .n.gold{color:#ebcb8b}
+        .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0 1.75rem}
+        @media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
+        .kpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:1.4rem 1rem;text-align:center;backdrop-filter:blur(8px)}
+        .kpi .n{font-size:2.7rem;font-weight:800;line-height:1;color:#fff}
+        .kpi .n.eyes{background:linear-gradient(180deg,#c8e6a8,#9fd8e6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .kpi .n.green{color:#b7d69a}.kpi .n.cyan{color:#9fd8e6}.kpi .n.gold{color:#f0d68f}
         .kpi .l{font-size:.82rem;color:#9fb0c8;margin-top:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 
         .panels{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
@@ -81,11 +82,11 @@
         const other=total-cat-refr;
 
         document.getElementById('app').innerHTML=
-          `<div class="hero"><div class="big">${t.eyes}</div><div class="lbl">Eyes Operated</div></div>
-           <div class="kpis">
+          `<div class="kpis">
+             <div class="kpi"><div class="n eyes">${t.eyes}</div><div class="l">Eyes Operated</div></div>
              <div class="kpi"><div class="n gold">${t.premium_pct}%</div><div class="l">Premium IOLs</div></div>
              <div class="kpi"><div class="n cyan">${icl}</div><div class="l">EVO ICL</div></div>
-             <div class="kpi"><div class="n green">${lasik}</div><div class="l">LASIK / Refractive</div></div>
+             <div class="kpi"><div class="n green">${lasik}</div><div class="l">LASIK</div></div>
            </div>
            <div class="panels">
              <div class="panel"><h2>Case Types</h2><div class="chart-box"><canvas id="mix"></canvas></div></div>
