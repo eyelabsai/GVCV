@@ -93,16 +93,28 @@
              <div class="panel"><h2>Refractive Procedures</h2><div class="chart-box"><canvas id="ref"></canvas></div></div>
            </div>`;
 
-        const D=(cv,labels,data,colors)=>new Chart(cv,{type:'doughnut',
-            data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:3,borderColor:'#141b28'}]},
-            options:{maintainAspectRatio:false,cutout:'56%',layout:{padding:6},plugins:{
-                legend:{position:'bottom',labels:{color:'#cfd9e8',padding:12,font:{size:12,weight:'600'}}},
-                datalabels:{color:'#fff',font:{weight:'800',size:15},
-                    formatter:(v,c)=>{const tot=c.dataset.data.reduce((a,b)=>a+b,0);return (100*v/tot)>=8?v:''}}
-            }});
+        function pctLabel(v, ctx){
+            var tot = ctx.dataset.data.reduce(function(a,b){return a+b;}, 0);
+            return (100*v/tot) >= 8 ? v : '';
+        }
+        function D(cv, labels, data, colors){
+            new Chart(cv, {
+                type: 'doughnut',
+                data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth: 3, borderColor: '#263450' }] },
+                options: {
+                    maintainAspectRatio: false,
+                    cutout: '56%',
+                    layout: { padding: 6 },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#cfd9e8', padding: 12, font: { size: 12, weight: '600' } } },
+                        datalabels: { color: '#fff', font: { weight: '800', size: 15 }, formatter: pctLabel }
+                    }
+                }
+            });
+        }
 
-        D(mix,['Cataract','Refractive','Other'],[cat,refr,other],['#5e81ac','#88c0d0','#4c566a']);
-        D(ref,['EVO ICL','LASIK'],[icl,lasik],['#88c0d0','#a3be8c']);
+        D(mix, ['Cataract','Refractive','Other'], [cat,refr,other], ['#5e81ac','#88c0d0','#4c566a']);
+        D(ref, ['EVO ICL','LASIK'], [icl,lasik], ['#88c0d0','#a3be8c']);
     }).catch(e=>{document.getElementById('app').innerHTML='<div class="err">Could not load stats.</div>'});
     </script>
 </body>
