@@ -1,15 +1,15 @@
 {
-  "generated": "2026-07-29",
+  "generated": "2026-07-30",
   "totals": {
-    "eyes": 106,
-    "patients": 88,
+    "eyes": 108,
+    "patients": 89,
     "premium": 40,
     "standard": 47,
     "premium_pct": 46,
     "iol": 87,
     "toric": 18,
     "toric_pct": 21,
-    "va_recorded": 45,
+    "va_recorded": 48,
     "pow1_recorded": 5,
     "near_recorded": 6
   },
@@ -23,7 +23,7 @@
     "Toric monofocal": 11,
     "LAL": 2,
     "Enhanced monofocal": 1,
-    "ICL": 6,
+    "ICL": 8,
     "Other": 4
   },
   "family": {
@@ -34,12 +34,12 @@
     "Tecnis Toric (ZCU)": 11,
     "LAL (Light Adjustable)": 2,
     "Eyhance": 1,
-    "EVO ICL": 6,
+    "EVO ICL": 8,
     "Other": 4
   },
   "procedure": {
     "Cataract": 90,
-    "EVO ICL": 8,
+    "EVO ICL": 10,
     "Pterygium": 2,
     "Piggyback IOL": 1,
     "LASIK / Refractive": 5
@@ -53,9 +53,9 @@
     "22.5\u201324": 10
   },
   "va": {
-    "20/30\u201320/40": 13,
-    "20/25": 9,
-    "20/20 or better": 16,
+    "20/30\u201320/40": 14,
+    "20/25": 10,
+    "20/20 or better": 17,
     "worse than 20/40": 7
   },
   "pow1": {
@@ -68,7 +68,7 @@
     "J2\u2013J3 (~20/25\u201330 near)": 1
   },
   "refractive": {
-    "20/20 or better": 4,
+    "20/20 or better": 6,
     "20/25": 3
   },
   "refractive_split": {
@@ -77,7 +77,7 @@
       "20/25": 3
     },
     "ICL": {
-      "20/20 or better": 2
+      "20/20 or better": 4
     }
   }
 }
