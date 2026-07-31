@@ -50,7 +50,20 @@
     </style>
 </head>
 <body>
-    <div class="card">
+    <div id="gate" style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center;max-width:320px;padding:2rem 1.5rem;background:rgba(255,255,255,.08);
+             border:1px solid rgba(255,255,255,.14);border-radius:18px;backdrop-filter:blur(8px)">
+            <div style="font-size:1.6rem;margin-bottom:.5rem">🔒</div>
+            <div style="font-weight:600;margin-bottom:1.1rem;color:#eef2f8">Enter PIN to view</div>
+            <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••"
+                   style="width:100%;padding:.7rem;text-align:center;font-size:1.3rem;letter-spacing:.3em;
+                          border:1px solid rgba(255,255,255,.2);border-radius:10px;outline:none;background:rgba(0,0,0,.2);color:#fff;font-family:inherit">
+            <div id="pinerr" style="height:1.1rem;margin-top:.5rem;font-size:.8rem;color:#e0a58f"></div>
+            <button id="pinbtn" style="width:100%;padding:.65rem;margin-top:.3rem;border:none;border-radius:10px;
+                    background:#5e81ac;color:#fff;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit">Unlock</button>
+        </div>
+    </div>
+    <div class="card" style="display:none">
         <div class="head">
             <div class="eyebrow">Refractive &amp; Cataract Surgery Fellowship</div>
             <h1>Month One</h1>
@@ -69,6 +82,26 @@
     Chart.defaults.color='#cfd9e8';
     const PAL=['#5e81ac','#a3be8c','#88c0d0','#ebcb8b','#b48ead','#d08770'];
 
+    // ---- Soft PIN gate (de-identified aggregate data only) ----
+    const PIN='4170';
+    function unlock(){
+        document.getElementById('gate').style.display='none';
+        document.querySelector('.card').style.display='';
+        loadStats();
+    }
+    (function gate(){
+        if(sessionStorage.getItem('trk_ok')==='1'){ unlock(); return; }
+        var inp=document.getElementById('pin'), err=document.getElementById('pinerr'), btn=document.getElementById('pinbtn');
+        function tryPin(){
+            if(inp.value===PIN){ sessionStorage.setItem('trk_ok','1'); unlock(); }
+            else { err.textContent='Incorrect PIN'; inp.value=''; inp.focus(); }
+        }
+        btn.addEventListener('click',tryPin);
+        inp.addEventListener('keydown',function(e){ if(e.key==='Enter') tryPin(); });
+        inp.focus();
+    })();
+
+    function loadStats(){
     fetch('stats.json?v='+Date.now()).then(r=>r.json()).then(s=>{
         document.getElementById('gen').textContent=s.generated;
         const t=s.totals;
@@ -116,6 +149,7 @@
         D(mix, ['Cataract','Refractive','Other'], [cat,refr,other], ['#5e81ac','#88c0d0','#4c566a']);
         D(ref, ['EVO ICL','LASIK'], [icl,lasik], ['#88c0d0','#a3be8c']);
     }).catch(e=>{document.getElementById('app').innerHTML='<div class="err">Could not load stats.</div>'});
+    }
     </script>
 </body>
 </html>

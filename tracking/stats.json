@@ -1,8 +1,8 @@
 {
-  "generated": "2026-07-30",
+  "generated": "2026-07-31",
   "totals": {
-    "eyes": 123,
-    "patients": 101,
+    "eyes": 125,
+    "patients": 103,
     "premium": 46,
     "standard": 55,
     "premium_pct": 46,
@@ -43,7 +43,8 @@
     "Pterygium": 2,
     "Piggyback IOL": 1,
     "LASIK / Refractive": 5,
-    "AC procedure": 1
+    "AC procedure": 1,
+    "CTAK (corneal)": 2
   },
   "power": {
     "18\u201320": 19,
