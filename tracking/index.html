@@ -174,11 +174,15 @@
             datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:pl.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
-        // Family horizontal bar
+        // Family horizontal bar — % of IOLs, count on hover
         const f = sortObj(s.family);
+        const ftot = f.reduce((a,x)=>a+x[1],0);
         new Chart(fam,{type:'bar',data:{labels:f.map(x=>x[0]),
-            datasets:[{data:f.map(x=>x[1]),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
-            options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
+            datasets:[{data:f.map(x=>Math.round(100*x[1]/ftot)),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
+            options:{indexAxis:'y',plugins:{legend:{display:false},
+                tooltip:{callbacks:{label:c=>c.parsed.x+'%  ('+f[c.dataIndex][1]+' eyes)'}},
+                datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:11}}},
+                scales:{x:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});
 
         // VA bar (ordered) — shared scale/colors for POD1 and POW1
         const order = ['20/20 or better','20/25','20/30–20/40','worse than 20/40'];
