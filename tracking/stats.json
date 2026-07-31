@@ -1,8 +1,8 @@
 {
   "generated": "2026-07-31",
   "totals": {
-    "eyes": 128,
-    "patients": 104,
+    "eyes": 129,
+    "patients": 105,
     "premium": 47,
     "standard": 55,
     "premium_pct": 46,
@@ -42,7 +42,7 @@
     "EVO ICL": 12,
     "Pterygium": 2,
     "Piggyback IOL": 1,
-    "LASIK / Refractive": 5,
+    "LASIK / Refractive": 6,
     "AC procedure": 1,
     "CTAK (corneal)": 2
   },
