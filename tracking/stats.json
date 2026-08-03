@@ -9,7 +9,7 @@
     "iol": 102,
     "toric": 22,
     "toric_pct": 22,
-    "va_recorded": 57,
+    "va_recorded": 58,
     "pow1_recorded": 9,
     "near_recorded": 8
   },
@@ -57,7 +57,7 @@
   "va": {
     "20/30\u201320/40": 16,
     "20/25": 13,
-    "20/20 or better": 18,
+    "20/20 or better": 19,
     "worse than 20/40": 10
   },
   "pow1": {
