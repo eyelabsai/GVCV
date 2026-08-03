@@ -1,8 +1,8 @@
 {
   "generated": "2026-08-03",
   "totals": {
-    "eyes": 131,
-    "patients": 106,
+    "eyes": 137,
+    "patients": 109,
     "premium": 47,
     "standard": 55,
     "premium_pct": 46,
@@ -23,7 +23,7 @@
     "Toric monofocal": 13,
     "LAL": 2,
     "Enhanced monofocal": 1,
-    "ICL": 10,
+    "ICL": 16,
     "Other": 4
   },
   "family": {
@@ -34,12 +34,12 @@
     "Tecnis Toric (ZCU)": 13,
     "LAL (Light Adjustable)": 2,
     "Eyhance": 1,
-    "EVO ICL": 10,
+    "EVO ICL": 16,
     "Other": 4
   },
   "procedure": {
     "Cataract": 105,
-    "EVO ICL": 12,
+    "EVO ICL": 18,
     "Pterygium": 2,
     "Piggyback IOL": 1,
     "LASIK / Refractive": 8,
