@@ -35,5 +35,6 @@ User-agent: *
 Allow: /
 Disallow: /seo-experiment.html
 Disallow: /AEO-SEO-PLAYBOOK.md
+Disallow: /amarillo/
 
 Sitemap: https://gurpalvirdi.com/sitemap.xml

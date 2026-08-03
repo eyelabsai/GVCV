@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Amarillo Production Calculator</title>
+<style>
+  :root { --bg:#0f1419; --card:#1a2028; --ink:#e6edf3; --muted:#8b96a5; --accent:#4fd1c5; --accent2:#f6ad55; --line:#2d3540; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--ink); margin:0; padding:24px; line-height:1.5; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:24px; }
+  .layout { display:grid; grid-template-columns:1.5fr 1fr; gap:20px; max-width:1200px; align-items:start; }
+  @media (max-width:860px){ .layout{grid-template-columns:1fr;} .results{position:static !important;} }
+  .col { display:flex; flex-direction:column; gap:20px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; }
+  .card h2 { font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:0 0 16px; }
+  .results { position:sticky; top:24px; }
+  .results.card { border-color:var(--accent); }
+  label { display:block; font-size:13px; margin:14px 0 4px; color:var(--ink); }
+  label:first-of-type { margin-top:0; }
+  input[type=number] { width:100%; padding:8px 10px; background:#0f1419; border:1px solid var(--line); border-radius:8px; color:var(--ink); font-size:15px; }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .rangerow { display:flex; align-items:center; gap:12px; }
+  .rangerow input[type=range]{ flex:1; }
+  .rangeval { width:56px; text-align:right; font-variant-numeric:tabular-nums; color:var(--accent); font-size:15px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .grid2 label { margin-top:0; }
+  .out { display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; gap:10px; }
+  .out:last-child{ border-bottom:none; }
+  .out .k { color:var(--muted); font-size:13px; }
+  .out .v { font-size:16px; font-weight:600; text-align:right; }
+  .section-h { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); margin:18px 0 4px; }
+  .section-h:first-child{ margin-top:0; }
+  .big { font-size:26px; color:var(--accent); }
+  .big2 { font-size:20px; color:var(--accent2); }
+  .note { color:var(--muted); font-size:12px; margin-top:16px; }
+</style>
+</head>
+<body>
+  <div id="gate" style="position:fixed;inset:0;background:#0f1419;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
+    <div style="font-size:14px;color:#8b96a5;letter-spacing:.05em;text-transform:uppercase;">Enter code</div>
+    <input id="gateCode" type="password" inputmode="numeric" autocomplete="off" style="padding:12px 16px;font-size:22px;text-align:center;background:#1a2028;border:1px solid #2d3540;border-radius:10px;color:#e6edf3;width:180px;letter-spacing:6px;outline:none;">
+    <div id="gateErr" style="color:#f6768e;font-size:13px;height:16px;"></div>
+  </div>
+  <script>
+  (function(){
+    var g=document.getElementById('gate');
+    if(sessionStorage.getItem('amarilloGate')==='1'){ g.style.display='none'; return; }
+    var inp=document.getElementById('gateCode'), err=document.getElementById('gateErr');
+    inp.focus();
+    function check(){
+      if(inp.value==='6969'){ sessionStorage.setItem('amarilloGate','1'); g.style.display='none'; }
+      else { err.textContent='Nope'; inp.value=''; }
+    }
+    inp.addEventListener('keydown',function(e){ if(e.key==='Enter') check(); });
+    inp.addEventListener('input',function(){ if(inp.value.length>=4) check(); });
+  })();
+  </script>
+  <h1>Amarillo Production Calculator</h1>
+  <div class="sub">Cataract + EVO ICL production model · 1099 / Texas (no state income tax)</div>
+
+  <div class="layout">
+    <!-- LEFT: INPUTS -->
+    <div class="col">
+      <div class="card">
+        <h2>Cataract day</h2>
+        <label>Eyes per day</label>
+        <input type="number" id="catCases" value="30">
+        <div class="grid2">
+          <div><label>Basic $/eye</label><input type="number" id="basicRate" value="150"></div>
+          <div><label>Laser mono $/eye</label><input type="number" id="laserRate" value="450"></div>
+        </div>
+        <label>Multifocal $/eye — premium / LAL / post-refractive</label>
+        <input type="number" id="premRate" value="700">
+        <label>Basic mix (%) — non-premium / insurance</label>
+        <div class="rangerow"><input type="range" id="basicMix" min="0" max="100" value="20"><span class="rangeval" id="basicMixV">20%</span></div>
+        <label>Multifocal mix (%)</label>
+        <div class="rangerow"><input type="range" id="premMix" min="0" max="100" value="20"><span class="rangeval" id="premMixV">20%</span></div>
+        <div class="out" style="margin-top:12px"><span class="k">Laser monofocal mix (auto remainder)</span><span class="v" id="laserMixV" style="color:var(--muted)">30%</span></div>
+        <div class="out"><span class="k">Blended fee / eye</span><span class="v" id="blendV" style="color:var(--accent2)">—</span></div>
+      </div>
+
+      <div class="card">
+        <h2>Refractive (EVO ICL) day</h2>
+        <div class="grid2">
+          <div><label>Eyes per day</label><input type="number" id="iclEyes" value="20"></div>
+          <div><label>Surgeon $/eye</label><input type="number" id="iclRate" value="500"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Schedule &amp; tax</h2>
+        <div class="grid2">
+          <div><label>Cataract days / week</label><input type="number" id="catPerWeek" value="1" step="0.5" min="0"></div>
+          <div><label>Refractive days / week</label><input type="number" id="iclPerWeek" value="1" step="0.5" min="0"></div>
+        </div>
+        <label>Weeks worked / year</label>
+        <input type="number" id="weeksPerYear" value="48" min="0" max="52">
+        <label>Effective tax rate (%)</label>
+        <div class="rangerow"><input type="range" id="taxRate" min="0" max="50" value="37"><span class="rangeval" id="taxRateV">37%</span></div>
+        <div class="sub" style="margin:8px 0 0">1099 + SE tax + federal. TX has no state income tax.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULTS (sticky) -->
+    <div class="card results">
+      <h2>Results</h2>
+
+      <div class="section-h">Surgery volume (eyes)</div>
+      <div class="out"><span class="k">Cataract — wk / mo / yr</span><span class="v" id="catVol">—</span></div>
+      <div class="out"><span class="k">Refractive — wk / mo / yr</span><span class="v" id="refVol">—</span></div>
+      <div class="out"><span class="k">Total — wk / mo / yr</span><span class="v" id="totVol" style="color:var(--accent2)">—</span></div>
+
+      <div class="section-h">Per day</div>
+      <div class="out"><span class="k">Cataract gross / day</span><span class="v" id="catDayGross">—</span></div>
+      <div class="out"><span class="k">Refractive gross / day</span><span class="v" id="iclDayGross">—</span></div>
+
+      <div class="section-h">Per week</div>
+      <div class="out"><span class="k">Days / week (total)</span><span class="v" id="perWeek">—</span></div>
+      <div class="out"><span class="k">Gross / week</span><span class="v" id="wkGross">—</span></div>
+      <div class="out"><span class="k">Take-home / week</span><span class="v" id="wkNet">—</span></div>
+
+      <div class="section-h">Annual</div>
+      <div class="out"><span class="k">Cataract days / yr</span><span class="v" id="catDaysYr">—</span></div>
+      <div class="out"><span class="k">Refractive days / yr</span><span class="v" id="iclDaysYr">—</span></div>
+      <div class="out"><span class="k">Total days on-site / yr</span><span class="v" id="yrDays">—</span></div>
+      <div class="out"><span class="k">Total eyes / yr</span><span class="v" id="yrCases">—</span></div>
+      <div class="out"><span class="k">Total gross / year</span><span class="v big2" id="yrGross">—</span></div>
+      <div class="out"><span class="k">Total take-home / year</span><span class="v big" id="yrNet">—</span></div>
+
+      <div class="note">Estimates only. Premium mix and days/year are the swing variables — stress-test them. Confirm flat-per-eye vs % of collections, and that malpractice + tail are covered, before banking any of this.</div>
+    </div>
+  </div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const money = n => '$' + Math.round(n).toLocaleString();
+  const inputs = ['catCases','basicRate','laserRate','premRate','basicMix','premMix','iclEyes','iclRate','catPerWeek','iclPerWeek','weeksPerYear','taxRate'];
+
+  function calc(){
+    const catCases = +$('catCases').value;
+    const basic = +$('basicRate').value;
+    const laser = +$('laserRate').value;
+    const prem  = +$('premRate').value;
+    let basicMix = +$('basicMix').value/100;
+    let premMix  = +$('premMix').value/100;
+    if (basicMix + premMix > 1){ premMix = Math.max(0, 1 - basicMix); }
+    const laserMix = Math.max(0, 1 - basicMix - premMix);
+
+    const iclEyes = +$('iclEyes').value;
+    const iclRate = +$('iclRate').value;
+
+    const catPerWeek = +$('catPerWeek').value;
+    const iclPerWeek = +$('iclPerWeek').value;
+    const weeks = +$('weeksPerYear').value;
+    const tax = +$('taxRate').value/100;
+    const keep = 1 - tax;
+
+    // slider labels
+    $('laserMixV').textContent = Math.round(laserMix*100)+'%';
+    $('premMixV').textContent  = Math.round(premMix*100)+'%';
+    $('basicMixV').textContent = Math.round(basicMix*100)+'%';
+    $('taxRateV').textContent  = Math.round(tax*100)+'%';
+
+    // per case / per day
+    const blended = basicMix*basic + laserMix*laser + premMix*prem;
+    $('blendV').textContent = money(blended) + ' / eye';
+    const catDayGross = catCases * blended;
+    const iclDayGross = iclEyes * iclRate;
+
+    // schedule
+    const catDaysYr = catPerWeek * weeks;
+    const iclDaysYr = iclPerWeek * weeks;
+    const yrDays = catDaysYr + iclDaysYr;
+    const perWeek = catPerWeek + iclPerWeek;
+    const yrCases = catCases*catDaysYr + iclEyes*iclDaysYr;
+
+    // volume split (eyes)
+    const catWk = catCases*catPerWeek, refWk = iclEyes*iclPerWeek;
+    const catYr = catCases*catDaysYr,  refYr = iclEyes*iclDaysYr;
+    const fmt = (w,m,y) => `${Math.round(w)} / ${Math.round(m)} / ${Math.round(y).toLocaleString()}`;
+    $('catVol').textContent = fmt(catWk, catYr/12, catYr);
+    $('refVol').textContent = fmt(refWk, refYr/12, refYr);
+    $('totVol').textContent = fmt(catWk+refWk, (catYr+refYr)/12, catYr+refYr);
+
+    const wkGross = catDayGross*catPerWeek + iclDayGross*iclPerWeek;
+    const yrGross = catDayGross*catDaysYr + iclDayGross*iclDaysYr;
+
+    // outputs
+    $('catDayGross').textContent = money(catDayGross);
+    $('iclDayGross').textContent = money(iclDayGross);
+    $('perWeek').textContent = (perWeek % 1 === 0 ? perWeek : perWeek.toFixed(1)) + ' days';
+    $('wkGross').textContent = money(wkGross);
+    $('wkNet').textContent   = money(wkGross*keep);
+    $('catDaysYr').textContent = Math.round(catDaysYr);
+    $('iclDaysYr').textContent = Math.round(iclDaysYr);
+    $('yrDays').textContent = Math.round(yrDays);
+    $('yrCases').textContent = Math.round(yrCases).toLocaleString();
+    $('yrGross').textContent = money(yrGross);
+    $('yrNet').textContent   = money(yrGross*keep);
+  }
+  inputs.forEach(id => $(id).addEventListener('input', calc));
+  calc();
+</script>
+</body>
+</html>
