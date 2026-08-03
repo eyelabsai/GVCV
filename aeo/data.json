@@ -99,10 +99,35 @@
           "score": 87
         }
       ]
+    },
+    {
+      "date": "2026-08-03T15:38:13.100Z",
+      "sites": [
+        {
+          "domain": "iclsurgery.com",
+          "score": 97
+        },
+        {
+          "domain": "iclfit.com",
+          "score": 87
+        },
+        {
+          "domain": "gurpalvirdi.com",
+          "score": 94
+        },
+        {
+          "domain": "refractivefoundations.com",
+          "score": 86
+        },
+        {
+          "domain": "iolreference.com",
+          "score": 87
+        }
+      ]
     }
   ],
   "latest": {
-    "date": "2026-07-27T15:37:26.779Z",
+    "date": "2026-08-03T15:38:13.100Z",
     "sites": [
       {
         "domain": "iclsurgery.com",
