@@ -175,6 +175,8 @@
                 ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA — LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
                 ${(s.icl_dist&&Object.keys(s.icl_dist).length)?card('icldist','EVO ICL — distance outcomes','ICL eyes with a plano (distance) target — POD1 uncorrected distance VA'):''}
                 ${(s.icl_near&&Object.keys(s.icl_near).length)?card('iclnear','EVO ICL — near-target outcomes','ICL eyes with a mini-monovision (near) target — reading acuity (Jaeger)'):''}
+                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rov','Range of vision — EDOF / trifocal','Presbyopia-correcting lenses (distance target), uncorrected at each viewing distance — currently POD1-heavy (distance edema-limited)',true):''}
+                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrov','Range of vision — by platform','Uncorrected % achieving 20/25-or-better (near: J2-or-better) at each distance, platforms with n≥5',true):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
             </div>`;
@@ -288,6 +290,43 @@
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.icl_near[c.label]+' eyes)'}},
                     datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+        }
+
+        // Range of vision — normalize distance/intermediate (Snellen) + near (Jaeger)
+        // onto one 4-tier quality scale so all three viewing distances share a chart.
+        const TIER=['Excellent','Good','Functional','Reduced'];
+        const TC={Excellent:'#a3be8c',Good:'#88c0d0',Functional:'#ebcb8b',Reduced:'#d08770'};
+        function toTiers(buckets){ // {va-bucket:count} -> {tier:count} (Snellen or Jaeger)
+            const map={'20/20 or better':'Excellent','J1 (~20/20 near)':'Excellent',
+                '20/25':'Good','J2–J3 (~20/25–30 near)':'Good',
+                '20/30–20/40':'Functional','worse than 20/40':'Reduced','J4+ (weaker near)':'Reduced'};
+            const out={}; Object.entries(buckets||{}).forEach(([k,v])=>{const tt=map[k]||'Reduced';out[tt]=(out[tt]||0)+v;}); return out;
+        }
+        // Stacked 100% bar: one bar per viewing distance, split by quality tier.
+        if(s.range_of_vision && s.range_of_vision.n && s.range_of_vision.n.distance && typeof rov!=='undefined' && rov){
+            const b=s.range_of_vision.buckets, n=s.range_of_vision.n;
+            const cats=[['distance','Distance'],['intermediate','Intermediate'],['near','Near']].filter(c=>n[c[0]]);
+            const tiered=cats.map(c=>toTiers(b[c[0]]));
+            const tot=cats.map((c,i)=>Object.values(tiered[i]).reduce((a,x)=>a+x,0));
+            new Chart(rov,{type:'bar',data:{labels:cats.map(c=>c[1]+' (n='+n[c[0]]+')'),
+                datasets:TIER.map(tt=>({label:tt,backgroundColor:TC[tt],
+                    data:cats.map((c,i)=>tot[i]?Math.round(100*(tiered[i][tt]||0)/tot[i]):0)}))},
+                options:{indexAxis:'y',plugins:{legend:{position:'bottom'},datalabels:{display:c=>c.dataset.data[c.dataIndex]>=10,color:'#2e3440',font:{weight:'700',size:11},formatter:v=>v?v+'%':''}},
+                    scales:{x:{stacked:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{stacked:true,grid:{display:false}}}}});
+        }
+
+        // Range of vision by platform — % achieving functional VA (20/25+/J2+) at each distance
+        if(s.platform_range && Object.keys(s.platform_range).length && typeof platrov!=='undefined' && platrov){
+            const plats=Object.keys(s.platform_range);
+            const pc={'Envy (ETNU/ENU)':'#5e81ac','PureSee (DEN00V)':'#88c0d0','PanOptix (TFNT)':'#b48ead','Odyssey (DRN00V)':'#a3be8c','Vivity (DFT)':'#d08770'};
+            const dist=[['distance','Distance'],['intermediate','Intermediate'],['near','Near']];
+            function funcPct(buckets){const good=new Set(['20/20 or better','20/25','J1 (~20/20 near)','J2–J3 (~20/25–30 near)']);
+                let g=0,tot=0;Object.entries(buckets||{}).forEach(([k,v])=>{tot+=v;if(good.has(k))g+=v;});return tot?Math.round(100*g/tot):null;}
+            new Chart(platrov,{type:'bar',data:{labels:dist.map(d=>d[1]),
+                datasets:plats.map(p=>({label:p.split(' ')[0]+' (n='+s.platform_range[p].n+')',backgroundColor:pc[p]||'#81a1c1',borderRadius:6,
+                    data:dist.map(d=>funcPct(s.platform_range[p][d[0]]))}))},
+                options:{plugins:{legend:{position:'bottom'},datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v==null?'':v+'%',color:'#4c566a',font:{weight:'700',size:11}}},
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 

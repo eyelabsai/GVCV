@@ -93,5 +93,64 @@
   },
   "icl_near": {
     "J1 (~20/20 near)": 1
+  },
+  "range_of_vision": {
+    "buckets": {
+      "distance": {
+        "20/25": 5,
+        "worse than 20/40": 5,
+        "20/20 or better": 6,
+        "20/30\u201320/40": 9
+      },
+      "intermediate": {
+        "20/20 or better": 15,
+        "20/30\u201320/40": 5,
+        "worse than 20/40": 3
+      },
+      "near": {
+        "J1 (~20/20 near)": 10,
+        "J2\u2013J3 (~20/25\u201330 near)": 7,
+        "J4+ (weaker near)": 4
+      }
+    },
+    "n": {
+      "distance": 25,
+      "intermediate": 23,
+      "near": 21
+    }
+  },
+  "platform_range": {
+    "Envy (ETNU/ENU)": {
+      "distance": {
+        "20/25": 5,
+        "worse than 20/40": 3,
+        "20/20 or better": 5,
+        "20/30\u201320/40": 8
+      },
+      "intermediate": {
+        "20/30\u201320/40": 5,
+        "20/20 or better": 12,
+        "worse than 20/40": 2
+      },
+      "near": {
+        "J1 (~20/20 near)": 10,
+        "J2\u2013J3 (~20/25\u201330 near)": 7,
+        "J4+ (weaker near)": 4
+      },
+      "n": 21
+    },
+    "PureSee (DEN00V)": {
+      "distance": {
+        "worse than 20/40": 2,
+        "20/20 or better": 1,
+        "20/30\u201320/40": 1
+      },
+      "intermediate": {
+        "20/20 or better": 3,
+        "worse than 20/40": 1
+      },
+      "near": {},
+      "n": 5
+    }
   }
 }
