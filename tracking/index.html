@@ -38,10 +38,17 @@
         .kpi{background:rgba(255,255,255,.75);border:1px solid var(--border);border-radius:16px;padding:1.15rem 1.25rem;backdrop-filter:blur(6px)}
         .kpi .n{font-size:2rem;font-weight:700;color:var(--secondary);line-height:1}
         .kpi .l{font-size:.82rem;color:var(--muted);margin-top:.4rem;font-weight:500}
-        .procstrip{display:flex;flex-wrap:wrap;gap:.6rem;margin:-.75rem 0 1.75rem}
-        .chip{display:flex;align-items:baseline;gap:.4rem;background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:999px;padding:.4rem .85rem}
-        .chip .cn{font-size:1.05rem;font-weight:700;color:var(--secondary);line-height:1}
-        .chip .cl{font-size:.78rem;color:var(--muted);font-weight:500}
+        .procstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.7rem;margin:-.25rem 0 1.9rem}
+        .chip{position:relative;display:flex;flex-direction:column;gap:.15rem;
+            background:linear-gradient(180deg,#ffffff 0%,#fbfcfe 100%);
+            border:1px solid var(--border);border-radius:14px;padding:.85rem .95rem .8rem;
+            box-shadow:0 1px 2px rgba(46,52,64,.04);overflow:hidden;
+            transition:transform .15s ease,box-shadow .15s ease}
+        .chip:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(46,52,64,.09)}
+        .chip::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--dot,var(--accent))}
+        .chip .cn{font-size:1.7rem;font-weight:700;color:var(--text);line-height:1;letter-spacing:-.02em}
+        .chip .cl{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+        .chip .cl::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--dot,var(--accent));flex:none}
 
         .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
         @media(max-width:720px){.grid{grid-template-columns:1fr}}
@@ -103,16 +110,19 @@
 
     function kpi(n,l){return `<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`}
 
-    // Non-cataract procedure counts, shown as chips under the KPIs.
+    // Non-cataract procedure counts, shown as accent-colored mini-cards under the KPIs.
     function procStrip(proc){
         if(!proc) return '';
-        const label={'EVO ICL':'EVO ICL','LASIK / Refractive':'LASIK','LASIK':'LASIK',
-            'CTAK (corneal)':'CTAK','CXL':'CXL','Pterygium':'Pterygium','Piggyback IOL':'Piggyback',
-            'IOL Exchange':'IOL exchange','AC procedure':'AC procedure','Other anterior seg':'Other AS'};
+        const meta={
+            'EVO ICL':['EVO ICL','#5e81ac'],'LASIK / Refractive':['LASIK','#88c0d0'],'LASIK':['LASIK','#88c0d0'],
+            'CTAK (corneal)':['CTAK','#a3be8c'],'CXL':['CXL','#8fbcbb'],'Pterygium':['Pterygium','#ebcb8b'],
+            'Piggyback IOL':['Piggyback','#b48ead'],'IOL Exchange':['IOL exchange','#d08770'],
+            'AC procedure':['AC procedure','#81a1c1'],'Other anterior seg':['Other AS','#4c566a']};
         const chips=Object.entries(proc)
             .filter(([k])=>k!=='Cataract')
             .sort((a,b)=>b[1]-a[1])
-            .map(([k,v])=>`<div class="chip"><span class="cn">${v}</span><span class="cl">${label[k]||k}</span></div>`);
+            .map(([k,v])=>{const m=meta[k]||[k,'#81a1c1'];
+                return `<div class="chip" style="--dot:${m[1]}"><span class="cn">${v}</span><span class="cl">${m[0]}</span></div>`;});
         return chips.length?`<div class="procstrip">${chips.join('')}</div>`:'';
     }
     function card(id,title,hint,tall){return `<div class="card"><h2>${title}</h2><div class="hint">${hint}</div><div class="chart-box${tall?' tall':''}"><canvas id="${id}"></canvas></div></div>`}
