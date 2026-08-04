@@ -52,6 +52,15 @@
 
         .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
         @media(max-width:720px){.grid{grid-template-columns:1fr}}
+        .tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0 1.5rem;border-bottom:1px solid var(--border);padding-bottom:.9rem}
+        .tab{border:1px solid var(--border);background:rgba(255,255,255,.6);color:var(--muted);
+            border-radius:999px;padding:.5rem 1.05rem;font-size:.9rem;font-weight:600;cursor:pointer;
+            font-family:inherit;transition:all .15s ease}
+        .tab:hover{background:#fff;color:var(--text)}
+        .tab.active{background:var(--secondary);color:#fff;border-color:var(--secondary);box-shadow:0 2px 8px rgba(94,129,172,.25)}
+        .panel{display:none}
+        .panel.active{display:block;animation:fade .2s ease}
+        @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
         .card{background:rgba(255,255,255,.8);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.35rem;backdrop-filter:blur(6px)}
         .card.wide{grid-column:1/-1}
         .card h2{font-size:1rem;font-weight:600;margin-bottom:.15rem}
@@ -164,52 +173,87 @@
                 ${kpi((t.toric_pct||0)+'%','Toric (astigmatism)')}
             </div>
             ${procStrip(s.procedure)}
-            <div class="grid">
+            <div class="tabs">
+                <button class="tab active" data-tab="overview">Overview</button>
+                <button class="tab" data-tab="lens">Lens Outcomes</button>
+                <button class="tab" data-tab="cataract">Cataract VA</button>
+                <button class="tab" data-tab="refractive">Refractive · ICL / LASIK</button>
+            </div>
+
+            <div class="panel active" data-panel="overview">
+              <div class="grid">
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
                 ${card('proc','Procedure mix','Case types across all surgery days')}
+                ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
+              </div>
+            </div>
+
+            <div class="panel" data-panel="lens">
+              <div class="grid">
+                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rov','Range of vision — EDOF / trifocal','Presbyopia-correcting lenses (distance target), uncorrected at each viewing distance — currently POD1-heavy (distance edema-limited)',true):''}
+                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrov','Range of vision — by platform','Uncorrected % achieving 20/25-or-better (near: J2-or-better) at each distance, platforms with n≥5',true):''}
+                ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
+              </div>
+            </div>
+
+            <div class="panel" data-panel="cataract">
+              <div class="grid">
                 ${card('va','Cataract — distance VA, POD1','IOL distance-target eyes, uncorrected, ~post-op day 1 — improves as edema clears')}
                 ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Cataract — distance VA, POW1','IOL distance-target eyes at ~post-op week 1 — edema cleared, closer to final'):''}
                 ${(s.near&&Object.keys(s.near).length)?card('near','Cataract — near-target outcomes','Mini-monovision eyes — reading acuity (Jaeger); not meant for 20/20 distance'):''}
+              </div>
+            </div>
+
+            <div class="panel" data-panel="refractive">
+              <div class="grid">
                 ${(s.refractive&&Object.keys(s.refractive).length)?card('refr','Refractive VA — all (LASIK + ICL)','POD1 uncorrected distance, refractive procedures combined (eye counts)'):''}
                 ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA — LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
                 ${(s.icl_dist&&Object.keys(s.icl_dist).length)?card('icldist','EVO ICL — distance outcomes','ICL eyes with a plano (distance) target — POD1 uncorrected distance VA'):''}
                 ${(s.icl_near&&Object.keys(s.icl_near).length)?card('iclnear','EVO ICL — near-target outcomes','ICL eyes with a mini-monovision (near) target — reading acuity (Jaeger)'):''}
-                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rov','Range of vision — EDOF / trifocal','Presbyopia-correcting lenses (distance target), uncorrected at each viewing distance — currently POD1-heavy (distance edema-limited)',true):''}
-                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrov','Range of vision — by platform','Uncorrected % achieving 20/25-or-better (near: J2-or-better) at each distance, platforms with n≥5',true):''}
-                ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
-                ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
+              </div>
             </div>`;
+
+        // Tab switching — charts live in hidden panels, so resize on show.
+        const CHARTS=[];
+        const mkChart=(el,cfg)=>{const c=mkChart(el,cfg);CHARTS.push(c);return c;};
+        document.querySelectorAll('.tab').forEach(tb=>tb.addEventListener('click',()=>{
+            document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+            tb.classList.add('active');
+            document.querySelector('.panel[data-panel="'+tb.dataset.tab+'"]').classList.add('active');
+            CHARTS.forEach(c=>{try{c.resize();}catch(e){}});
+        }));
 
         // Monofocal vs Premium doughnut
         const mv = sortObj(s.premiumVsStandard);
-        new Chart(mix,{type:'doughnut',data:{labels:mv.map(x=>x[0]),
+        mkChart(mix,{type:'doughnut',data:{labels:mv.map(x=>x[0]),
             datasets:[{data:mv.map(x=>x[1]),backgroundColor:mv.map(x=>x[0].includes('Premium')?'#a3be8c':'#5e81ac'),borderWidth:2,borderColor:'#fff'}]},
             options:{plugins:{legend:{position:'bottom'},datalabels:{display:true,color:'#fff',font:{weight:'700',size:14},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return Math.round(100*v/t)+'%'}}},cutout:'62%'}});
 
         // Category bar
         const c = sortObj(s.category);
-        new Chart(cat,{type:'bar',data:{labels:c.map(x=>x[0]),
+        mkChart(cat,{type:'bar',data:{labels:c.map(x=>x[0]),
             datasets:[{data:c.map(x=>x[1]),backgroundColor:PALETTE,borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
         // Procedure mix doughnut
         const pm = sortObj(s.procedure || {});
-        new Chart(proc,{type:'doughnut',data:{labels:pm.map(x=>x[0]),
+        mkChart(proc,{type:'doughnut',data:{labels:pm.map(x=>x[0]),
             datasets:[{data:pm.map(x=>x[1]),backgroundColor:PALETTE,borderWidth:2,borderColor:'#fff'}]},
             options:{plugins:{legend:{position:'bottom'},datalabels:{display:c=>c.dataset.data[c.dataIndex]/c.dataset.data.reduce((a,b)=>a+b,0)>0.06,color:'#fff',font:{weight:'700'},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return Math.round(100*v/t)+'%'}}},cutout:'55%'}});
 
         // IOL power distribution (fixed order)
         const porder = ['<15','15–17.5','18–20','20.5–22','22.5–24','≥24.5'];
         const pl = porder.filter(k=>(s.power||{})[k]);
-        new Chart(pow,{type:'bar',data:{labels:pl,
+        mkChart(pow,{type:'bar',data:{labels:pl,
             datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:pl.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
         // Family horizontal bar — % of IOLs, count on hover
         const f = sortObj(s.family);
         const ftot = f.reduce((a,x)=>a+x[1],0);
-        new Chart(fam,{type:'bar',data:{labels:f.map(x=>x[0]),
+        mkChart(fam,{type:'bar',data:{labels:f.map(x=>x[0]),
             datasets:[{data:f.map(x=>Math.round(100*x[1]/ftot)),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{indexAxis:'y',plugins:{legend:{display:false},
                 tooltip:{callbacks:{label:c=>c.parsed.x+'%  ('+f[c.dataIndex][1]+' eyes)'}},
@@ -222,7 +266,7 @@
         const vlabels = order.filter(k=>s.va[k]);
         if(vlabels.length){
             const vtot=vlabels.reduce((a,k)=>a+s.va[k],0);
-            new Chart(va,{type:'bar',data:{labels:vlabels,
+            mkChart(va,{type:'bar',data:{labels:vlabels,
                 datasets:[{data:vlabels.map(k=>Math.round(100*s.va[k]/vtot)),backgroundColor:vlabels.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.va[c.label]+' eyes)'}},
@@ -235,7 +279,7 @@
         // Refractive VA — all (LASIK + ICL combined), POD1 distance — % axis, count on hover
         if(s.refractive && Object.keys(s.refractive).length && typeof refr!=='undefined' && refr){
             const rl=order.filter(k=>s.refractive[k]); const rt=rl.reduce((a,k)=>a+s.refractive[k],0);
-            new Chart(refr,{type:'bar',data:{labels:rl,
+            mkChart(refr,{type:'bar',data:{labels:rl,
                 datasets:[{data:rl.map(k=>Math.round(100*s.refractive[k]/rt)),backgroundColor:rl.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.refractive[c.label]+' eyes)'}},
@@ -249,7 +293,7 @@
             const gc={'LASIK':'#5e81ac','ICL':'#a3be8c'};
             const gt={}; groups.forEach(g=>gt[g]=Object.values(s.refractive_split[g]).reduce((a,b)=>a+b,0));
             const rl=order.filter(k=>groups.some(g=>s.refractive_split[g][k]));
-            new Chart(refrsplit,{type:'bar',data:{labels:rl,
+            mkChart(refrsplit,{type:'bar',data:{labels:rl,
                 datasets:groups.map(g=>({label:g,data:rl.map(k=>gt[g]?Math.round(100*(s.refractive_split[g][k]||0)/gt[g]):0),backgroundColor:gc[g]||'#b48ead',borderRadius:6}))},
                 options:{plugins:{legend:{position:'bottom'},datalabels:{display:false},
                     tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%  ('+(s.refractive_split[c.dataset.label][c.label]||0)+' eyes)'}}},
@@ -261,7 +305,7 @@
             const norder=['J1 (~20/20 near)','J2–J3 (~20/25–30 near)','J4+ (weaker near)'];
             const ncolor={'J1 (~20/20 near)':'#a3be8c','J2–J3 (~20/25–30 near)':'#88c0d0','J4+ (weaker near)':'#ebcb8b'};
             const nl=norder.filter(k=>s.near[k]); const nt=nl.reduce((a,k)=>a+s.near[k],0);
-            new Chart(near,{type:'bar',data:{labels:nl,
+            mkChart(near,{type:'bar',data:{labels:nl,
                 datasets:[{data:nl.map(k=>Math.round(100*s.near[k]/nt)),backgroundColor:nl.map(k=>ncolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.near[c.label]+' eyes)'}},
@@ -272,7 +316,7 @@
         // EVO ICL — distance-target (plano) outcomes, POD1 uncorrected distance VA
         if(s.icl_dist && Object.keys(s.icl_dist).length && typeof icldist!=='undefined' && icldist){
             const il=order.filter(k=>s.icl_dist[k]); const it=il.reduce((a,k)=>a+s.icl_dist[k],0);
-            new Chart(icldist,{type:'bar',data:{labels:il,
+            mkChart(icldist,{type:'bar',data:{labels:il,
                 datasets:[{data:il.map(k=>Math.round(100*s.icl_dist[k]/it)),backgroundColor:il.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.icl_dist[c.label]+' eyes)'}},
@@ -285,7 +329,7 @@
             const norder=['J1 (~20/20 near)','J2–J3 (~20/25–30 near)','J4+ (weaker near)'];
             const ncolor={'J1 (~20/20 near)':'#a3be8c','J2–J3 (~20/25–30 near)':'#88c0d0','J4+ (weaker near)':'#ebcb8b'};
             const nl=norder.filter(k=>s.icl_near[k]); const nt=nl.reduce((a,k)=>a+s.icl_near[k],0);
-            new Chart(iclnear,{type:'bar',data:{labels:nl,
+            mkChart(iclnear,{type:'bar',data:{labels:nl,
                 datasets:[{data:nl.map(k=>Math.round(100*s.icl_near[k]/nt)),backgroundColor:nl.map(k=>ncolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.icl_near[c.label]+' eyes)'}},
@@ -309,7 +353,7 @@
             const cats=[['distance','Distance'],['intermediate','Intermediate'],['near','Near']].filter(c=>n[c[0]]);
             const tiered=cats.map(c=>toTiers(b[c[0]]));
             const tot=cats.map((c,i)=>Object.values(tiered[i]).reduce((a,x)=>a+x,0));
-            new Chart(rov,{type:'bar',data:{labels:cats.map(c=>c[1]+' (n='+n[c[0]]+')'),
+            mkChart(rov,{type:'bar',data:{labels:cats.map(c=>c[1]+' (n='+n[c[0]]+')'),
                 datasets:TIER.map(tt=>({label:tt,backgroundColor:TC[tt],
                     data:cats.map((c,i)=>tot[i]?Math.round(100*(tiered[i][tt]||0)/tot[i]):0)}))},
                 options:{indexAxis:'y',plugins:{legend:{position:'bottom'},datalabels:{display:c=>c.dataset.data[c.dataIndex]>=10,color:'#2e3440',font:{weight:'700',size:11},formatter:v=>v?v+'%':''}},
@@ -323,7 +367,7 @@
             const dist=[['distance','Distance'],['intermediate','Intermediate'],['near','Near']];
             function funcPct(buckets){const good=new Set(['20/20 or better','20/25','J1 (~20/20 near)','J2–J3 (~20/25–30 near)']);
                 let g=0,tot=0;Object.entries(buckets||{}).forEach(([k,v])=>{tot+=v;if(good.has(k))g+=v;});return tot?Math.round(100*g/tot):null;}
-            new Chart(platrov,{type:'bar',data:{labels:dist.map(d=>d[1]),
+            mkChart(platrov,{type:'bar',data:{labels:dist.map(d=>d[1]),
                 datasets:plats.map(p=>({label:p.split(' ')[0]+' (n='+s.platform_range[p].n+')',backgroundColor:pc[p]||'#81a1c1',borderRadius:6,
                     data:dist.map(d=>funcPct(s.platform_range[p][d[0]]))}))},
                 options:{plugins:{legend:{position:'bottom'},datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v==null?'':v+'%',color:'#4c566a',font:{weight:'700',size:11}}},
@@ -333,7 +377,7 @@
         // POW1 VA (settled) — same buckets/colors as POD1, only if data + card present
         if(s.pow1 && Object.keys(s.pow1).length && typeof pow1!=='undefined' && pow1){
             const wl=order.filter(k=>s.pow1[k]); const wt=wl.reduce((a,k)=>a+s.pow1[k],0);
-            new Chart(pow1,{type:'bar',data:{labels:wl,
+            mkChart(pow1,{type:'bar',data:{labels:wl,
                 datasets:[{data:wl.map(k=>Math.round(100*s.pow1[k]/wt)),backgroundColor:wl.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.pow1[c.label]+' eyes)'}},
