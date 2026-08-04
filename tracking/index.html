@@ -191,8 +191,10 @@
 
             <div class="panel" data-panel="lens">
               <div class="grid">
-                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rov','Range of vision — EDOF / trifocal','Presbyopia-correcting lenses (distance target), uncorrected at each viewing distance — currently POD1-heavy (distance edema-limited)',true):''}
-                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrov','Range of vision — by platform','Uncorrected % achieving 20/25-or-better (near: J2-or-better) at each distance, platforms with n≥5',true):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('defocus','Defocus curve — mean logMAR','Presbyopia-correcting EDOF/trifocal, distance-target eyes. Lower/higher = sharper (axis flipped). POD1-heavy for now.',true):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('cumdist','Cumulative VA — Distance','% of eyes at each acuity or better (uncorrected). Reads like Kang 2026 Fig 1.'):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.intermediate.n)?card('cumint','Cumulative VA — Intermediate','% achieving each acuity or better at intermediate (60 cm)'):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.near.n)?card('cumnear','Cumulative VA — Near','% achieving each acuity or better at near (from Jaeger, 40 cm)'):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
               </div>
             </div>
@@ -337,41 +339,41 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // Range of vision — normalize distance/intermediate (Snellen) + near (Jaeger)
-        // onto one 4-tier quality scale so all three viewing distances share a chart.
-        const TIER=['Excellent','Good','Functional','Reduced'];
-        const TC={Excellent:'#a3be8c',Good:'#88c0d0',Functional:'#ebcb8b',Reduced:'#d08770'};
-        function toTiers(buckets){ // {va-bucket:count} -> {tier:count} (Snellen or Jaeger)
-            const map={'20/20 or better':'Excellent','J1 (~20/20 near)':'Excellent',
-                '20/25':'Good','J2–J3 (~20/25–30 near)':'Good',
-                '20/30–20/40':'Functional','worse than 20/40':'Reduced','J4+ (weaker near)':'Reduced'};
-            const out={}; Object.entries(buckets||{}).forEach(([k,v])=>{const tt=map[k]||'Reduced';out[tt]=(out[tt]||0)+v;}); return out;
-        }
-        // Stacked 100% bar: one bar per viewing distance, split by quality tier.
-        if(s.range_of_vision && s.range_of_vision.n && s.range_of_vision.n.distance && typeof rov!=='undefined' && rov){
-            const b=s.range_of_vision.buckets, n=s.range_of_vision.n;
-            const cats=[['distance','Distance'],['intermediate','Intermediate'],['near','Near']].filter(c=>n[c[0]]);
-            const tiered=cats.map(c=>toTiers(b[c[0]]));
-            const tot=cats.map((c,i)=>Object.values(tiered[i]).reduce((a,x)=>a+x,0));
-            mkChart(rov,{type:'bar',data:{labels:cats.map(c=>c[1]+' (n='+n[c[0]]+')'),
-                datasets:TIER.map(tt=>({label:tt,backgroundColor:TC[tt],
-                    data:cats.map((c,i)=>tot[i]?Math.round(100*(tiered[i][tt]||0)/tot[i]):0)}))},
-                options:{indexAxis:'y',plugins:{legend:{position:'bottom'},datalabels:{display:c=>c.dataset.data[c.dataIndex]>=10,color:'#2e3440',font:{weight:'700',size:11},formatter:v=>v?v+'%':''}},
-                    scales:{x:{stacked:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{stacked:true,grid:{display:false}}}}});
-        }
+        // ---- Range of vision (logMAR), Kang-2026 style ----
+        const PLATC={'Envy (ETNU/ENU)':'#5e81ac','PureSee (DEN00V)':'#88c0d0','PanOptix (TFNT)':'#b48ead','Odyssey (DRN00V)':'#a3be8c','Vivity (DFT)':'#d08770'};
+        const SNL=['20/20','20/25','20/32','20/40','20/50','20/63'];   // logMAR 0.0→0.5
 
-        // Range of vision by platform — % achieving functional VA (20/25+/J2+) at each distance
-        if(s.platform_range && Object.keys(s.platform_range).length && typeof platrov!=='undefined' && platrov){
-            const plats=Object.keys(s.platform_range);
-            const pc={'Envy (ETNU/ENU)':'#5e81ac','PureSee (DEN00V)':'#88c0d0','PanOptix (TFNT)':'#b48ead','Odyssey (DRN00V)':'#a3be8c','Vivity (DFT)':'#d08770'};
-            const dist=[['distance','Distance'],['intermediate','Intermediate'],['near','Near']];
-            function funcPct(buckets){const good=new Set(['20/20 or better','20/25','J1 (~20/20 near)','J2–J3 (~20/25–30 near)']);
-                let g=0,tot=0;Object.entries(buckets||{}).forEach(([k,v])=>{tot+=v;if(good.has(k))g+=v;});return tot?Math.round(100*g/tot):null;}
-            mkChart(platrov,{type:'bar',data:{labels:dist.map(d=>d[1]),
-                datasets:plats.map(p=>({label:p.split(' ')[0]+' (n='+s.platform_range[p].n+')',backgroundColor:pc[p]||'#81a1c1',borderRadius:6,
-                    data:dist.map(d=>funcPct(s.platform_range[p][d[0]]))}))},
-                options:{plugins:{legend:{position:'bottom'},datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v==null?'':v+'%',color:'#4c566a',font:{weight:'700',size:11}}},
-                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+        // Cumulative VA bars: % achieving each acuity (or better) per viewing distance.
+        // Series = All EDOF (reference) + each qualifying platform (auto-adds as they hit n≥5).
+        function cumChart(cv, key){
+            if(!(s.va_cumulative && s.va_cumulative.overall[key] && s.va_cumulative.overall[key].n)) return;
+            const o=s.va_cumulative.overall[key];
+            const plats=Object.keys(s.va_cumulative.platform||{}).filter(p=>s.va_cumulative.platform[p][key] && s.va_cumulative.platform[p][key].n);
+            const ds=[{label:'All EDOF (n='+o.n+')',data:o.cum,backgroundColor:'#c8d0dd',borderRadius:4}];
+            plats.forEach(p=>ds.push({label:p.split(' ')[0]+' (n='+s.va_cumulative.platform[p][key].n+')',
+                data:s.va_cumulative.platform[p][key].cum,backgroundColor:PLATC[p]||'#81a1c1',borderRadius:4}));
+            mkChart(cv,{type:'bar',data:{labels:SNL,datasets:ds},
+                options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},datalabels:{display:false},
+                    tooltip:{callbacks:{title:i=>i[0].label+' or better',label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{color:'#eef1f6'},ticks:{callback:v=>v+'%'},title:{display:true,text:'cumulative % of eyes'}},
+                        x:{grid:{display:false},title:{display:true,text:'uncorrected VA — logMAR 0.0 → 0.5'}}}}});
+        }
+        if(typeof cumdist!=='undefined' && cumdist) cumChart(cumdist,'distance');
+        if(typeof cumint!=='undefined' && cumint) cumChart(cumint,'intermediate');
+        if(typeof cumnear!=='undefined' && cumnear) cumChart(cumnear,'near');
+
+        // Defocus curve: mean logMAR at each viewing distance (axis flipped, up = better).
+        if(s.va_cumulative && typeof defocus!=='undefined' && defocus){
+            const dm=['distance','intermediate','near'], lab=['Distance','Intermediate','Near'];
+            const line=(o,color,name)=>({label:name,data:dm.map(k=>o[k]&&o[k].mean!=null?o[k].mean:null),
+                borderColor:color,backgroundColor:color,tension:.2,borderWidth:3,pointRadius:5,pointHoverRadius:7,spanGaps:true});
+            const ds=[line(s.va_cumulative.overall,'#4c566a','All EDOF')];
+            Object.keys(s.va_cumulative.platform||{}).forEach(p=>ds.push(line(s.va_cumulative.platform[p],PLATC[p]||'#81a1c1',p.split(' ')[0])));
+            mkChart(defocus,{type:'line',data:{labels:lab,datasets:ds},
+                options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+                    datalabels:{align:'top',offset:6,color:'#4c566a',font:{weight:'600',size:10},formatter:v=>v==null?'':'20/'+Math.round(20*Math.pow(10,v))},
+                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y==null?'—':c.parsed.y.toFixed(3)+' logMAR ('+'20/'+Math.round(20*Math.pow(10,c.parsed.y))+')')}}},
+                    scales:{y:{reverse:true,title:{display:true,text:'mean logMAR (up = sharper)'},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
         }
 
         // POW1 VA (settled) — same buckets/colors as POD1, only if data + card present
