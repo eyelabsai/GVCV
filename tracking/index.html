@@ -145,6 +145,8 @@
                 ${(s.near&&Object.keys(s.near).length)?card('near','Cataract — near-target outcomes','Mini-monovision eyes — reading acuity (Jaeger); not meant for 20/20 distance'):''}
                 ${(s.refractive&&Object.keys(s.refractive).length)?card('refr','Refractive VA — all (LASIK + ICL)','POD1 uncorrected distance, refractive procedures combined (eye counts)'):''}
                 ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA — LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
+                ${(s.icl_dist&&Object.keys(s.icl_dist).length)?card('icldist','EVO ICL — distance outcomes','ICL eyes with a plano (distance) target — POD1 uncorrected distance VA'):''}
+                ${(s.icl_near&&Object.keys(s.icl_near).length)?card('iclnear','EVO ICL — near-target outcomes','ICL eyes with a mini-monovision (near) target — reading acuity (Jaeger)'):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
             </div>`;
@@ -233,6 +235,30 @@
                 datasets:[{data:nl.map(k=>Math.round(100*s.near[k]/nt)),backgroundColor:nl.map(k=>ncolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
                 options:{plugins:{legend:{display:false},
                     tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.near[c.label]+' eyes)'}},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+        }
+
+        // EVO ICL — distance-target (plano) outcomes, POD1 uncorrected distance VA
+        if(s.icl_dist && Object.keys(s.icl_dist).length && typeof icldist!=='undefined' && icldist){
+            const il=order.filter(k=>s.icl_dist[k]); const it=il.reduce((a,k)=>a+s.icl_dist[k],0);
+            new Chart(icldist,{type:'bar',data:{labels:il,
+                datasets:[{data:il.map(k=>Math.round(100*s.icl_dist[k]/it)),backgroundColor:il.map(k=>vacolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                options:{plugins:{legend:{display:false},
+                    tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.icl_dist[c.label]+' eyes)'}},
+                    datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
+                    scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+        }
+
+        // EVO ICL — near-target (mini-monovision) outcomes, Jaeger reading
+        if(s.icl_near && Object.keys(s.icl_near).length && typeof iclnear!=='undefined' && iclnear){
+            const norder=['J1 (~20/20 near)','J2–J3 (~20/25–30 near)','J4+ (weaker near)'];
+            const ncolor={'J1 (~20/20 near)':'#a3be8c','J2–J3 (~20/25–30 near)':'#88c0d0','J4+ (weaker near)':'#ebcb8b'};
+            const nl=norder.filter(k=>s.icl_near[k]); const nt=nl.reduce((a,k)=>a+s.icl_near[k],0);
+            new Chart(iclnear,{type:'bar',data:{labels:nl,
+                datasets:[{data:nl.map(k=>Math.round(100*s.icl_near[k]/nt)),backgroundColor:nl.map(k=>ncolor[k]||'#81a1c1'),borderRadius:8,maxBarThickness:90}]},
+                options:{plugins:{legend:{display:false},
+                    tooltip:{callbacks:{label:c=>c.parsed.y+'%  ('+s.icl_near[c.label]+' eyes)'}},
                     datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:12}}},
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
