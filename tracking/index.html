@@ -349,7 +349,7 @@
             if(!(s.va_cumulative && s.va_cumulative.overall[key] && s.va_cumulative.overall[key].n)) return;
             const o=s.va_cumulative.overall[key];
             const plats=Object.keys(s.va_cumulative.platform||{}).filter(p=>s.va_cumulative.platform[p][key] && s.va_cumulative.platform[p][key].n);
-            const ds=[{label:'All EDOF (n='+o.n+')',data:o.cum,backgroundColor:'#c8d0dd',borderRadius:4}];
+            const ds=[{label:'All EDOF (n='+o.n+')',data:o.cum,backgroundColor:'#bf616a',borderRadius:4}];
             plats.forEach(p=>ds.push({label:p.split(' ')[0]+' (n='+s.va_cumulative.platform[p][key].n+')',
                 data:s.va_cumulative.platform[p][key].cum,backgroundColor:PLATC[p]||'#81a1c1',borderRadius:4}));
             mkChart(cv,{type:'bar',data:{labels:SNL,datasets:ds},
@@ -367,7 +367,7 @@
             const dm=['distance','intermediate','near'], lab=['Distance','Intermediate','Near'];
             const line=(o,color,name)=>({label:name,data:dm.map(k=>o[k]&&o[k].mean!=null?o[k].mean:null),
                 borderColor:color,backgroundColor:color,tension:.2,borderWidth:3,pointRadius:5,pointHoverRadius:7,spanGaps:true});
-            const ds=[line(s.va_cumulative.overall,'#4c566a','All EDOF')];
+            const ds=[line(s.va_cumulative.overall,'#bf616a','All EDOF')];
             Object.keys(s.va_cumulative.platform||{}).forEach(p=>ds.push(line(s.va_cumulative.platform[p],PLATC[p]||'#81a1c1',p.split(' ')[0])));
             mkChart(defocus,{type:'line',data:{labels:lab,datasets:ds},
                 options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
