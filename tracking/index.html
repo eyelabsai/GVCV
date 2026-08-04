@@ -38,6 +38,10 @@
         .kpi{background:rgba(255,255,255,.75);border:1px solid var(--border);border-radius:16px;padding:1.15rem 1.25rem;backdrop-filter:blur(6px)}
         .kpi .n{font-size:2rem;font-weight:700;color:var(--secondary);line-height:1}
         .kpi .l{font-size:.82rem;color:var(--muted);margin-top:.4rem;font-weight:500}
+        .procstrip{display:flex;flex-wrap:wrap;gap:.6rem;margin:-.75rem 0 1.75rem}
+        .chip{display:flex;align-items:baseline;gap:.4rem;background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:999px;padding:.4rem .85rem}
+        .chip .cn{font-size:1.05rem;font-weight:700;color:var(--secondary);line-height:1}
+        .chip .cl{font-size:.78rem;color:var(--muted);font-weight:500}
 
         .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
         @media(max-width:720px){.grid{grid-template-columns:1fr}}
@@ -98,6 +102,19 @@
     Chart.defaults.plugins.datalabels = {display: false};   // off unless a chart opts in
 
     function kpi(n,l){return `<div class="kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`}
+
+    // Non-cataract procedure counts, shown as chips under the KPIs.
+    function procStrip(proc){
+        if(!proc) return '';
+        const label={'EVO ICL':'EVO ICL','LASIK / Refractive':'LASIK','LASIK':'LASIK',
+            'CTAK (corneal)':'CTAK','CXL':'CXL','Pterygium':'Pterygium','Piggyback IOL':'Piggyback',
+            'IOL Exchange':'IOL exchange','AC procedure':'AC procedure','Other anterior seg':'Other AS'};
+        const chips=Object.entries(proc)
+            .filter(([k])=>k!=='Cataract')
+            .sort((a,b)=>b[1]-a[1])
+            .map(([k,v])=>`<div class="chip"><span class="cn">${v}</span><span class="cl">${label[k]||k}</span></div>`);
+        return chips.length?`<div class="procstrip">${chips.join('')}</div>`:'';
+    }
     function card(id,title,hint,tall){return `<div class="card"><h2>${title}</h2><div class="hint">${hint}</div><div class="chart-box${tall?' tall':''}"><canvas id="${id}"></canvas></div></div>`}
 
     function sortObj(o){return Object.entries(o).sort((a,b)=>b[1]-a[1])}
@@ -136,6 +153,7 @@
                 ${kpi(t.premium_pct+'%','Premium IOLs')}
                 ${kpi((t.toric_pct||0)+'%','Toric (astigmatism)')}
             </div>
+            ${procStrip(s.procedure)}
             <div class="grid">
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
