@@ -1,25 +1,25 @@
 {
-  "generated": "2026-08-03",
+  "generated": "2026-08-04",
   "totals": {
-    "eyes": 137,
-    "patients": 109,
-    "premium": 47,
-    "standard": 55,
+    "eyes": 146,
+    "patients": 117,
+    "premium": 51,
+    "standard": 60,
     "premium_pct": 46,
-    "iol": 102,
-    "toric": 22,
-    "toric_pct": 22,
+    "iol": 111,
+    "toric": 25,
+    "toric_pct": 23,
     "va_recorded": 62,
     "pow1_recorded": 9,
     "near_recorded": 8
   },
   "premiumVsStandard": {
-    "Premium (presbyopia-correcting)": 47,
-    "Standard monofocal": 55
+    "Premium (presbyopia-correcting)": 51,
+    "Standard monofocal": 60
   },
   "category": {
-    "Monofocal": 41,
-    "EDOF": 45,
+    "Monofocal": 46,
+    "EDOF": 49,
     "Toric monofocal": 13,
     "LAL": 2,
     "Enhanced monofocal": 1,
@@ -27,8 +27,8 @@
     "Other": 4
   },
   "family": {
-    "Tecnis (ZCB00)": 26,
-    "Envy (ETNU/ENU)": 30,
+    "Tecnis (ZCB00)": 31,
+    "Envy (ETNU/ENU)": 34,
     "PureSee (DEN00V)": 15,
     "Tecnis (DCB00)": 15,
     "Tecnis Toric (ZCU)": 13,
@@ -38,7 +38,7 @@
     "Other": 4
   },
   "procedure": {
-    "Cataract": 105,
+    "Cataract": 114,
     "EVO ICL": 18,
     "Pterygium": 2,
     "Piggyback IOL": 1,
@@ -47,12 +47,12 @@
     "CTAK (corneal)": 2
   },
   "power": {
-    "18\u201320": 19,
+    "18\u201320": 21,
     "15\u201317.5": 14,
-    "<15": 6,
-    "20.5\u201322": 22,
+    "<15": 8,
+    "20.5\u201322": 26,
     "\u226524.5": 6,
-    "22.5\u201324": 11
+    "22.5\u201324": 12
   },
   "va": {
     "20/30\u201320/40": 17,
@@ -71,7 +71,7 @@
     "J2\u2013J3 (~20/25\u201330 near)": 2
   },
   "refractive": {
-    "20/20 or better": 9,
+    "20/20 or better": 11,
     "20/25": 4,
     "20/30\u201320/40": 1
   },
@@ -81,7 +81,7 @@
       "20/25": 4
     },
     "ICL": {
-      "20/20 or better": 5,
+      "20/20 or better": 7,
       "20/30\u201320/40": 1
     }
   }
