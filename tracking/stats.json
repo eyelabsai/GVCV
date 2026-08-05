@@ -9,7 +9,7 @@
     "iol": 122,
     "toric": 26,
     "toric_pct": 21,
-    "va_recorded": 71,
+    "va_recorded": 74,
     "pow1_recorded": 12,
     "near_recorded": 8,
     "icl_dist_recorded": 11,
@@ -54,14 +54,14 @@
     "15\u201317.5": 16,
     "<15": 10,
     "20.5\u201322": 30,
-    "\u226524.5": 7,
-    "22.5\u201324": 13
+    "\u226524.5": 6,
+    "22.5\u201324": 14
   },
   "va": {
-    "20/30\u201320/40": 18,
+    "20/30\u201320/40": 19,
     "20/25": 13,
     "20/20 or better": 27,
-    "worse than 20/40": 13
+    "worse than 20/40": 15
   },
   "pow1": {
     "worse than 20/40": 1,
@@ -101,46 +101,46 @@
     "buckets": {
       "distance": {
         "20/25": 5,
-        "worse than 20/40": 5,
+        "worse than 20/40": 6,
         "20/20 or better": 10,
         "20/30\u201320/40": 9
       },
       "intermediate": {
         "20/20 or better": 19,
-        "20/30\u201320/40": 5,
+        "20/30\u201320/40": 6,
         "worse than 20/40": 3
       },
       "near": {
         "J1 (~20/20 near)": 14,
-        "J2\u2013J3 (~20/25\u201330 near)": 7,
+        "J2\u2013J3 (~20/25\u201330 near)": 8,
         "J4+ (weaker near)": 4
       }
     },
     "n": {
-      "distance": 29,
-      "intermediate": 27,
-      "near": 25
+      "distance": 30,
+      "intermediate": 28,
+      "near": 26
     }
   },
   "platform_range": {
     "Envy (ETNU/ENU)": {
       "distance": {
         "20/25": 5,
-        "worse than 20/40": 3,
+        "worse than 20/40": 4,
         "20/20 or better": 9,
         "20/30\u201320/40": 8
       },
       "intermediate": {
-        "20/30\u201320/40": 5,
+        "20/30\u201320/40": 6,
         "20/20 or better": 16,
         "worse than 20/40": 2
       },
       "near": {
         "J1 (~20/20 near)": 14,
-        "J2\u2013J3 (~20/25\u201330 near)": 7,
+        "J2\u2013J3 (~20/25\u201330 near)": 8,
         "J4+ (weaker near)": 4
       },
-      "n": 25
+      "n": 26
     },
     "PureSee (DEN00V)": {
       "distance": {
@@ -167,41 +167,41 @@
     ],
     "overall": {
       "distance": {
-        "n": 29,
-        "mean": 0.188,
-        "snellen": 31,
+        "n": 30,
+        "mean": 0.215,
+        "snellen": 33,
         "cum": [
           17,
-          48,
-          72,
-          79,
-          86,
-          97
+          47,
+          70,
+          77,
+          83,
+          93
         ]
       },
       "intermediate": {
-        "n": 27,
-        "mean": 0.04,
+        "n": 28,
+        "mean": 0.049,
         "snellen": 22,
         "cum": [
-          63,
-          70,
-          78,
-          78,
+          61,
+          68,
+          75,
+          75,
           89,
           96
         ]
       },
       "near": {
-        "n": 25,
-        "mean": 0.153,
-        "snellen": 28,
+        "n": 26,
+        "mean": 0.154,
+        "snellen": 29,
         "cum": [
-          56,
-          56,
-          84,
-          84,
-          84,
+          54,
+          54,
+          85,
+          85,
+          85,
           88
         ]
       }
@@ -209,41 +209,41 @@
     "platform": {
       "Envy (ETNU/ENU)": {
         "distance": {
-          "n": 25,
-          "mean": 0.141,
-          "snellen": 28,
+          "n": 26,
+          "mean": 0.174,
+          "snellen": 30,
           "cum": [
-            16,
-            52,
-            76,
-            84,
-            92,
-            100
+            15,
+            50,
+            73,
+            81,
+            88,
+            96
           ]
         },
         "intermediate": {
-          "n": 23,
-          "mean": 0.044,
-          "snellen": 22,
+          "n": 24,
+          "mean": 0.055,
+          "snellen": 23,
           "cum": [
-            65,
-            70,
-            78,
-            78,
-            91,
+            62,
+            67,
+            75,
+            75,
+            92,
             96
           ]
         },
         "near": {
-          "n": 25,
-          "mean": 0.153,
-          "snellen": 28,
+          "n": 26,
+          "mean": 0.154,
+          "snellen": 29,
           "cum": [
-            56,
-            56,
-            84,
-            84,
-            84,
+            54,
+            54,
+            85,
+            85,
+            85,
             88
           ]
         }
@@ -254,16 +254,16 @@
     "Envy (ETNU/ENU)": {
       "POD1": {
         "distance": {
-          "mean": 0.153,
-          "n": 25
+          "mean": 0.186,
+          "n": 26
         },
         "intermediate": {
-          "mean": 0.043,
-          "n": 24
+          "mean": 0.053,
+          "n": 25
         },
         "near": {
-          "mean": 0.145,
-          "n": 25
+          "mean": 0.146,
+          "n": 26
         }
       },
       "POW1": {
