@@ -178,6 +178,7 @@
                 <button class="tab" data-tab="lens">Lens Outcomes</button>
                 <button class="tab" data-tab="cataract">Cataract VA</button>
                 <button class="tab" data-tab="refractive">Refractive · ICL / LASIK</button>
+                <button class="tab" data-tab="ascrs">ASCRS Abstract</button>
             </div>
 
             <div class="panel active" data-panel="overview">
@@ -213,6 +214,47 @@
                 ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA — LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
                 ${(s.icl_dist&&Object.keys(s.icl_dist).length)?card('icldist','EVO ICL — distance outcomes','ICL eyes with a plano (distance) target — POD1 uncorrected distance VA'):''}
                 ${(s.icl_near&&Object.keys(s.icl_near).length)?card('iclnear','EVO ICL — near-target outcomes','ICL eyes with a mini-monovision (near) target — reading acuity (Jaeger)'):''}
+              </div>
+            </div>
+
+            <div class="panel" data-panel="ascrs">
+              <div style="background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.35rem;margin-bottom:1.25rem">
+                <div class="eyebrow">ASCRS · Cataract / IOLs / Multifocal</div>
+                <h2 style="font-size:1.25rem;font-weight:700;margin:.3rem 0 .4rem">Early Visual &amp; Refractive Outcomes: Odyssey (DRN00V/DRT) vs PanOptix (PXCAT)</h2>
+                <div style="color:var(--muted);font-size:.9rem">Hirabayashi MT, Parkhurst GD, Libfraind L, Abramson AJ, <b>Virdi G</b></div>
+                <div style="color:var(--muted);font-size:.82rem;margin-top:.15rem">Retrospective chart review · <span style="background:#eef2f8;border-radius:999px;padding:.1rem .55rem;font-weight:600;color:var(--secondary)">198 eyes</span> &nbsp; Odyssey n=102 · PanOptix n=96 · uncorrected VA at POD1, POW1, POM1</div>
+                <div style="display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:.9rem;font-size:.88rem;font-weight:600">
+                  <span style="display:flex;align-items:center;gap:.4rem"><span style="width:14px;height:14px;border-radius:4px;background:#5e81ac"></span>Odyssey (DRN00V/DRT)</span>
+                  <span style="display:flex;align-items:center;gap:.4rem"><span style="width:14px;height:14px;border-radius:4px;background:#d08770"></span>PanOptix (PXCAT)</span>
+                  <span style="color:var(--muted);font-weight:500">▲ Higher = better vision (logMAR axis inverted)</span>
+                </div>
+              </div>
+              <div class="card" style="margin-bottom:1.25rem">
+                <h2>Uncorrected distance vision over time</h2>
+                <div class="hint">Platforms start equal, but Odyssey pulls ahead in distance by week 1 and holds it at 1 month (p=0.003, p=0.004). Lower logMAR = sharper — axis flipped so up = better.</div>
+                <div class="chart-box tall"><canvas id="absdist"></canvas></div>
+              </div>
+              <div class="grid">
+                <div class="card"><h2>Post-op Day 1 — all three distances</h2><div class="hint">Early on, PanOptix leads at intermediate &amp; near (p=0.003, p=0.035); distance is a tie (p=0.742).</div><div class="chart-box"><canvas id="abspod1"></canvas></div></div>
+                <div class="card"><h2>How the story evolves</h2><div class="hint">Odyssey's distance edge grows as edema clears; PanOptix's early intermediate/near lead evens out by POW1/POM1.</div><div class="chart-box"><canvas id="absgap"></canvas></div></div>
+              </div>
+              <div class="card" style="margin-top:1.25rem">
+                <h2>Full results (mean logMAR, Snellen equivalent)</h2>
+                <div class="hint">"Comparable/similar" = reported non-significant without published means. Spherical equivalent (POM1) similar between groups.</div>
+                <table style="width:100%;border-collapse:collapse;font-size:.86rem">
+                  <thead><tr>
+                    <th style="text-align:left;padding:.5rem .5rem;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;color:var(--muted)">Timepoint</th>
+                    <th style="text-align:left;padding:.5rem .5rem;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;color:var(--muted)">Distance</th>
+                    <th style="padding:.5rem .5rem;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;color:var(--muted)">Odyssey</th>
+                    <th style="padding:.5rem .5rem;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;color:var(--muted)">PanOptix</th>
+                    <th style="padding:.5rem .5rem;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;color:var(--muted)">p</th>
+                    <th style="padding:.5rem .5rem;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;color:var(--muted)">Advantage</th>
+                  </tr></thead>
+                  <tbody id="absbody"></tbody>
+                </table>
+              </div>
+              <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:1rem 1.2rem;margin-top:1.25rem;font-size:.92rem">
+                <b>Take-home:</b> Odyssey delivered <b>superior uncorrected distance</b> vision at POW1 and POM1, while <b>matching</b> PanOptix at intermediate and near by those visits. PanOptix's early (POD1) intermediate/near advantage washed out as eyes settled — Odyssey may offer better distance <b>without sacrificing</b> intermediate or near.
               </div>
             </div>`;
 
@@ -375,6 +417,60 @@
                     tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y==null?'—':c.parsed.y.toFixed(3)+' logMAR ('+'20/'+Math.round(20*Math.pow(10,c.parsed.y))+')')}}},
                     scales:{y:{reverse:true,title:{display:true,text:'mean logMAR (up = sharper)'},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
         }
+
+        // ---- ASCRS abstract tab: Odyssey vs PanOptix (static published means) ----
+        (function(){
+            const OD='#5e81ac', PAN='#d08770', asn=l=>'20/'+Math.round(20*Math.pow(10,l));
+            const times=['POD1','POW1','POM1'];
+            const odDist=[0.164,0.062,0.048], panDist=[0.151,0.138,0.164];
+            const pD={POD1:'p=0.742 (NS)',POW1:'p=0.003',POM1:'p=0.004'};
+            if(typeof absdist!=='undefined' && absdist) mkChart(absdist,{type:'line',
+                data:{labels:times,datasets:[
+                    {label:'Odyssey',data:odDist,borderColor:OD,backgroundColor:OD,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7},
+                    {label:'PanOptix',data:panDist,borderColor:PAN,backgroundColor:PAN,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7}]},
+                options:{plugins:{legend:{position:'bottom'},
+                    datalabels:{align:'top',offset:6,formatter:v=>asn(v),color:c=>c.datasetIndex?PAN:OD,font:{weight:'700',size:11}},
+                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(pD[times[c.dataIndex]]||'')}}},
+                    scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance — logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+            if(typeof abspod1!=='undefined' && abspod1) mkChart(abspod1,{type:'bar',
+                data:{labels:['Distance','Intermediate','Near'],datasets:[
+                    {label:'Odyssey',data:[0.164,0.023,0.150],backgroundColor:OD,borderRadius:6},
+                    {label:'PanOptix',data:[0.151,-0.066,0.091],backgroundColor:PAN,borderRadius:6}]},
+                options:{plugins:{legend:{position:'bottom'},
+                    datalabels:{anchor:'end',align:'end',offset:2,formatter:v=>asn(v),color:'#4c566a',font:{weight:'600',size:10}},
+                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')'}}},
+                    scales:{y:{reverse:true,title:{display:true,text:'logMAR'},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+            if(typeof absgap!=='undefined' && absgap) mkChart(absgap,{type:'bar',
+                data:{labels:times,datasets:[{label:'Odyssey distance advantage',
+                    data:times.map((t,i)=>+(panDist[i]-odDist[i]).toFixed(3)),
+                    backgroundColor:times.map((t,i)=>panDist[i]-odDist[i]>=0?OD:PAN),borderRadius:6}]},
+                options:{plugins:{legend:{display:false},
+                    datalabels:{anchor:'end',align:'end',offset:2,formatter:v=>(v>0?'+':'')+v.toFixed(3),color:'#4c566a',font:{weight:'700',size:11}},
+                    tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return (v>=0?'Odyssey sharper by ':'PanOptix sharper by ')+Math.abs(v).toFixed(3)+' logMAR';}}}},
+                    scales:{y:{title:{display:true,text:'distance logMAR gap (+ = Odyssey better)'},grid:{color:'#eef1f6'},suggestedMin:-0.02,suggestedMax:0.14},x:{grid:{display:false}}}}});
+            const tb=document.getElementById('absbody');
+            if(tb){
+                const cell=v=>typeof v==='number'?v.toFixed(3)+' <span style="color:#9aa5b5">('+asn(v)+')</span>':v;
+                const rows=[['POD1','Distance',0.164,0.151,'0.742','#6b7280','Tie'],
+                    ['POD1','Intermediate',0.023,-0.066,'0.003',PAN,'PanOptix'],
+                    ['POD1','Near',0.150,0.091,'0.035',PAN,'PanOptix'],
+                    ['POW1','Distance',0.062,0.138,'0.003',OD,'Odyssey'],
+                    ['POW1','Intermediate','—','—','ns','#6b7280','Comparable'],
+                    ['POW1','Near','—','—','ns','#6b7280','Comparable'],
+                    ['POM1','Distance',0.048,0.164,'0.004',OD,'Odyssey'],
+                    ['POM1','Intermediate','—','—','ns','#6b7280','Similar'],
+                    ['POM1','Near','—','—','ns','#6b7280','Similar']];
+                tb.innerHTML=rows.map(r=>{
+                    const sig=(r[4]!=='—'&&r[4]!=='ns'&&parseFloat(r[4])<0.05)?'font-weight:700':'color:#9aa5b5';
+                    return '<tr><td style="text-align:left;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+r[0]+'</td>'+
+                        '<td style="text-align:left;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+r[1]+'</td>'+
+                        '<td style="text-align:center;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+cell(r[2])+'</td>'+
+                        '<td style="text-align:center;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+cell(r[3])+'</td>'+
+                        '<td style="text-align:center;padding:.5rem .5rem;border-bottom:1px solid #eef1f6;'+sig+'">'+r[4]+'</td>'+
+                        '<td style="text-align:center;padding:.5rem .5rem;border-bottom:1px solid #eef1f6;color:'+r[5]+';font-weight:700">'+r[6]+'</td></tr>';
+                }).join('');
+            }
+        })();
 
         // POW1 VA (settled) — same buckets/colors as POD1, only if data + card present
         if(s.pow1 && Object.keys(s.pow1).length && typeof pow1!=='undefined' && pow1){
