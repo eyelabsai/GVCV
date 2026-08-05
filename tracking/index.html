@@ -270,8 +270,18 @@
             document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
             tb.classList.add('active');
             document.querySelector('.panel[data-panel="'+tb.dataset.tab+'"]').classList.add('active');
+            sessionStorage.setItem('trk_tab', tb.dataset.tab);   // remember across refresh
             CHARTS.forEach(c=>{try{c.resize();}catch(e){}});
         }));
+        // Restore the last-viewed tab BEFORE charts draw, so its panel is visible
+        // (charts in the active panel size correctly; hidden ones resize on switch).
+        const savedTab=sessionStorage.getItem('trk_tab');
+        if(savedTab && document.querySelector('.panel[data-panel="'+savedTab+'"]')){
+            document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+            document.querySelector('.tab[data-tab="'+savedTab+'"]').classList.add('active');
+            document.querySelector('.panel[data-panel="'+savedTab+'"]').classList.add('active');
+        }
 
         // Monofocal vs Premium doughnut
         const mv = sortObj(s.premiumVsStandard);
@@ -428,28 +438,34 @@
             const times=['POD1','POW1','POM1'];
             const odDist=[0.164,0.062,0.048], panDist=[0.151,0.138,0.164];
             const pD={POD1:'p=0.742 (NS)',POW1:'p=0.003',POM1:'p=0.004'};
-            // My live Envy series (EDOF, single-surgeon) pulled from stats.json.
-            const ev=(s.platform_timepoint||{})['Envy (ETNU/ENU)']||{};
-            const evAt=(tp,k)=>ev[tp]&&ev[tp][k]?ev[tp][k].mean:null;
-            const evN=(tp,k)=>ev[tp]&&ev[tp][k]?ev[tp][k].n:0;
-            const evDist=times.map(t=>evAt(t,'distance'));
-            const evAny=evDist.some(v=>v!=null);
+            // My live EDOF series pulled from stats.json — each platform auto-appears
+            // once it clears n>=5 at its best-populated distance timepoint.
+            const MYCOL={'Envy (ETNU/ENU)':'#5f7a45','PureSee (DEN00V)':'#b48ead','Vivity (DFT)':'#bf616a'};
+            const MYSHORT={'Envy (ETNU/ENU)':'Envy','PureSee (DEN00V)':'PureSee','Vivity (DFT)':'Vivity'};
+            const PTP=s.platform_timepoint||{};
+            const myPlats=Object.keys(MYCOL).filter(p=>PTP[p] &&
+                Math.max(...times.map(t=>(PTP[p][t]&&PTP[p][t].distance)?PTP[p][t].distance.n:0))>=5);
+            const at=(p,tp,k)=>PTP[p]&&PTP[p][tp]&&PTP[p][tp][k]?PTP[p][tp][k].mean:null;
+            const nAt=(p,tp,k)=>PTP[p]&&PTP[p][tp]&&PTP[p][tp][k]?PTP[p][tp][k].n:0;
+            const colorsD=[OD,PAN,...myPlats.map(p=>MYCOL[p])];
             if(typeof absdist!=='undefined' && absdist){
                 const dsets=[
                     {label:'Odyssey (published)',data:odDist,borderColor:OD,backgroundColor:OD,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7},
                     {label:'PanOptix (published)',data:panDist,borderColor:PAN,backgroundColor:PAN,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7}];
-                if(evAny) dsets.push({label:'Virdi Envy (my series, EDOF)',data:evDist,borderColor:EV,backgroundColor:EV,borderDash:[6,4],tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7,spanGaps:true});
+                myPlats.forEach(p=>dsets.push({label:'Virdi '+MYSHORT[p]+' (my series)',data:times.map(t=>at(p,t,'distance')),
+                    borderColor:MYCOL[p],backgroundColor:MYCOL[p],borderDash:[6,4],tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7,spanGaps:true}));
                 mkChart(absdist,{type:'line',data:{labels:times,datasets:dsets},
                 options:{plugins:{legend:{position:'bottom'},
-                    datalabels:{align:'top',offset:6,formatter:v=>v==null?'':asn(v),color:c=>[OD,PAN,EV][c.datasetIndex],font:{weight:'700',size:11}},
-                    tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(c.datasetIndex<2?(pD[times[c.dataIndex]]||''):('n='+evN(times[c.dataIndex],'distance')))}}},
+                    datalabels:{align:'top',offset:6,formatter:v=>v==null?'':asn(v),color:c=>colorsD[c.datasetIndex],font:{weight:'700',size:11}},
+                    tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(c.datasetIndex<2?(pD[times[c.dataIndex]]||''):('n='+nAt(myPlats[c.datasetIndex-2],times[c.dataIndex],'distance')))}}},
                     scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance — logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
             }
             if(typeof abspod1!=='undefined' && abspod1){
                 const dsets=[
                     {label:'Odyssey (published)',data:[0.164,0.023,0.150],backgroundColor:OD,borderRadius:6},
                     {label:'PanOptix (published)',data:[0.151,-0.066,0.091],backgroundColor:PAN,borderRadius:6}];
-                if(ev.POD1) dsets.push({label:'Virdi Envy (my series)',data:[evAt('POD1','distance'),evAt('POD1','intermediate'),evAt('POD1','near')],backgroundColor:EV,borderRadius:6});
+                myPlats.forEach(p=>{if(PTP[p].POD1) dsets.push({label:'Virdi '+MYSHORT[p]+' (my series)',
+                    data:[at(p,'POD1','distance'),at(p,'POD1','intermediate'),at(p,'POD1','near')],backgroundColor:MYCOL[p],borderRadius:6});});
                 mkChart(abspod1,{type:'bar',data:{labels:['Distance','Intermediate','Near'],datasets:dsets},
                 options:{plugins:{legend:{position:'bottom'},
                     datalabels:{anchor:'end',align:'end',offset:2,formatter:v=>v==null?'':asn(v),color:'#4c566a',font:{weight:'600',size:10}},
