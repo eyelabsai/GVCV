@@ -246,5 +246,59 @@
         }
       }
     }
+  },
+  "platform_timepoint": {
+    "Envy (ETNU/ENU)": {
+      "POD1": {
+        "distance": {
+          "mean": 0.18,
+          "n": 21
+        },
+        "intermediate": {
+          "mean": 0.073,
+          "n": 20
+        },
+        "near": {
+          "mean": 0.173,
+          "n": 21
+        }
+      },
+      "POW1": {
+        "distance": {
+          "mean": 0.117,
+          "n": 4
+        },
+        "intermediate": {
+          "mean": 0.026,
+          "n": 3
+        },
+        "near": {
+          "mean": 0.219,
+          "n": 4
+        }
+      }
+    },
+    "PureSee (DEN00V)": {
+      "POD1": {
+        "distance": {
+          "mean": 0.588,
+          "n": 4
+        },
+        "intermediate": {
+          "mean": 0.199,
+          "n": 4
+        }
+      },
+      "POW1": {
+        "distance": {
+          "mean": 0.219,
+          "n": 2
+        },
+        "intermediate": {
+          "mean": -0.222,
+          "n": 2
+        }
+      }
+    }
   }
 }

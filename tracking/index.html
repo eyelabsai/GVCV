@@ -226,7 +226,11 @@
                 <div style="display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:.9rem;font-size:.88rem;font-weight:600">
                   <span style="display:flex;align-items:center;gap:.4rem"><span style="width:14px;height:14px;border-radius:4px;background:#5e81ac"></span>Odyssey (DRN00V/DRT)</span>
                   <span style="display:flex;align-items:center;gap:.4rem"><span style="width:14px;height:14px;border-radius:4px;background:#d08770"></span>PanOptix (PXCAT)</span>
+                  <span style="display:flex;align-items:center;gap:.4rem"><span style="width:14px;height:14px;border-radius:4px;background:#5f7a45"></span>Virdi Envy (my series)</span>
                   <span style="color:var(--muted);font-weight:500">▲ Higher = better vision (logMAR axis inverted)</span>
+                </div>
+                <div style="margin-top:.75rem;font-size:.8rem;color:var(--muted);background:rgba(95,122,69,.08);border-radius:8px;padding:.55rem .8rem">
+                  <b>Note:</b> the green overlay is my own <b>Envy (EDOF)</b> series — a different lens class than these two trifocals, single-surgeon and currently POD1-heavy (small n, no POM1 yet). Shown for orientation, <b>not</b> a head-to-head. It updates live as I log cases.
                 </div>
               </div>
               <div class="card" style="margin-bottom:1.25rem">
@@ -420,26 +424,38 @@
 
         // ---- ASCRS abstract tab: Odyssey vs PanOptix (static published means) ----
         (function(){
-            const OD='#5e81ac', PAN='#d08770', asn=l=>'20/'+Math.round(20*Math.pow(10,l));
+            const OD='#5e81ac', PAN='#d08770', EV='#5f7a45', asn=l=>'20/'+Math.round(20*Math.pow(10,l));
             const times=['POD1','POW1','POM1'];
             const odDist=[0.164,0.062,0.048], panDist=[0.151,0.138,0.164];
             const pD={POD1:'p=0.742 (NS)',POW1:'p=0.003',POM1:'p=0.004'};
-            if(typeof absdist!=='undefined' && absdist) mkChart(absdist,{type:'line',
-                data:{labels:times,datasets:[
-                    {label:'Odyssey',data:odDist,borderColor:OD,backgroundColor:OD,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7},
-                    {label:'PanOptix',data:panDist,borderColor:PAN,backgroundColor:PAN,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7}]},
+            // My live Envy series (EDOF, single-surgeon) pulled from stats.json.
+            const ev=(s.platform_timepoint||{})['Envy (ETNU/ENU)']||{};
+            const evAt=(tp,k)=>ev[tp]&&ev[tp][k]?ev[tp][k].mean:null;
+            const evN=(tp,k)=>ev[tp]&&ev[tp][k]?ev[tp][k].n:0;
+            const evDist=times.map(t=>evAt(t,'distance'));
+            const evAny=evDist.some(v=>v!=null);
+            if(typeof absdist!=='undefined' && absdist){
+                const dsets=[
+                    {label:'Odyssey (published)',data:odDist,borderColor:OD,backgroundColor:OD,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7},
+                    {label:'PanOptix (published)',data:panDist,borderColor:PAN,backgroundColor:PAN,tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7}];
+                if(evAny) dsets.push({label:'Virdi Envy (my series, EDOF)',data:evDist,borderColor:EV,backgroundColor:EV,borderDash:[6,4],tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7,spanGaps:true});
+                mkChart(absdist,{type:'line',data:{labels:times,datasets:dsets},
                 options:{plugins:{legend:{position:'bottom'},
-                    datalabels:{align:'top',offset:6,formatter:v=>asn(v),color:c=>c.datasetIndex?PAN:OD,font:{weight:'700',size:11}},
-                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(pD[times[c.dataIndex]]||'')}}},
+                    datalabels:{align:'top',offset:6,formatter:v=>v==null?'':asn(v),color:c=>[OD,PAN,EV][c.datasetIndex],font:{weight:'700',size:11}},
+                    tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(c.datasetIndex<2?(pD[times[c.dataIndex]]||''):('n='+evN(times[c.dataIndex],'distance')))}}},
                     scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance — logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
-            if(typeof abspod1!=='undefined' && abspod1) mkChart(abspod1,{type:'bar',
-                data:{labels:['Distance','Intermediate','Near'],datasets:[
-                    {label:'Odyssey',data:[0.164,0.023,0.150],backgroundColor:OD,borderRadius:6},
-                    {label:'PanOptix',data:[0.151,-0.066,0.091],backgroundColor:PAN,borderRadius:6}]},
+            }
+            if(typeof abspod1!=='undefined' && abspod1){
+                const dsets=[
+                    {label:'Odyssey (published)',data:[0.164,0.023,0.150],backgroundColor:OD,borderRadius:6},
+                    {label:'PanOptix (published)',data:[0.151,-0.066,0.091],backgroundColor:PAN,borderRadius:6}];
+                if(ev.POD1) dsets.push({label:'Virdi Envy (my series)',data:[evAt('POD1','distance'),evAt('POD1','intermediate'),evAt('POD1','near')],backgroundColor:EV,borderRadius:6});
+                mkChart(abspod1,{type:'bar',data:{labels:['Distance','Intermediate','Near'],datasets:dsets},
                 options:{plugins:{legend:{position:'bottom'},
-                    datalabels:{anchor:'end',align:'end',offset:2,formatter:v=>asn(v),color:'#4c566a',font:{weight:'600',size:10}},
-                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')'}}},
+                    datalabels:{anchor:'end',align:'end',offset:2,formatter:v=>v==null?'':asn(v),color:'#4c566a',font:{weight:'600',size:10}},
+                    tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')'}}},
                     scales:{y:{reverse:true,title:{display:true,text:'logMAR'},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+            }
             if(typeof absgap!=='undefined' && absgap) mkChart(absgap,{type:'bar',
                 data:{labels:times,datasets:[{label:'Odyssey distance advantage',
                     data:times.map((t,i)=>+(panDist[i]-odDist[i]).toFixed(3)),
