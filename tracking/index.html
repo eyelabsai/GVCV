@@ -196,6 +196,8 @@
                 ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('cumdist','Cumulative VA — Distance','% of eyes at each acuity or better (uncorrected). Reads like Kang 2026 Fig 1.'):''}
                 ${(s.va_cumulative&&s.va_cumulative.overall.intermediate.n)?card('cumint','Cumulative VA — Intermediate','% achieving each acuity or better at intermediate (60 cm)'):''}
                 ${(s.va_cumulative&&s.va_cumulative.overall.near.n)?card('cumnear','Cumulative VA — Near','% achieving each acuity or better at near (from Jaeger, 40 cm)'):''}
+                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rangevis','Range of vision — premium eyes','% of presbyopia-correcting eyes at each acuity, split by working distance (D / I / N)',true):''}
+                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrange','Range of vision — by platform','Distance / intermediate / near, % 20/20-or-better, per premium platform',true):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
               </div>
             </div>
@@ -317,6 +319,40 @@
                 tooltip:{callbacks:{label:c=>c.parsed.x+'%  ('+f[c.dataIndex][1]+' eyes)'}},
                 datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:11}}},
                 scales:{x:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});
+
+        // Range of vision — premium eyes, stacked % by working distance (D/I/N)
+        if(typeof rangevis!=='undefined' && rangevis && s.range_of_vision){
+            const rv=s.range_of_vision, rows=['distance','intermediate','near'],
+                  rowlab={distance:'Distance',intermediate:'Intermediate',near:'Near'};
+            const tiers=[
+                {lab:'20/20 · J1',c:'#a3be8c',keys:['20/20 or better','J1 (~20/20 near)']},
+                {lab:'20/25 · J2–3',c:'#88c0d0',keys:['20/25','J2–J3 (~20/25–30 near)']},
+                {lab:'20/30–40 · J4+',c:'#ebcb8b',keys:['20/30–20/40','J4+ (weaker near)']},
+                {lab:'worse',c:'#d08770',keys:['worse than 20/40']}];
+            const ds=tiers.map(t=>({label:t.lab,backgroundColor:t.c,borderRadius:4,data:rows.map(r=>{
+                const b=rv.buckets[r]||{}, n=rv.n[r]||0; if(!n)return 0;
+                return Math.round(100*t.keys.reduce((a,k)=>a+(b[k]||0),0)/n);})}));
+            mkChart(rangevis,{type:'bar',data:{labels:rows.map(r=>rowlab[r]+' (n='+(rv.n[r]||0)+')'),datasets:ds},
+                options:{indexAxis:'y',plugins:{legend:{position:'bottom'},
+                    datalabels:{display:c=>c.dataset.data[c.dataIndex]>=8,formatter:v=>v+'%',color:'#2e3440',font:{weight:'700',size:10}}},
+                    scales:{x:{stacked:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{stacked:true,grid:{display:false}}}}});
+        }
+
+        // Range of vision — by platform, % 20/20 (or J1 near) or better
+        if(typeof platrange!=='undefined' && platrange && s.platform_range){
+            const pr=s.platform_range, plats=Object.keys(pr), dists=['distance','intermediate','near'],
+                  dl={distance:'Distance',intermediate:'Intermediate',near:'Near'},
+                  topkeys={distance:'20/20 or better',intermediate:'20/20 or better',near:'J1 (~20/20 near)'},
+                  pcol=['#5f7a45','#b48ead','#bf616a','#5e81ac'];
+            const ds=plats.map((p,i)=>({label:p+' (n='+(pr[p].n||0)+')',backgroundColor:pcol[i%pcol.length],borderRadius:5,data:dists.map(d=>{
+                const b=pr[p][d]||{}, n=Object.values(b).reduce((a,x)=>a+x,0); if(!n)return 0;
+                return Math.round(100*(b[topkeys[d]]||0)/n);})}));
+            mkChart(platrange,{type:'bar',data:{labels:dists.map(d=>dl[d]),datasets:ds},
+                options:{plugins:{legend:{position:'bottom'},
+                    title:{display:true,text:'% at 20/20 (J1 near) or better',font:{size:11},color:'#4c566a'},
+                    datalabels:{display:true,anchor:'end',align:'end',formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:10}}},
+                    scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+        }
 
         // VA bar (ordered) — shared scale/colors for POD1 and POW1
         const order = ['20/20 or better','20/25','20/30–20/40','worse than 20/40'];
