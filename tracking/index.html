@@ -123,8 +123,9 @@
     function procStrip(proc){
         if(!proc) return '';
         const meta={
-            'EVO ICL':['EVO ICL','#5e81ac'],'LASIK / Refractive':['LASIK','#88c0d0'],'LASIK':['LASIK','#88c0d0'],
-            'CTAK (corneal)':['CTAK','#a3be8c'],'CXL':['CXL','#8fbcbb'],'Pterygium':['Pterygium','#ebcb8b'],
+            'EVO ICL':['EVO ICL','#5e81ac'],'RLE (refractive lens exch)':['RLE','#5f7a45'],
+            'LASIK / PRK':['LASIK/PRK','#88c0d0'],'LASIK / Refractive':['LASIK','#88c0d0'],'LASIK':['LASIK','#88c0d0'],
+            'CTAK (corneal)':['CTAK','#a3be8c'],'CXL (corneal)':['CXL','#8fbcbb'],'CXL':['CXL','#8fbcbb'],'Pterygium':['Pterygium','#ebcb8b'],
             'Piggyback IOL':['Piggyback','#b48ead'],'IOL Exchange':['IOL exchange','#d08770'],
             'AC procedure':['AC procedure','#81a1c1'],'Other anterior seg':['Other AS','#4c566a']};
         const chips=Object.entries(proc)
@@ -185,6 +186,7 @@
               <div class="grid">
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
+                ${(s.indication&&Object.keys(s.indication).length)?card('indic','Indication — why the surgery','Cataract vs refractive lens exchange (RLE) vs ICL vs LASIK/PRK'):''}
                 ${card('proc','Procedure mix','Case types across all surgery days')}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
               </div>
@@ -296,6 +298,17 @@
         mkChart(cat,{type:'bar',data:{labels:c.map(x=>x[0]),
             datasets:[{data:c.map(x=>x[1]),backgroundColor:PALETTE,borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
+
+        // Indication doughnut — Cataract vs RLE vs ICL vs LASIK/PRK (fixed colors)
+        if(typeof indic!=='undefined' && indic && s.indication){
+            const icol={'Cataract':'#5e81ac','RLE':'#5f7a45','ICL':'#b48ead','LASIK/PRK':'#88c0d0','Other surgery':'#4c566a','Other':'#d8dee9'};
+            const im=sortObj(s.indication);
+            mkChart(indic,{type:'doughnut',data:{labels:im.map(x=>x[0]),
+                datasets:[{data:im.map(x=>x[1]),backgroundColor:im.map(x=>icol[x[0]]||'#81a1c1'),borderWidth:2,borderColor:'#fff'}]},
+                options:{plugins:{legend:{position:'bottom'},
+                    tooltip:{callbacks:{label:c=>c.label+': '+c.parsed+' eyes'}},
+                    datalabels:{display:c=>c.dataset.data[c.dataIndex]/c.dataset.data.reduce((a,b)=>a+b,0)>0.05,color:'#fff',font:{weight:'700'},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return Math.round(100*v/t)+'%'}}},cutout:'55%'}});
+        }
 
         // Procedure mix doughnut
         const pm = sortObj(s.procedure || {});
