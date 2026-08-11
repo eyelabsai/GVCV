@@ -170,7 +170,7 @@
                 ${kpi(t.eyes,'Eyes operated')}
                 ${kpi(t.patients,'Patients')}
                 ${kpi(cataracts,'Cataract cases')}
-                ${kpi(t.premium_pct+'%','Premium IOLs')}
+                ${kpi(t.premium,'Premium IOLs ('+t.premium_pct+'%)')}
                 ${kpi((t.toric_pct||0)+'%','Toric (astigmatism)')}
             </div>
             ${procStrip(s.procedure)}
@@ -180,6 +180,7 @@
                 <button class="tab" data-tab="cataract">Cataract VA</button>
                 <button class="tab" data-tab="refractive">Refractive · ICL / LASIK</button>
                 <button class="tab" data-tab="ascrs">ASCRS Abstract</button>
+                <button class="tab" data-tab="projection">Fellowship Projection</button>
             </div>
 
             <div class="panel active" data-panel="overview">
@@ -264,7 +265,47 @@
               <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:1rem 1.2rem;margin-top:1.25rem;font-size:.92rem">
                 <b>Take-home:</b> Odyssey delivered <b>superior uncorrected distance</b> vision at POW1 and POM1, while <b>matching</b> PanOptix at intermediate and near by those visits. PanOptix's early (POD1) intermediate/near advantage washed out as eyes settled — Odyssey may offer better distance <b>without sacrificing</b> intermediate or near.
               </div>
+            </div>
+
+            <div class="panel" data-panel="projection">
+              <div style="background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.35rem;margin-bottom:1.25rem">
+                <div class="eyebrow">Fellowship volume projection</div>
+                <h2 style="font-size:1.25rem;font-weight:700;margin:.3rem 0 .5rem">Projected case volume — refractive fellowship (Jul 1 2026 → Jul 1 2027)</h2>
+                <div id="projmeta" style="color:var(--muted);font-size:.9rem"></div>
+                <div style="height:12px;background:#e5e9f0;border-radius:999px;margin-top:.8rem;overflow:hidden">
+                  <div id="projbar" style="height:100%;width:0;background:linear-gradient(90deg,#5e81ac,#5f7a45);border-radius:999px;transition:width .6s ease"></div>
+                </div>
+              </div>
+              <div class="grid" id="projcards"></div>
+              <div style="background:#fff;border:1px solid var(--border);border-left:4px solid #ebcb8b;border-radius:12px;padding:1rem 1.2rem;margin-top:1.25rem;font-size:.88rem;color:var(--muted)">
+                <b>Method:</b> straight-line extrapolation — (cases so far ÷ fellowship days elapsed) × 365. Surgical volume typically <b>ramps</b> through a fellowship, so the early-months projection tends to <b>under</b>-estimate the full-year total. Updates live with the calendar and every push.
+              </div>
             </div>`;
+
+        // Fellowship projection — straight-line run-rate to Jul 1 2027
+        if(document.getElementById('projcards')){
+            const FS=new Date('2026-07-01T00:00:00'), FE=new Date('2027-07-01T00:00:00'), now=new Date();
+            const cn=now<FS?FS:(now>FE?FE:now), day=86400000;
+            const elapsed=Math.max(1,Math.round((cn-FS)/day)), total=Math.round((FE-FS)/day);
+            const frac=elapsed/total, proj=v=>Math.round(v/frac), mult=1/frac;
+            const ind=s.indication||{};
+            document.getElementById('projmeta').innerHTML=
+                `<b>${elapsed}</b> of ${total} fellowship days elapsed (<b>${Math.round(frac*100)}%</b>) · `
+                +`current pace <b>${(t.eyes/elapsed*7).toFixed(1)}</b> eyes/week · projections = ×${mult.toFixed(1)}`;
+            document.getElementById('projbar').style.width=Math.round(frac*100)+'%';
+            const rows=[
+                ['Total eyes',t.eyes,'#5e81ac'],['Patients',t.patients,'#4c566a'],
+                ['Premium IOLs',t.premium,'#5f7a45'],['Cataract',ind['Cataract']||0,'#5e81ac'],
+                ['RLE (refractive lens exch)',ind['RLE']||0,'#5f7a45'],['EVO ICL',ind['ICL']||0,'#b48ead'],
+                ['LASIK / PRK',ind['LASIK/PRK']||0,'#88c0d0'],['Toric IOLs',t.toric,'#ebcb8b']];
+            document.getElementById('projcards').innerHTML=rows.map(([lab,cur,c])=>
+                `<div class="card" style="border-left:4px solid ${c}"><h2 style="font-size:.92rem">${lab}</h2>
+                  <div style="display:flex;align-items:baseline;gap:.5rem;margin-top:.35rem">
+                    <span style="font-size:2.1rem;font-weight:800;color:${c};line-height:1">${proj(cur)}</span>
+                    <span style="color:var(--muted);font-size:.8rem">by Jul 2027</span></div>
+                  <div style="color:var(--muted);font-size:.83rem;margin-top:.3rem"><b>${cur}</b> so far</div>
+                </div>`).join('');
+        }
 
         // Tab switching — charts live in hidden panels, so resize on show.
         const CHARTS=[];

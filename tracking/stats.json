@@ -1,47 +1,49 @@
 {
-  "generated": "2026-08-10",
+  "generated": "2026-08-11",
   "totals": {
-    "eyes": 190,
-    "patients": 146,
-    "premium": 64,
-    "standard": 76,
-    "premium_pct": 46,
-    "iol": 140,
-    "toric": 29,
-    "toric_pct": 21,
+    "eyes": 203,
+    "patients": 158,
+    "premium": 71,
+    "standard": 81,
+    "premium_pct": 47,
+    "iol": 152,
+    "toric": 34,
+    "toric_pct": 22,
     "va_recorded": 89,
-    "pow1_recorded": 18,
+    "pow1_recorded": 20,
     "near_recorded": 10,
-    "icl_dist_recorded": 11,
+    "icl_dist_recorded": 15,
     "icl_near_recorded": 1,
     "migs": 2
   },
   "premiumVsStandard": {
-    "Premium (presbyopia-correcting)": 64,
-    "Standard monofocal": 76
+    "Premium (presbyopia-correcting)": 71,
+    "Standard monofocal": 81
   },
   "category": {
-    "Monofocal": 61,
-    "EDOF": 60,
-    "Toric monofocal": 14,
+    "Monofocal": 64,
+    "EDOF": 66,
+    "Toric monofocal": 16,
     "LAL": 4,
     "Enhanced monofocal": 1,
     "ICL": 22,
-    "Other": 4
+    "Other": 5,
+    "Multifocal": 1
   },
   "family": {
-    "Tecnis (ZCB00)": 43,
-    "Envy (ETNU/ENU)": 45,
-    "PureSee (DEN00V)": 15,
+    "Tecnis (ZCB00)": 46,
+    "Envy (ETNU/ENU)": 50,
+    "PureSee (DEN00V)": 16,
     "Tecnis (DCB00)": 18,
-    "Tecnis Toric (ZCU)": 14,
+    "Tecnis Toric (ZCU)": 16,
     "LAL (Light Adjustable)": 4,
     "Eyhance": 1,
     "EVO ICL": 22,
-    "Other": 4
+    "Other": 5,
+    "Odyssey (DRN00V)": 1
   },
   "procedure": {
-    "Cataract": 141,
+    "Cataract": 154,
     "EVO ICL": 24,
     "Pterygium": 2,
     "Piggyback IOL": 1,
@@ -52,18 +54,18 @@
     "RLE (refractive lens exch)": 2
   },
   "indication": {
-    "Cataract": 142,
+    "Cataract": 155,
     "ICL": 24,
     "Other surgery": 6,
     "LASIK/PRK": 16,
     "RLE": 2
   },
   "power": {
-    "18\u201320": 26,
+    "18\u201320": 28,
     "15\u201317.5": 17,
-    "<15": 13,
-    "20.5\u201322": 36,
-    "22.5\u201324": 18,
+    "<15": 16,
+    "20.5\u201322": 40,
+    "22.5\u201324": 21,
     "\u226524.5": 6
   },
   "va": {
@@ -74,7 +76,7 @@
   },
   "pow1": {
     "worse than 20/40": 2,
-    "20/20 or better": 9,
+    "20/20 or better": 11,
     "20/25": 5,
     "20/30\u201320/40": 2
   },
@@ -85,8 +87,8 @@
   },
   "refractive": {
     "20/20 or better": 14,
-    "20/25": 6,
-    "20/30\u201320/40": 5
+    "20/25": 8,
+    "20/30\u201320/40": 7
   },
   "refractive_split": {
     "LASIK": {
@@ -96,14 +98,14 @@
     },
     "ICL": {
       "20/20 or better": 9,
-      "20/25": 1,
-      "20/30\u201320/40": 2
+      "20/25": 3,
+      "20/30\u201320/40": 4
     }
   },
   "icl_dist": {
     "20/20 or better": 9,
-    "20/25": 1,
-    "20/30\u201320/40": 1
+    "20/25": 3,
+    "20/30\u201320/40": 3
   },
   "icl_near": {
     "J1 (~20/20 near)": 1
@@ -192,10 +194,10 @@
       },
       "intermediate": {
         "n": 32,
-        "mean": -0.011,
-        "snellen": 20,
+        "mean": -0.025,
+        "snellen": 19,
         "cum": [
-          72,
+          75,
           78,
           81,
           81,
@@ -234,10 +236,10 @@
         },
         "intermediate": {
           "n": 28,
-          "mean": -0.014,
+          "mean": -0.03,
           "snellen": 19,
           "cum": [
-            75,
+            79,
             79,
             82,
             82,
@@ -279,16 +281,16 @@
       },
       "POW1": {
         "distance": {
-          "mean": 0.107,
-          "n": 7
+          "mean": 0.086,
+          "n": 9
         },
         "intermediate": {
-          "mean": -0.148,
-          "n": 6
+          "mean": -0.167,
+          "n": 8
         },
         "near": {
-          "mean": 0.075,
-          "n": 7
+          "mean": 0.059,
+          "n": 9
         }
       }
     },
