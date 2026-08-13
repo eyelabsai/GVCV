@@ -65,6 +65,9 @@
         .card.wide{grid-column:1/-1}
         .card h2{font-size:1rem;font-weight:600;margin-bottom:.15rem}
         .card .hint{font-size:.8rem;color:var(--muted);margin-bottom:.9rem}
+        .explain{margin-top:.9rem;background:#f6f8fb;border:1px solid var(--border);border-radius:10px;padding:.7rem .85rem;font-size:.82rem;color:var(--text);line-height:1.5}
+        .explain b{color:var(--secondary)}
+        .explain .nrow{color:var(--muted);font-size:.76rem;margin-top:.45rem;padding-top:.4rem;border-top:1px dashed var(--border)}
         .chart-box{position:relative;height:260px}
         .chart-box.tall{height:320px}
 
@@ -242,10 +245,11 @@
                 <h2>Uncorrected distance vision over time</h2>
                 <div class="hint">Platforms start equal, but Odyssey pulls ahead in distance by week 1 and holds it at 1 month (p=0.003, p=0.004). Lower logMAR = sharper — axis flipped so up = better.</div>
                 <div class="chart-box tall"><canvas id="absdist"></canvas></div>
+                <div id="exp-absdist" class="explain"></div>
               </div>
               <div class="grid">
-                <div class="card"><h2>Post-op Day 1 — all three distances</h2><div class="hint">Early on, PanOptix leads at intermediate &amp; near (p=0.003, p=0.035); distance is a tie (p=0.742).</div><div class="chart-box"><canvas id="abspod1"></canvas></div></div>
-                <div class="card"><h2>How the story evolves</h2><div class="hint">Odyssey's distance edge grows as edema clears; PanOptix's early intermediate/near lead evens out by POW1/POM1.</div><div class="chart-box"><canvas id="absgap"></canvas></div></div>
+                <div class="card"><h2>Post-op Day 1 — all three distances</h2><div class="hint">Early on, PanOptix leads at intermediate &amp; near (p=0.003, p=0.035); distance is a tie (p=0.742).</div><div class="chart-box"><canvas id="abspod1"></canvas></div><div id="exp-abspod1" class="explain"></div></div>
+                <div class="card"><h2>How the story evolves</h2><div class="hint">Odyssey's distance edge grows as edema clears; PanOptix's early intermediate/near lead evens out by POW1/POM1.</div><div class="chart-box"><canvas id="absgap"></canvas></div><div id="exp-absgap" class="explain"></div></div>
               </div>
               <div class="card" style="margin-top:1.25rem">
                 <h2>Full results (mean logMAR, Snellen equivalent)</h2>
@@ -570,6 +574,25 @@
                     datalabels:{anchor:'end',align:'end',offset:2,formatter:v=>(v>0?'+':'')+v.toFixed(3),color:'#4c566a',font:{weight:'700',size:11}},
                     tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return (v>=0?'Odyssey sharper by ':'PanOptix sharper by ')+Math.abs(v).toFixed(3)+' logMAR';}}}},
                     scales:{y:{title:{display:true,text:'distance logMAR gap (+ = Odyssey better)'},grid:{color:'#eef1f6'},suggestedMin:-0.02,suggestedMax:0.14},x:{grid:{display:false}}}}});
+            // Plain-language explainers + live n's under each ASCRS chart
+            const nStr=(p,k)=>['POD1','POW1','POM1'].map(t=>nAt(p,t,k)).filter(x=>x>0).join('→')||'0';
+            const eE=document.getElementById('exp-absdist');
+            if(eE) eE.innerHTML=
+                `<b>How to read it:</b> the y-axis is logMAR and it's flipped so <b>higher = sharper</b>. `
+                +`Key: 0.0 = 20/20 · 0.1 ≈ 20/25 · 0.2 ≈ 20/32 · 0.3 ≈ 20/40 · 0.5 ≈ 20/63.<br>`
+                +`<b>What it shows:</b> everyone starts blurry on day 1 (~20/30, from swelling). Published <b>Odyssey</b> sharpens to ~20/20 by week 1 and holds. `
+                +`My <b>Envy</b> tracks the Odyssey curve and reaches 20/20-or-better by 1 month. My <b>PureSee</b> starts blurriest on day 1 (denser cataracts by selection) but climbs steeply toward the pack.`
+                +`<div class="nrow">My-series n (distance, POD1→POW1→POM1): Envy ${nStr('Envy (ETNU/ENU)','distance')} · PureSee ${nStr('PureSee (DEN00V)','distance')} · Odyssey ${nStr('Odyssey (DRN00V)','distance')}. Published: Odyssey n=102, PanOptix n=96. <b>Any endpoint at n=1 is a single eye</b> — a marker, not a trend yet.</div>`;
+            const eP=document.getElementById('exp-abspod1');
+            if(eP) eP.innerHTML=
+                `<b>How to read it:</b> a day-1 snapshot; bars pointing <b>down = sharper</b> (lower logMAR).<br>`
+                +`<b>What it shows:</b> at <b>distance</b> everyone's similar (~20/30) except my PureSee (deep bar, ~20/60 — denser eyes). At <b>intermediate/near</b>, published PanOptix leads early because trifocal light-splitting helps before swelling clears. My Envy matches at distance and holds intermediate.`
+                +`<div class="nrow">Day-1 n: Envy ${nAt('Envy (ETNU/ENU)','POD1','distance')} · PureSee ${nAt('PureSee (DEN00V)','POD1','distance')} · Odyssey ${nAt('Odyssey (DRN00V)','POD1','distance')} · published 102 / 96.</div>`;
+            const eG=document.getElementById('exp-absgap');
+            if(eG) eG.innerHTML=
+                `<b>How to read it:</b> this is <b>published Odyssey minus PanOptix</b> at distance only. Bars above 0 = Odyssey sharper.<br>`
+                +`<b>What it shows:</b> day 1 it's ~0 (a tie — PanOptix a hair better). By week 1 the gap opens to ~+0.07 and by 1 month ~+0.12 logMAR — Odyssey ends about <b>one line sharper</b> at distance. This is the published head-to-head; my own series isn't in this bar.`
+                +`<div class="nrow">Published cohort: Odyssey n=102 · PanOptix n=96.</div>`;
             const tb=document.getElementById('absbody');
             if(tb){
                 const cell=v=>typeof v==='number'?v.toFixed(3)+' <span style="color:#9aa5b5">('+asn(v)+')</span>':v;
