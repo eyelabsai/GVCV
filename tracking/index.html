@@ -368,15 +368,17 @@
             datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:pl.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
-        // Family horizontal bar — % of IOLs, count on hover
+        // Family horizontal bar — % of IOLs, count shown inline
         const f = sortObj(s.family);
         const ftot = f.reduce((a,x)=>a+x[1],0);
+        const fpct = f.map(x=>Math.round(100*x[1]/ftot));
+        const fmax = Math.min(100, Math.max(...fpct) + 16);   // fit axis to data + label room
         mkChart(fam,{type:'bar',data:{labels:f.map(x=>x[0]),
-            datasets:[{data:f.map(x=>Math.round(100*x[1]/ftot)),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
-            options:{indexAxis:'y',plugins:{legend:{display:false},
+            datasets:[{data:fpct,backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6,maxBarThickness:26}]},
+            options:{indexAxis:'y',layout:{padding:{right:16}},plugins:{legend:{display:false},
                 tooltip:{callbacks:{label:c=>c.parsed.x+'%  ('+f[c.dataIndex][1]+' eyes)'}},
-                datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:(v,c)=>v+'%  ('+f[c.dataIndex][1]+')',color:'#4c566a',font:{weight:'700',size:11}}},
-                scales:{x:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});
+                datalabels:{display:true,anchor:'end',align:'end',offset:4,clamp:true,formatter:(v,c)=>v+'%  ('+f[c.dataIndex][1]+')',color:'#4c566a',font:{weight:'700',size:11}}},
+                scales:{x:{beginAtZero:true,max:fmax,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:12}}}}}});
 
         // Range of vision — premium eyes, stacked % by working distance (D/I/N)
         if(typeof rangevis!=='undefined' && rangevis && s.range_of_vision){
