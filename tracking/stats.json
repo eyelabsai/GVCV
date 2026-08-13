@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-12",
+  "generated": "2026-08-13",
   "totals": {
-    "eyes": 212,
-    "patients": 164,
-    "premium": 74,
-    "standard": 85,
+    "eyes": 219,
+    "patients": 168,
+    "premium": 78,
+    "standard": 88,
     "premium_pct": 47,
-    "iol": 159,
-    "toric": 35,
+    "iol": 166,
+    "toric": 37,
     "toric_pct": 22,
     "va_recorded": 103,
     "pow1_recorded": 25,
@@ -17,33 +17,33 @@
     "migs": 3
   },
   "premiumVsStandard": {
-    "Premium (presbyopia-correcting)": 74,
-    "Standard monofocal": 85
+    "Premium (presbyopia-correcting)": 78,
+    "Standard monofocal": 88
   },
   "category": {
-    "Monofocal": 68,
-    "EDOF": 67,
+    "Monofocal": 71,
+    "EDOF": 69,
     "Toric monofocal": 16,
-    "LAL": 6,
+    "LAL": 8,
     "Enhanced monofocal": 1,
     "ICL": 24,
     "Other": 5,
     "Multifocal": 1
   },
   "family": {
-    "Tecnis (ZCB00)": 48,
-    "Envy (ETNU/ENU)": 50,
+    "Tecnis (ZCB00)": 51,
+    "Envy (ETNU/ENU)": 52,
     "PureSee (DEN00V)": 17,
     "Tecnis (DCB00)": 20,
     "Tecnis Toric (ZCU)": 16,
-    "LAL (Light Adjustable)": 6,
+    "LAL (Light Adjustable)": 8,
     "Eyhance": 1,
     "EVO ICL": 24,
     "Other": 5,
     "Odyssey (DRN00V)": 1
   },
   "procedure": {
-    "Cataract": 161,
+    "Cataract": 168,
     "EVO ICL": 26,
     "Pterygium": 2,
     "Piggyback IOL": 1,
@@ -54,19 +54,19 @@
     "RLE (refractive lens exch)": 2
   },
   "indication": {
-    "Cataract": 162,
+    "Cataract": 169,
     "ICL": 26,
     "Other surgery": 6,
     "LASIK/PRK": 16,
     "RLE": 2
   },
   "power": {
-    "18\u201320": 30,
-    "15\u201317.5": 18,
-    "<15": 16,
-    "20.5\u201322": 44,
-    "22.5\u201324": 21,
-    "\u226524.5": 6
+    "18\u201320": 31,
+    "15\u201317.5": 20,
+    "<15": 17,
+    "20.5\u201322": 45,
+    "22.5\u201324": 22,
+    "\u226524.5": 7
   },
   "va": {
     "20/30\u201320/40": 26,
