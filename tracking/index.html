@@ -375,7 +375,7 @@
             datasets:[{data:f.map(x=>Math.round(100*x[1]/ftot)),backgroundColor:f.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{indexAxis:'y',plugins:{legend:{display:false},
                 tooltip:{callbacks:{label:c=>c.parsed.x+'%  ('+f[c.dataIndex][1]+' eyes)'}},
-                datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:v=>v+'%',color:'#4c566a',font:{weight:'700',size:11}}},
+                datalabels:{display:true,anchor:'end',align:'end',offset:2,formatter:(v,c)=>v+'%  ('+f[c.dataIndex][1]+')',color:'#4c566a',font:{weight:'700',size:11}}},
                 scales:{x:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});
 
         // Range of vision — premium eyes, stacked % by working distance (D/I/N)
