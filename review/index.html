@@ -12,12 +12,13 @@
   /* ============================================================
      CONFIG — Google review target lives in the <script> below
      (GOOGLE_REVIEW_URL). Verified Place ID: ChIJR68fZ1233IcRryGL4bUgn2I
+     Procedure can be pre-set via URL: /review?p=cataract|icl|lasik|other
      ============================================================ */
   :root{
     --primary:#4c566a; --secondary:#5e81ac; --accent:#81a1c1;
     --cool:#88c0d0; --green:#a3be8c; --yellow:#ebcb8b; --warm:#d08770;
     --text:#2e3440; --muted:#6b7280; --bg:#f6f8fb; --surface:#ffffff;
-    --border:#e5e9f0; --star:#f5b301;
+    --border:#e5e9f0; --star:#f5b301; --gopost:#34a853;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{height:100%}
@@ -28,55 +29,72 @@
     background-attachment:fixed; line-height:1.5;
     padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   }
-  .wrap{max-width:560px;margin:0 auto;padding:1.5rem 1.15rem 3rem}
-  header{text-align:center;margin-bottom:1.4rem}
-  .doc{font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
-  .prac{color:var(--muted);font-size:.92rem;margin-top:.15rem}
-  .stars-top{color:var(--star);font-size:1.15rem;letter-spacing:2px;margin-top:.5rem}
+  .wrap{max-width:560px;margin:0 auto;padding:1.4rem 1.15rem 3rem}
+  header{text-align:center;margin-bottom:1rem}
+  .doc{font-size:1.3rem;font-weight:800;letter-spacing:-.01em}
+  .prac{color:var(--muted);font-size:.9rem;margin-top:.15rem}
+  .stars-top{color:var(--star);font-size:1.15rem;letter-spacing:2px;margin-top:.45rem}
 
   .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;
-    padding:1.35rem 1.2rem;box-shadow:0 6px 24px -12px rgba(46,52,64,.25);margin-bottom:1.1rem}
+    padding:1.25rem 1.15rem;box-shadow:0 6px 24px -12px rgba(46,52,64,.25);margin-bottom:1rem}
 
-  .step-label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--secondary);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
-  .step-num{background:var(--secondary);color:#fff;width:20px;height:20px;border-radius:50%;
-    display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700}
+  .hero-title{font-size:1.02rem;font-weight:700;text-align:center;margin-bottom:.2rem}
+  .hero-sub{font-size:.85rem;color:var(--muted);text-align:center;margin-bottom:.9rem}
 
-  .chips{display:flex;flex-wrap:wrap;gap:.55rem}
+  .preview{background:#f9fbfd;border:1px dashed var(--accent);border-radius:14px;
+    padding:.9rem;min-height:86px;font-size:1.02rem;line-height:1.55;color:var(--text);
+    width:100%;font-family:inherit;resize:vertical}
+  .preview:focus{outline:2px solid var(--accent);outline-offset:1px}
+
+  /* GIANT primary button */
+  .go{width:100%;margin-top:.9rem;border:none;border-radius:16px;
+    background:var(--gopost);color:#fff;font-family:inherit;font-weight:800;
+    font-size:1.12rem;padding:1.15rem 1rem;cursor:pointer;transition:transform .1s ease,background .15s ease;
+    min-height:62px;box-shadow:0 8px 22px -10px rgba(52,168,83,.7);
+    display:flex;align-items:center;justify-content:center;gap:.5rem}
+  .go:active{transform:scale(.98)}
+  .go:disabled{opacity:.5}
+  .go .gs{color:#ffe08a;letter-spacing:1px}
+
+  .subrow{display:flex;justify-content:center;gap:1.4rem;margin-top:.75rem}
+  .link{background:none;border:none;font-family:inherit;font-size:.85rem;font-weight:600;
+    color:var(--secondary);cursor:pointer;padding:.3rem}
+  .link:active{opacity:.6}
+
+  .steps5{color:var(--muted);font-size:.85rem;text-align:center;margin-top:.9rem;line-height:1.55;
+    padding-top:.85rem;border-top:1px solid var(--border)}
+  .steps5 b{color:var(--text)}
+  .steps5 .warn{color:#aab2bd;font-size:.8rem}
+
+  /* optional personalize */
+  details.person{margin-bottom:1rem;border:1px solid var(--border);border-radius:16px;
+    background:var(--surface);overflow:hidden}
+  details.person summary{list-style:none;cursor:pointer;padding:.95rem 1.1rem;
+    font-size:.9rem;font-weight:600;color:var(--secondary);display:flex;align-items:center;
+    justify-content:space-between}
+  details.person summary::-webkit-details-marker{display:none}
+  details.person[open] summary{border-bottom:1px solid var(--border)}
+  .caret{transition:transform .2s ease;color:var(--muted)}
+  details.person[open] .caret{transform:rotate(180deg)}
+  .person-body{padding:1rem 1.1rem 1.15rem}
+  .group-label{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);margin:.2rem 0 .55rem}
+  .group-label:not(:first-child){margin-top:1rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem}
   .chip{border:1.5px solid var(--border);background:#fff;color:var(--text);
-    border-radius:999px;padding:.65rem 1rem;font-size:.95rem;font-weight:500;
+    border-radius:999px;padding:.6rem .9rem;font-size:.92rem;font-weight:500;
     font-family:inherit;cursor:pointer;transition:all .12s ease;line-height:1.1;
-    min-height:44px;display:inline-flex;align-items:center}
+    min-height:42px;display:inline-flex;align-items:center}
   .chip:active{transform:scale(.96)}
   .chip.on{background:var(--secondary);border-color:var(--secondary);color:#fff;font-weight:600}
   .chip.proc.on{background:var(--primary);border-color:var(--primary)}
 
-  .hint{font-size:.82rem;color:var(--muted);margin-top:.6rem}
-
-  .preview{background:#f9fbfd;border:1px dashed var(--accent);border-radius:14px;
-    padding:1rem;min-height:96px;font-size:1.02rem;line-height:1.55;color:var(--text);
-    width:100%;font-family:inherit;resize:vertical}
-  .preview:focus{outline:2px solid var(--accent);outline-offset:1px}
-
-  .row{display:flex;gap:.6rem;margin-top:.85rem}
-  button.act{flex:1;border:none;border-radius:14px;padding:.95rem 1rem;font-size:1rem;
-    font-weight:700;font-family:inherit;cursor:pointer;transition:all .12s ease;min-height:52px}
-  button.act:active{transform:scale(.98)}
-  .reroll{background:#eef2f7;color:var(--secondary)}
-  .go{background:var(--green);color:#1f3d1f;flex:2}
-  .go:disabled{opacity:.5;cursor:not-allowed}
-
-  .steps5{color:var(--muted);font-size:.86rem;text-align:center;margin-top:1rem;line-height:1.6}
-  .steps5 b{color:var(--text)}
-
-  .acct-note{display:flex;gap:.55rem;align-items:flex-start;background:#eef3fa;border:1px solid #dbe4f0;
-    border-radius:14px;padding:.75rem .85rem;margin-bottom:1.1rem;font-size:.82rem;color:var(--primary);line-height:1.45}
+  .acct-note{display:flex;gap:.5rem;align-items:flex-start;background:#eef3fa;border:1px solid #dbe4f0;
+    border-radius:14px;padding:.7rem .8rem;margin-bottom:1rem;font-size:.8rem;color:var(--primary);line-height:1.4}
   .acct-note b{color:var(--secondary)}
   .acct-ico{color:var(--secondary);font-weight:700;flex-shrink:0;font-size:.95rem;line-height:1.3}
 
-  .fine{text-align:center;color:#aab2bd;font-size:.72rem;margin-top:1.6rem;line-height:1.5}
-  .hide{display:none}
-  .starbig{color:var(--star)}
+  .fine{text-align:center;color:#aab2bd;font-size:.72rem;margin-top:1.4rem;line-height:1.5}
 </style>
 </head>
 <body>
@@ -87,41 +105,43 @@
     <div class="stars-top">★ ★ ★ ★ ★</div>
   </header>
 
+  <!-- HERO: review is ready on load; one tap posts -->
+  <div class="card">
+    <div class="hero-title">Your review is ready ✨</div>
+    <div class="hero-sub">Tap the button, then paste on Google. Takes ~10 seconds.</div>
+    <textarea class="preview" id="preview" rows="3" aria-label="Your review"></textarea>
+
+    <button class="go" id="go">Post my <span class="gs">★★★★★</span> review on Google</button>
+
+    <div class="subrow">
+      <button class="link" id="reroll">↻ Different wording</button>
+      <button class="link" id="editlink">✎ Edit / write my own</button>
+    </div>
+
+    <div class="steps5">
+      On Google's screen: <b>tap the 5 stars</b> → <b>hold the box &amp; Paste</b> → <b>Post</b>.<br>
+      Your review is already copied. <span class="warn">(If asked, sign in to Google first.)</span>
+    </div>
+  </div>
+
+  <!-- OPTIONAL personalize -->
+  <details class="person">
+    <summary>Want to personalize it? <span class="caret">▾</span></summary>
+    <div class="person-body">
+      <div class="group-label">What did you have done?</div>
+      <div class="chips" id="procChips"></div>
+      <div class="group-label">What stood out?</div>
+      <div class="chips" id="expChips"></div>
+    </div>
+  </details>
+
   <div class="acct-note">
     <span class="acct-ico">ⓘ</span>
-    <span>Reviews are posted on <b>Google</b>, so you'll need to be signed in to your Google (Gmail) account on this phone — most phones already are. If you're not, Google will ask you to sign in first.</span>
-  </div>
-
-  <!-- STEP 1: procedure -->
-  <div class="card">
-    <div class="step-label"><span class="step-num">1</span> What did you have done?</div>
-    <div class="chips" id="procChips"></div>
-  </div>
-
-  <!-- STEP 2: chips -->
-  <div class="card" id="chipCard">
-    <div class="step-label"><span class="step-num">2</span> What stood out? (tap a few)</div>
-    <div class="chips" id="expChips"></div>
-    <div class="hint">Pick whatever's true for you — your review is built from what you choose.</div>
-  </div>
-
-  <!-- STEP 3: preview -->
-  <div class="card" id="previewCard">
-    <div class="step-label"><span class="step-num">3</span> Your review <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)">— edit it or write your own</span></div>
-    <textarea class="preview" id="preview" placeholder="Tap a few buttons above to build a review — or just type your own here…" rows="4"></textarea>
-    <div class="row">
-      <button class="act reroll" id="reroll">↻ Reword</button>
-      <button class="act go" id="go" disabled>Copy &amp; Post on Google ★</button>
-    </div>
-    <div class="steps5">
-      On Google's screen: <b>tap the 5th ★</b>, <b>paste</b> (long-press the box), and <b>Post</b>.<br>
-      Your review is already copied for you. <span style="color:#aab2bd">(If asked, sign in to Google first.)</span>
-    </div>
+    <span>Reviews post on <b>Google</b>, so you'll need to be signed in to your Google (Gmail) account on this phone — most already are.</span>
   </div>
 
   <div class="fine">
-    Your review reflects your own experience and is posted by you on Google.
-    This page just makes it faster.
+    Your review reflects your own experience and is posted by you on Google. This page just makes it faster.
   </div>
 </div>
 
@@ -165,7 +185,6 @@ const CHIPS = [
     phr:["the follow-up care was excellent","they took great care of me afterward","the aftercare was thorough and reassuring"]}
 ];
 
-// Procedure-specific opener fragments (adds natural, on-topic variety)
 const PROC_OPENERS = {
   cataract:["After my cataract surgery with Dr. Virdi,","I had cataract surgery with Dr. Virdi and","My cataract procedure with Dr. Virdi went wonderfully —"],
   icl:["I had the EVO ICL with Dr. Virdi and","After getting the ICL done with Dr. Virdi,","My ICL experience with Dr. Virdi was fantastic —"],
@@ -173,45 +192,49 @@ const PROC_OPENERS = {
   other:["I saw Dr. Virdi and","My visit with Dr. Virdi was excellent —","From start to finish with Dr. Virdi,"]
 };
 const GENERIC_OPENERS = ["I had a wonderful experience with Dr. Virdi.","Dr. Virdi and his team were fantastic.","I couldn't be happier with my care from Dr. Virdi.","Highly positive experience with Dr. Virdi and his team."];
-const CLOSERS = ["Thank you, Dr. Virdi!","So grateful to this team.","Five stars all the way.","Couldn't recommend more."];
+const CLOSERS = ["Thank you, Dr. Virdi!","So grateful to this team.","Highly recommend."];
+
+// Chips used to seed the default (ready-on-load) review — warm, high-signal.
+const SEED_POOL = ["vision","experience","kind","recommend","skilled","comfortable"];
 
 /* ===================== STATE ====================== */
 let proc = null;
 const picked = new Set();
+let userEdited = false;   // once patient hand-edits, stop auto-overwriting
 
 /* ===================== HELPERS ==================== */
 const rand = arr => arr[Math.floor(Math.random()*arr.length)];
 const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const phrOf = id => rand(CHIPS.find(c=>c.id===id).phr);
 
-function buildReview(){
+// Build a short (2-3 sentence) natural review from selected ids.
+function buildFrom(ids){
+  const sel = shuffle(ids).slice(0,3);            // cap length → fast to read, authentic
   const parts = [];
-  const sel = shuffle([...picked]);            // randomize order each build → variety
-  // opener
-  if(proc && PROC_OPENERS[proc] && Math.random()<0.7){
+  if(proc && PROC_OPENERS[proc] && Math.random()<0.75){
     const op = rand(PROC_OPENERS[proc]);
-    // first phrase flows out of the opener (lowercase), rest are their own sentences
     if(sel.length){
-      const first = rand(CHIPS.find(c=>c.id===sel[0]).phr);
-      parts.push(op+" "+first+".");
-      sel.slice(1).forEach(id=>parts.push(cap(rand(CHIPS.find(c=>c.id===id).phr))+"."));
-    } else { parts.push(op.replace(/[—,]\s*$/,'')+ " it was a great experience."); }
+      parts.push(op+" "+phrOf(sel[0])+".");
+      sel.slice(1).forEach(id=>parts.push(cap(phrOf(id))+"."));
+    } else parts.push(op.replace(/[—,]\s*$/,'')+" it was a great experience.");
   } else {
     parts.push(rand(GENERIC_OPENERS));
-    sel.forEach(id=>parts.push(cap(rand(CHIPS.find(c=>c.id===id).phr))+"."));
+    sel.forEach(id=>parts.push(cap(phrOf(id))+"."));
   }
-  if(Math.random()<0.6) parts.push(rand(CLOSERS));
+  if(sel.length<3 && Math.random()<0.5) parts.push(rand(CLOSERS));
   return parts.join(" ").replace(/\s+/g," ").trim();
 }
 
-function refresh(){
-  const go = document.getElementById("go");
-  if(picked.size===0 && !proc){ document.getElementById("preview").value=""; go.disabled=true; return; }
-  document.getElementById("preview").value = buildReview();
-  go.disabled = false;
+function currentIds(){
+  return picked.size ? [...picked] : shuffle(SEED_POOL).slice(0, 2 + Math.floor(Math.random()*2)); // 2-3 seed chips
+}
+function regen(){
+  document.getElementById("preview").value = buildFrom(currentIds());
+  userEdited = false;
 }
 
-/* ===================== RENDER ===================== */
+/* ===================== RENDER CHIPS =============== */
 const procWrap = document.getElementById("procChips");
 PROCEDURES.forEach(p=>{
   const b=document.createElement("button");
@@ -219,11 +242,10 @@ PROCEDURES.forEach(p=>{
   b.onclick=()=>{
     proc = (proc===p.id)?null:p.id;
     [...procWrap.children].forEach(c=>c.classList.toggle("on", c.dataset.id===proc));
-    refresh();
+    regen();
   };
   procWrap.appendChild(b);
 });
-
 const expWrap = document.getElementById("expChips");
 CHIPS.forEach(c=>{
   const b=document.createElement("button");
@@ -231,19 +253,34 @@ CHIPS.forEach(c=>{
   b.onclick=()=>{
     if(picked.has(c.id)){picked.delete(c.id);b.classList.remove("on");}
     else{picked.add(c.id);b.classList.add("on");}
-    refresh();
+    regen();
   };
   expWrap.appendChild(b);
 });
 
-document.getElementById("reroll").onclick=()=>{ if(picked.size||proc) refresh(); };
+/* ===================== INIT ======================= */
+(function init(){
+  const p = new URLSearchParams(location.search).get("p");
+  if(p && PROC_OPENERS[p]){
+    proc = p;
+    const btn=[...procWrap.children].find(c=>c.dataset.id===p);
+    if(btn) btn.classList.add("on");
+  }
+  regen();  // review is ready immediately — no taps required
+})();
 
-// Free-text: enable "Post" whenever the box has content, even with no chips tapped.
+/* ===================== INTERACTIONS ============== */
+document.getElementById("reroll").onclick=()=>regen();
+document.getElementById("editlink").onclick=()=>{
+  const ta=document.getElementById("preview"); ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+};
 document.getElementById("preview").addEventListener("input",e=>{
+  userEdited = true;
   document.getElementById("go").disabled = e.target.value.trim().length===0;
 });
 
-/* ===================== HANDOFF ==================== */
+/* ===================== HANDOFF =================== */
 document.getElementById("go").onclick=async ()=>{
   const text = document.getElementById("preview").value.trim();
   if(text){
@@ -253,10 +290,9 @@ document.getElementById("go").onclick=async ()=>{
       try{ document.execCommand("copy"); }catch(_){}
     }
   }
-  // brief confirmation then hand off to Google's review composer
   const go=document.getElementById("go");
-  go.textContent="Copied ✓ Opening Google…";
-  setTimeout(()=>{ window.location.href = GOOGLE_REVIEW_URL; }, 550);
+  go.innerHTML='Copied ✓ opening Google…';
+  setTimeout(()=>{ window.location.href = GOOGLE_REVIEW_URL; }, 350);
 };
 </script>
 </body>
