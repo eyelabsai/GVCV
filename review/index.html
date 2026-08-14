@@ -10,10 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     CONFIG — verify this matches your exact Google review link.
-     From your screenshot: https://g.page/r/Ca8hi-G1lJ9iEBM/review
-     If reviews aren't landing on your profile, re-copy the link
-     from Google Business Profile > "Get more reviews" and paste here.
+     CONFIG — Google review target lives in the <script> below
+     (GOOGLE_REVIEW_URL). Verified Place ID: ChIJR68fZ1233IcRryGL4bUgn2I
      ============================================================ */
   :root{
     --primary:#4c566a; --secondary:#5e81ac; --accent:#81a1c1;
@@ -119,7 +117,9 @@
 
 <script>
 /* ===================== CONFIG ===================== */
-const GOOGLE_REVIEW_URL = "https://g.page/r/Ca8hi-G1lJ9iEBM/review";
+// Canonical Google "write a review" endpoint for Dr. Virdi's profile
+// (Place ID resolved & verified from the g.page/r/Ca8hi-G1IJ9iEBM link).
+const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJR68fZ1233IcRryGL4bUgn2I";
 
 /* ===================== DATA ======================= */
 const PROCEDURES = [
