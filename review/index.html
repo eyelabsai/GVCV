@@ -99,8 +99,8 @@
 
   <!-- STEP 3: preview -->
   <div class="card" id="previewCard">
-    <div class="step-label"><span class="step-num">3</span> Your review <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)">— edit anything</span></div>
-    <textarea class="preview" id="preview" placeholder="Tap a few buttons above and your review appears here…" rows="4"></textarea>
+    <div class="step-label"><span class="step-num">3</span> Your review <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)">— edit it or write your own</span></div>
+    <textarea class="preview" id="preview" placeholder="Tap a few buttons above to build a review — or just type your own here…" rows="4"></textarea>
     <div class="row">
       <button class="act reroll" id="reroll">↻ Reword</button>
       <button class="act go" id="go" disabled>Copy &amp; Post on Google ★</button>
@@ -227,6 +227,11 @@ CHIPS.forEach(c=>{
 });
 
 document.getElementById("reroll").onclick=()=>{ if(picked.size||proc) refresh(); };
+
+// Free-text: enable "Post" whenever the box has content, even with no chips tapped.
+document.getElementById("preview").addEventListener("input",e=>{
+  document.getElementById("go").disabled = e.target.value.trim().length===0;
+});
 
 /* ===================== HANDOFF ==================== */
 document.getElementById("go").onclick=async ()=>{
