@@ -81,7 +81,7 @@
     color:var(--muted);margin:.2rem 0 .55rem}
   .group-label:not(:first-child){margin-top:1rem}
   .chips{display:flex;flex-wrap:wrap;gap:.5rem}
-  .chip{border:1.5px solid var(--border);background:#fff;color:var(--text);
+  .chip{border:1.5px solid var(--border);background:var(--bg,#fff);color:var(--text);
     border-radius:999px;padding:.6rem .9rem;font-size:.92rem;font-weight:500;
     font-family:inherit;cursor:pointer;transition:all .12s ease;line-height:1.1;
     min-height:42px;display:inline-flex;align-items:center}
@@ -105,10 +105,20 @@
     <div class="stars-top">★ ★ ★ ★ ★</div>
   </header>
 
-  <!-- HERO: review is ready on load; one tap posts -->
+  <!-- STEP 1: personalize first -->
   <div class="card">
-    <div class="hero-title">Your review is ready ✨</div>
-    <div class="hero-sub">Tap the button, then paste on Google. Takes ~10 seconds.</div>
+    <div class="hero-title">Tell us about your visit</div>
+    <div class="hero-sub">Tap what's true for you — your review builds itself below.</div>
+    <div class="group-label">What did you have done?</div>
+    <div class="chips" id="procChips"></div>
+    <div class="group-label">What stood out? <span style="font-weight:500;text-transform:none;letter-spacing:0">(tap a few)</span></div>
+    <div class="chips" id="expChips"></div>
+  </div>
+
+  <!-- STEP 2: review + post -->
+  <div class="card">
+    <div class="hero-title">Your review ✨</div>
+    <div class="hero-sub">Edit anything, then post. Takes ~10 seconds.</div>
     <textarea class="preview" id="preview" rows="3" aria-label="Your review"></textarea>
 
     <button class="go" id="go">Post my <span class="gs">★★★★★</span> review on Google</button>
@@ -123,17 +133,6 @@
       Your review is already copied. <span class="warn">(If asked, sign in to Google first.)</span>
     </div>
   </div>
-
-  <!-- OPTIONAL personalize -->
-  <details class="person">
-    <summary>Want to personalize it? <span class="caret">▾</span></summary>
-    <div class="person-body">
-      <div class="group-label">What did you have done?</div>
-      <div class="chips" id="procChips"></div>
-      <div class="group-label">What stood out?</div>
-      <div class="chips" id="expChips"></div>
-    </div>
-  </details>
 
   <div class="acct-note">
     <span class="acct-ico">ⓘ</span>
@@ -155,8 +154,7 @@ const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=C
 const PROCEDURES = [
   {id:"cataract", label:"Cataract surgery"},
   {id:"icl",      label:"ICL / EVO lens"},
-  {id:"lasik",    label:"LASIK"},
-  {id:"other",    label:"Eye exam / other"}
+  {id:"lasik",    label:"LASIK"}
 ];
 
 // Each chip maps to a bank of interchangeable phrasings (patient-driven, varied).
@@ -246,10 +244,12 @@ PROCEDURES.forEach(p=>{
   };
   procWrap.appendChild(b);
 });
+const CHIP_SHADES = ["#eaf1fb","#e9f5ee","#fbf1e8","#f3edf8","#e8f4f6","#fbf6e5","#f9edf0","#edf6ef","#efeefb","#faefe8","#e9f3f9"];
 const expWrap = document.getElementById("expChips");
-CHIPS.forEach(c=>{
+CHIPS.forEach((c,i)=>{
   const b=document.createElement("button");
   b.className="chip"; b.textContent=c.label; b.dataset.id=c.id;
+  b.style.setProperty("--bg", CHIP_SHADES[i % CHIP_SHADES.length]);
   b.onclick=()=>{
     if(picked.has(c.id)){picked.delete(c.id);b.classList.remove("on");}
     else{picked.add(c.id);b.classList.add("on");}
