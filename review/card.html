@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Review Card — Print</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#4c566a;--secondary:#5e81ac;--text:#2e3440;--muted:#6b7280;--star:#f5b301;--border:#e5e9f0}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;color:var(--text);background:#eceff4;display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px}
+  .toolbar{font-size:.85rem;color:var(--muted)}
+  .toolbar button{font:inherit;font-weight:600;color:#fff;background:var(--secondary);border:none;border-radius:8px;padding:.5rem .9rem;cursor:pointer}
+  /* 3.5in x 2in card, standard US business card */
+  .card{width:3.5in;height:2in;background:#fff;border-radius:12px;
+    box-shadow:0 8px 30px -12px rgba(46,52,64,.4);display:flex;overflow:hidden;
+    border:1px solid var(--border)}
+  .left{flex:1;padding:.28in .26in;display:flex;flex-direction:column;justify-content:center}
+  .stars{color:var(--star);letter-spacing:2px;font-size:.95rem;margin-bottom:.06in}
+  .head{font-size:1.02rem;font-weight:800;line-height:1.15;letter-spacing:-.01em}
+  .sub{font-size:.62rem;color:var(--muted);margin-top:.05in;line-height:1.35}
+  .cta{margin-top:.16in;font-size:.68rem;font-weight:700;color:var(--secondary)}
+  .doc{margin-top:.14in;font-size:.6rem;color:var(--muted);font-weight:600}
+  .right{width:1.55in;background:linear-gradient(160deg,#eef3fa,#f8fafc);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    border-left:1px solid var(--border)}
+  .right img{width:1.15in;height:1.15in}
+  .scan{font-size:.58rem;font-weight:700;color:var(--primary);letter-spacing:.04em;text-transform:uppercase}
+  @media print{
+    body{background:#fff;padding:0;gap:0}
+    .toolbar{display:none}
+    .card{box-shadow:none;border:1px dashed #ccc;page-break-inside:avoid;margin:.3in}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">Preview at real size (3.5"×2"). <button onclick="window.print()">Print / Save PDF</button> — then hand to any printer, or print on card stock.</div>
+
+  <div class="card">
+    <div class="left">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <div class="head">Enjoyed your<br>experience?</div>
+      <div class="sub">A quick review helps other patients find great eye care — it takes about 15 seconds.</div>
+      <div class="cta">Scan to leave a review →</div>
+      <div class="doc">Gurpal Virdi, MD</div>
+    </div>
+    <div class="right">
+      <img src="qr-review.png" alt="Scan to review">
+      <div class="scan">Scan me</div>
+    </div>
+  </div>
+</body>
+</html>
