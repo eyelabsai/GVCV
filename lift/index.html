@@ -231,7 +231,14 @@ function seed(){ return { active:0, categories:[
 
 let DB = load();
 function load(){
-  try{ const raw=localStorage.getItem(KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(raw){
+      const d=JSON.parse(raw);
+      // self-heal: if data is malformed or empty, fall back to the program seed
+      if(d && Array.isArray(d.categories) && d.categories.length) return d;
+    }
+  }catch(e){}
   return seed();
 }
 function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
@@ -272,9 +279,11 @@ function wLabel(l,w){
 function trim(n){ return (Math.round(n*10)/10).toString(); }
 function topWeight(s){ return Math.max(...s.sets.map(x=>x.weight)); }
 function fmtSets(l,s){
+  if(!s || !s.sets || !s.sets.length) return '—';
   const w=topWeight(s);
   const n=s.sets.length;
-  const rep=s.sets.find(x=>x.weight===w).reps;
+  const top=s.sets.find(x=>x.weight===w) || s.sets[0];
+  const rep=top.reps;
   const lbl=wLabel(l,w);
   if(l.unit==='' && !l.bw) return `${rep}×${n}`; // reps-only (core/cardio)
   return `${lbl} ×${rep}×${n}`;
@@ -283,7 +292,10 @@ function fmtSets(l,s){
 /* ---------- App ---------- */
 const App = {
   init(){
-    this.render();
+    try{ this.render(); }
+    catch(err){ // if anything blows up, rebuild from the program so we never show a blank page
+      DB=seed(); save(); this.render();
+    }
     document.getElementById('addCatBtn').onclick=()=>this.addCat();
     document.getElementById('addLiftBtn').onclick=()=>this.addLift();
     document.getElementById('renameCat').onclick=()=>this.renameCat();
@@ -299,6 +311,9 @@ const App = {
   },
   cat(){ return DB.categories[DB.active]; },
   render(){
+    // never render a blank shell — if we somehow have no days, restore the program
+    if(!DB.categories || !DB.categories.length){ DB=seed(); save(); }
+    if(DB.active>=DB.categories.length || DB.active<0) DB.active=0;
     const tabs=document.getElementById('tabs'); tabs.innerHTML='';
     DB.categories.forEach((c,i)=>{
       const t=document.createElement('button');
