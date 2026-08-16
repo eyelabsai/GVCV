@@ -235,11 +235,15 @@ function load(){
     const raw=localStorage.getItem(KEY);
     if(raw){
       const d=JSON.parse(raw);
-      // self-heal: if data is malformed or empty, fall back to the program seed
+      // valid, non-empty data → use it
       if(d && Array.isArray(d.categories) && d.categories.length) return d;
     }
   }catch(e){}
-  return seed();
+  // self-heal: corrupted/empty/missing → seed AND immediately persist the repair
+  // so the bad value can never be read again on a later refresh or another tab.
+  const s=seed();
+  try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
+  return s;
 }
 function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
 
