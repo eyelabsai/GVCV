@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lift Tracker — Gurpal Virdi</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2e3440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#4c566a; --secondary:#5e81ac; --accent:#81a1c1;
+    --cool:#88c0d0; --green:#a3be8c; --yellow:#ebcb8b; --warm:#d08770; --red:#bf616a;
+    --text:#eceff4; --muted:#9aa5b8; --bg:#2e3440; --surface:#3b4252; --surface2:#434c5e;
+    --border:#4c566a; --pr:#ebcb8b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:var(--text); background:var(--bg); line-height:1.5;
+    padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:1.1rem 1rem 4rem}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+  .title{font-size:1.35rem;font-weight:800;letter-spacing:-.02em}
+  .title .dot{color:var(--green)}
+  .sub{color:var(--muted);font-size:.82rem;margin-top:.1rem}
+  button{font-family:inherit;cursor:pointer}
+  .icon-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);
+    border-radius:12px;padding:.55rem .7rem;font-weight:600;font-size:.85rem}
+  .icon-btn:active{transform:scale(.97)}
+
+  /* PIN gate */
+  #gate{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:1.5rem}
+  #gate h1{font-size:1.5rem;font-weight:800}
+  #gate .lead{color:var(--muted);font-size:.9rem;text-align:center}
+  .pindots{display:flex;gap:.85rem;margin:.3rem 0}
+  .pindot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);background:transparent}
+  .pindot.on{background:var(--green);border-color:var(--green)}
+  .pindot.err{background:var(--red);border-color:var(--red)}
+  .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;width:100%;max-width:280px}
+  .key{background:var(--surface);border:1px solid var(--border);color:var(--text);
+    border-radius:16px;font-size:1.4rem;font-weight:700;padding:1rem 0;min-height:64px}
+  .key:active{background:var(--surface2)}
+  .key.wide{font-size:.95rem;font-weight:600;color:var(--muted)}
+
+  /* Day tabs */
+  .tabs{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:.9rem;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{white-space:nowrap;background:var(--surface);border:1px solid var(--border);
+    color:var(--muted);border-radius:999px;padding:.5rem .95rem;font-weight:700;font-size:.85rem}
+  .tab.active{background:var(--secondary);border-color:var(--secondary);color:#fff}
+
+  .cat-title{display:flex;align-items:center;justify-content:space-between;margin:.2rem 0 .5rem}
+  .cat-title h2{font-size:1.05rem;font-weight:800}
+  .cat-meta{color:var(--muted);font-size:.8rem;margin-bottom:.8rem;line-height:1.45}
+
+  .lift{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:.85rem .9rem;margin-bottom:.7rem}
+  .lift-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem}
+  .lift-name{font-weight:700;font-size:1rem}
+  .lift-scheme{font-size:.8rem;color:var(--accent);margin-top:.1rem;font-weight:600}
+  .lift-target{color:var(--yellow)}
+  .lift-cur{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+  .lift-cur b{color:var(--cool)}
+  .pr-badge{color:var(--pr);font-weight:700;font-size:.7rem;border:1px solid var(--pr);
+    border-radius:6px;padding:.02rem .32rem;margin-left:.35rem}
+  .lift-actions{display:flex;gap:.4rem;flex-shrink:0}
+  .mini{background:var(--surface2);border:1px solid var(--border);color:var(--text);
+    border-radius:10px;padding:.4rem .55rem;font-size:.8rem;font-weight:600}
+
+  .log-row{display:flex;gap:.5rem;margin-top:.7rem;align-items:end;flex-wrap:wrap}
+  .field{display:flex;flex-direction:column;gap:.2rem}
+  .field label{font-size:.66rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .field input{width:70px;background:var(--bg);border:1px solid var(--border);color:var(--text);
+    border-radius:10px;padding:.55rem .5rem;font-size:1rem;font-weight:700;text-align:center;font-family:inherit}
+  .save-set{background:var(--green);border:none;color:#20301c;border-radius:10px;
+    padding:.6rem .9rem;font-weight:800;font-size:.9rem;min-height:44px}
+  .cue{font-size:.75rem;color:var(--muted);margin-top:.5rem;font-style:italic;display:none}
+  .cue.open{display:block}
+
+  .history{margin-top:.7rem;border-top:1px solid var(--border);padding-top:.6rem;display:none}
+  .history.open{display:block}
+  .sess{font-size:.82rem;color:var(--muted);padding:.35rem 0;border-bottom:1px dashed var(--border)}
+  .sess:last-child{border-bottom:none}
+  .sess .d{color:var(--text);font-weight:600}
+  .sess .sets{color:var(--cool)}
+  .sess .del{float:right;color:var(--red);font-size:.75rem;background:none;border:none}
+
+  .add-lift{width:100%;background:none;border:1.5px dashed var(--border);color:var(--muted);
+    border-radius:14px;padding:.75rem;font-weight:700;font-size:.9rem;margin-top:.2rem}
+  .toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.6rem;padding-top:1rem;border-top:1px solid var(--border)}
+  .toast{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%) translateY(120%);
+    background:var(--green);color:#20301c;font-weight:700;padding:.7rem 1.1rem;border-radius:12px;
+    font-size:.9rem;transition:transform .25s ease;z-index:40;box-shadow:0 8px 24px -8px rgba(0,0,0,.5)}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .empty{color:var(--muted);font-size:.9rem;text-align:center;padding:1.5rem 0}
+  .rehab{border-left:3px solid var(--warm)}
+</style>
+</head>
+<body>
+
+<!-- ============ PIN GATE ============ -->
+<div id="gate">
+  <h1>🔒 Lift Tracker</h1>
+  <div class="lead">Enter PIN</div>
+  <div class="pindots" id="pindots">
+    <div class="pindot"></div><div class="pindot"></div>
+    <div class="pindot"></div><div class="pindot"></div>
+  </div>
+  <div class="keypad" id="keypad">
+    <button class="key">1</button><button class="key">2</button><button class="key">3</button>
+    <button class="key">4</button><button class="key">5</button><button class="key">6</button>
+    <button class="key">7</button><button class="key">8</button><button class="key">9</button>
+    <button class="key wide" data-act="clear">Clear</button>
+    <button class="key">0</button>
+    <button class="key wide" data-act="del">⌫</button>
+  </div>
+</div>
+
+<div class="wrap" id="app" style="display:none">
+  <header>
+    <div>
+      <div class="title">Lift Tracker<span class="dot">.</span></div>
+      <div class="sub">5-day cycle · Phase 1 · goal 11% BF by Oct</div>
+    </div>
+    <button class="icon-btn" id="addCatBtn">+ Day</button>
+  </header>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="cat-title">
+    <h2 id="catName"></h2>
+    <button class="icon-btn" id="renameCat" style="font-size:.76rem;padding:.35rem .55rem">Rename</button>
+  </div>
+  <div class="cat-meta" id="catMeta"></div>
+  <div id="lifts"></div>
+  <button class="add-lift" id="addLiftBtn">+ Add lift to this day</button>
+
+  <div class="toolbar">
+    <button class="icon-btn" id="exportBtn">⬇︎ Export backup</button>
+    <button class="icon-btn" id="importBtn">⬆︎ Import</button>
+    <button class="icon-btn" id="resetBtn">↺ Reset to program</button>
+    <button class="icon-btn" id="delCatBtn" style="color:var(--red)">Delete day</button>
+    <input type="file" id="fileIn" accept="application/json" style="display:none">
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   Lift Tracker — client-side only. PIN + localStorage.
+   PIN is a soft gate (cosmetic), not real security.
+   Seeded from canonical program [Updated August 2026].
+   ============================================================ */
+const PIN = "0000";
+const KEY = "gv_lift_v2";
+
+/* ---------- helpers ---------- */
+function todayStr(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function uid(){ return 'x'+Math.random().toString(36).slice(2,9); }
+function esc(t){ return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// L(name, unit, scheme, target, cue, bw, sessions)
+// unit: 'lb' | 's' (DB pairs) | '' (bodyweight/reps)  ·  bw: true => weight is ADDED load
+function L(o){ return Object.assign({id:uid(),unit:'lb',scheme:'',target:'',cue:'',bw:false,sessions:[]}, o); }
+function S(date,w,reps){ return {date,sets:reps.map(r=>({weight:w,reps:r}))}; }
+
+function seed(){ return { active:0, categories:[
+  {id:uid(),name:"D1 · Chest",meta:"☕ Coffee required — most CNS-demanding session. Monitor R shoulder at bottom of incline (warms up).",lifts:[
+    L({name:"Incline BB Press",unit:'lb',scheme:"155 lb · 3×8",target:"→ 8/8/8 then 165",cue:"Controlled descent, elbows not flared, don't let shoulders take over.",
+       sessions:[S("2026-07-24",155,[8,8,6]),S("2026-07-31",155,[8,7,6])]}),
+    L({name:"Incline DB Press",unit:'s',scheme:"65s · 3×8-10",target:"→ test 70s (hit 8/8/8 RIR0)",cue:"Control eccentric, expect drop on set 3 at 70s.",
+       sessions:[S("2026-07-31",65,[8,8,8])]}),
+    L({name:"Low-to-High Cable Fly",unit:'lb',scheme:"27 lb · 5×8-10",target:"keep — consistent",cue:"Full stretch bottom, squeeze top, zero momentum.",
+       sessions:[S("2026-07-31",27,[10,10,10,10,10])]}),
+    L({name:"Dips",unit:'lb',bw:true,scheme:"+15 · 3×10",target:"3×10 clean → +20",cue:"Slight forward lean, chest forward, control descent.",
+       sessions:[S("2026-07-31",15,[8,8,6])]}),
+    L({name:"Tricep Pushdown",unit:'lb',scheme:"71 lb · 3×8-10",target:"3×10 clean → 77.5",cue:"Elbows locked at sides, full extension.",
+       sessions:[S("2026-07-31",71,[8,8,8])]}),
+    L({name:"Incline DB Burnout (opt)",unit:'s',scheme:"40s · 2×12-15",target:"finisher when energy allows",cue:""}),
+  ]},
+  {id:uid(),name:"D2 · Back",meta:"Wide grip = canonical (spares elbow). Monitor elbow + R shoulder each session. Eccentric rehab every other day.",lifts:[
+    L({name:"Front Facing Pull-ups (wide)",unit:'',bw:true,scheme:"BW · 3×8",target:"zero tinge consistent → +5",cue:"Wide grip reduces supination load on elbow.",
+       sessions:[S("2026-07-29",0,[8,8,8])]}),
+    L({name:"Neutral Grip Pull-ups (wtd)",unit:'lb',bw:true,scheme:"+20 · 3×8",target:"3×8 clean → +25",cue:"Dead hang bottom, lead with elbows, 2-3s lowering.",
+       sessions:[S("2026-07-29",20,[8,8,7])]}),
+    L({name:"Chest T-Bar Row",unit:'lb',scheme:"75 lb · 3×8",target:"1 more clean → 80",cue:"Elbows past torso, 1s squeeze, slow lower.",
+       sessions:[S("2026-07-29",75,[8,8,8])]}),
+    L({name:"DB Row",unit:'lb',scheme:"80 lb · 3×8",target:"1 more clean → 85",cue:"Full stretch bottom, elbow past hip, 1s squeeze.",
+       sessions:[S("2026-07-29",80,[8,8,8])]}),
+    L({name:"Bayesian Curls",unit:'lb',scheme:"light · 3×12",target:"gap filler",cue:"Full stretch bottom, squeeze top.",sessions:[]}),
+    L({name:"Eccentric Rehab (elbow)",unit:'lb',scheme:"10 lb · 3×10 · 4s eccentric",target:"maintenance, every other day",cue:"Palm up, full extension, assist concentric with other hand.",sessions:[]}),
+  ]},
+  {id:uid(),name:"D3 · Cardio/Core",meta:"StairMaster 25min @ L9 preferred (min 20 regardless of equipment). Full core circuit — no skipping. Log reps in Reps field; StairMaster: minutes in Reps.",lifts:[
+    L({name:"StairMaster",unit:'',scheme:"25 min · Level 9",target:"min 20 min",cue:"Do BEFORE pre-lift carbs / ≥2h after — maximizes fat oxidation.",sessions:[]}),
+    L({name:"Leg Raises",unit:'',scheme:"3×30",target:"",cue:"",sessions:[]}),
+    L({name:"Russian Twists",unit:'',scheme:"4×25",target:"",cue:"",sessions:[]}),
+    L({name:"Scissors",unit:'',scheme:"4×15",target:"",cue:"",sessions:[]}),
+    L({name:"Flutter Kicks",unit:'',scheme:"4×15",target:"",cue:"",sessions:[]}),
+  ]},
+  {id:uid(),name:"D4 · Shoulders",meta:"PT WARMUP MANDATORY: pendulum 1min · sleeper 2×30s · band pull-aparts 2×15. Shoulder ~90% — sleeper stretch is primary Rx.",lifts:[
+    L({name:"DB Shoulder Press (standing)",unit:'s',scheme:"45s · 4×8",target:"4×8 RIR1-2 all sets → 50s",cue:"Controlled, don't let traps take over.",
+       sessions:[S("2026-08-01",45,[8,7,8])]}),
+    L({name:"Cable Laterals Heavy",unit:'lb',scheme:"16.5 lb · 4×8 strict",target:"build to 4×12 → then 22 (no 18 at Crunch)",cue:"Lead with elbow, stop at shoulder height, 2s pause.",
+       sessions:[S("2026-08-01",16.5,[8,8,8])]}),
+    L({name:"Cable Laterals Slow",unit:'lb',scheme:"11 lb · 3×8 tempo",target:"don't add weight — tempo",cue:"3s up, 2s pause, 3s down.",sessions:[]}),
+    L({name:"Low-to-High / DB Lateral",unit:'lb',scheme:"22.5 lb · 4×10",target:"keep",cue:"10-15° forward lean, lead elbow, 2s pause, no swing.",
+       sessions:[S("2026-08-01",22.5,[10,10,10,10])]}),
+    L({name:"Bent-over Raises",unit:'lb',scheme:"27.5 lb · 4×15",target:"don't skip — rear delt = 3D look",cue:"Torso 90°, slight elbow bend, lead with elbows, squeeze top.",sessions:[]}),
+  ]},
+  {id:uid(),name:"D5 · Cardio/Core",meta:"Repeat Day 3 exactly. StairMaster + full core circuit.",lifts:[
+    L({name:"StairMaster",unit:'',scheme:"25 min · Level 9",target:"min 20 min",cue:"Fasted-er = more fat oxidation.",sessions:[]}),
+    L({name:"Leg Raises",unit:'',scheme:"3×30",target:"",cue:"",sessions:[]}),
+    L({name:"Russian Twists",unit:'',scheme:"4×25",target:"",cue:"",sessions:[]}),
+    L({name:"Scissors",unit:'',scheme:"4×15",target:"",cue:"",sessions:[]}),
+    L({name:"Flutter Kicks",unit:'',scheme:"4×15",target:"",cue:"",sessions:[]}),
+  ]},
+]};}
+
+let DB = load();
+function load(){
+  try{ const raw=localStorage.getItem(KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return seed();
+}
+function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
+
+/* ---------- PIN gate ---------- */
+(function(){
+  let buf = "";
+  const dots = [...document.querySelectorAll('#pindots .pindot')];
+  const render = (err)=> dots.forEach((d,i)=>{ d.className='pindot'+(err?' err':(i<buf.length?' on':'')); });
+  const unlock = ()=>{
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    sessionStorage.setItem('gv_lift_unlocked','1');
+    App.init();
+  };
+  if(sessionStorage.getItem('gv_lift_unlocked')==='1'){ unlock(); return; }
+  document.getElementById('keypad').addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    const act=b.dataset.act;
+    if(act==='clear'){ buf=''; render(); return; }
+    if(act==='del'){ buf=buf.slice(0,-1); render(); return; }
+    if(buf.length>=4) return;
+    buf+=b.textContent.trim(); render();
+    if(buf.length===4){
+      if(buf===PIN) setTimeout(unlock,120);
+      else { render(true); setTimeout(()=>{buf='';render();},450); }
+    }
+  });
+})();
+
+/* ---------- weight formatting ---------- */
+function wLabel(l,w){
+  if(l.bw) return w>0 ? 'BW+'+trim(w) : 'BW';
+  if(l.unit==='s') return trim(w)+'s';
+  if(l.unit==='') return trim(w);           // bodyweight / reps-only
+  return trim(w)+' lb';
+}
+function trim(n){ return (Math.round(n*10)/10).toString(); }
+function topWeight(s){ return Math.max(...s.sets.map(x=>x.weight)); }
+function fmtSets(l,s){
+  const w=topWeight(s);
+  const n=s.sets.length;
+  const rep=s.sets.find(x=>x.weight===w).reps;
+  const lbl=wLabel(l,w);
+  if(l.unit==='' && !l.bw) return `${rep}×${n}`; // reps-only (core/cardio)
+  return `${lbl} ×${rep}×${n}`;
+}
+
+/* ---------- App ---------- */
+const App = {
+  init(){
+    this.render();
+    document.getElementById('addCatBtn').onclick=()=>this.addCat();
+    document.getElementById('addLiftBtn').onclick=()=>this.addLift();
+    document.getElementById('renameCat').onclick=()=>this.renameCat();
+    document.getElementById('delCatBtn').onclick=()=>this.delCat();
+    document.getElementById('exportBtn').onclick=()=>this.exportData();
+    document.getElementById('importBtn').onclick=()=>document.getElementById('fileIn').click();
+    document.getElementById('fileIn').onchange=(e)=>this.importData(e);
+    document.getElementById('resetBtn').onclick=()=>{
+      if(confirm('Reset to canonical program? This wipes your logged sessions on this device.')){
+        DB=seed(); save(); this.render(); toast('Reset to program');
+      }
+    };
+  },
+  cat(){ return DB.categories[DB.active]; },
+  render(){
+    const tabs=document.getElementById('tabs'); tabs.innerHTML='';
+    DB.categories.forEach((c,i)=>{
+      const t=document.createElement('button');
+      t.className='tab'+(i===DB.active?' active':'');
+      t.textContent=c.name;
+      t.onclick=()=>{DB.active=i;save();this.render();window.scrollTo(0,0);};
+      tabs.appendChild(t);
+    });
+    const c=this.cat();
+    document.getElementById('catName').textContent=c?c.name:'';
+    document.getElementById('catMeta').textContent=c?(c.meta||''):'';
+    const box=document.getElementById('lifts'); box.innerHTML='';
+    if(!c){ box.innerHTML='<div class="empty">No days. Tap “+ Day”.</div>'; return; }
+    if(!c.lifts.length){ box.innerHTML='<div class="empty">No lifts yet.</div>'; }
+    c.lifts.forEach(l=> box.appendChild(this.liftEl(l)));
+  },
+  liftEl(l){
+    const last=l.sessions[l.sessions.length-1];
+    const best=l.sessions.reduce((m,s)=>Math.max(m,topWeight(s)),0);
+    const el=document.createElement('div'); el.className='lift'+(/rehab/i.test(l.name)?' rehab':'');
+    const curTxt = last ? `${fmtSets(l,last)} · ${last.date}` : 'no sessions yet';
+    const showPR = best>0 && (l.bw || l.unit==='lb' || l.unit==='s');
+    el.innerHTML=`
+      <div class="lift-head">
+        <div style="min-width:0">
+          <div class="lift-name">${esc(l.name)}</div>
+          <div class="lift-scheme">${esc(l.scheme||'')}${l.target?` <span class="lift-target">· ${esc(l.target)}</span>`:''}</div>
+          <div class="lift-cur"><b>${curTxt}</b>${showPR?` <span class="pr-badge">PR ${wLabel(l,best)}</span>`:''}</div>
+        </div>
+        <div class="lift-actions">
+          <button class="mini" data-log>Log</button>
+          <button class="mini" data-menu>⋯</button>
+        </div>
+      </div>
+      <div class="log-row" data-form style="display:none">
+        <div class="field"><label>${l.unit===''&&!l.bw?'—':(l.bw?'Added':'Weight')}</label>
+          <input type="number" inputmode="decimal" data-w placeholder="${last?trim(topWeight(last)):''}" ${l.unit===''&&!l.bw?'disabled style="opacity:.4"':''}></div>
+        <div class="field"><label>${l.unit===''&&!l.bw?'Reps/Min':'Reps'}</label>
+          <input type="number" inputmode="numeric" data-r placeholder="${last?last.sets[0].reps:''}"></div>
+        <div class="field"><label>Sets</label><input type="number" inputmode="numeric" data-s value="${last?last.sets.length:3}"></div>
+        <button class="save-set" data-save>Save</button>
+      </div>
+      ${l.cue?`<div class="cue" data-cue>💡 ${esc(l.cue)}</div>`:''}
+      <div class="history" data-hist></div>
+    `;
+    const form=el.querySelector('[data-form]');
+    const hist=el.querySelector('[data-hist]');
+    const cue=el.querySelector('[data-cue]');
+    el.querySelector('[data-log]').onclick=()=>{
+      const show=form.style.display==='none';
+      form.style.display=show?'flex':'none';
+      if(cue) cue.classList.toggle('open',show);
+      if(show){ const wi=el.querySelector('[data-w]'); (wi.disabled?el.querySelector('[data-r]'):wi).focus(); }
+    };
+    el.querySelector('[data-menu]').onclick=()=>{ this.renderHist(l,hist); hist.classList.toggle('open'); };
+    el.querySelector('[data-save]').onclick=()=>{
+      const repsOnly = l.unit==='' && !l.bw;
+      let w=parseFloat(el.querySelector('[data-w]').value);
+      const r=parseInt(el.querySelector('[data-r]').value,10);
+      const s=parseInt(el.querySelector('[data-s]').value,10)||1;
+      if(repsOnly) w=0;
+      else if(isNaN(w)){ if(l.bw) w=0; else { toast('Enter weight'); return; } }
+      if(!r){ toast('Enter reps'); return; }
+      l.sessions.push({date:todayStr(),sets:Array.from({length:s},()=>({weight:w,reps:r}))});
+      save();
+      const pr = !repsOnly && w>0 && w>=best && best>0;
+      toast(pr?`🏆 PR! ${wLabel(l,w)} × ${r}`:`Logged · ${wLabel(l,w)} ×${r}×${s}`);
+      this.render();
+    };
+    return el;
+  },
+  renderHist(l,hist){
+    if(!l.sessions.length){ hist.innerHTML='<div class="sess">No history yet.</div>'; }
+    else hist.innerHTML=l.sessions.slice().reverse().map((s,ri)=>{
+      const idx=l.sessions.length-1-ri;
+      return `<div class="sess"><span class="d">${s.date}</span> · <span class="sets">${fmtSets(l,s)}</span>
+        <button class="del" data-del="${idx}">delete</button></div>`;
+    }).join('');
+    hist.innerHTML+=`<div class="sess" style="border:none;padding-top:.5rem">
+      <button class="del" style="float:none;color:var(--muted)" data-editname>✏︎ rename</button> &nbsp;
+      <button class="del" data-dellift>🗑 delete lift</button></div>`;
+    hist.querySelectorAll('[data-del]').forEach(b=> b.onclick=()=>{ l.sessions.splice(+b.dataset.del,1); save(); this.render(); });
+    hist.querySelector('[data-editname]').onclick=()=>{ const n=prompt('Rename lift',l.name); if(n){l.name=n.trim();save();this.render();} };
+    hist.querySelector('[data-dellift]').onclick=()=>{ if(confirm('Delete '+l.name+'?')){ const c=this.cat(); c.lifts=c.lifts.filter(x=>x.id!==l.id); save(); this.render(); } };
+  },
+  addLift(){
+    const n=prompt('Lift name'); if(!n) return;
+    const sc=prompt('Scheme (e.g. "135 lb · 3×8") — optional','')||'';
+    this.cat().lifts.push(L({name:n.trim(),scheme:sc.trim()}));
+    save(); this.render();
+  },
+  addCat(){
+    const n=prompt('Day name (e.g. "D6 · Arms")'); if(!n) return;
+    DB.categories.push({id:uid(),name:n.trim(),meta:'',lifts:[]});
+    DB.active=DB.categories.length-1; save(); this.render();
+  },
+  renameCat(){ const c=this.cat(); if(!c) return; const n=prompt('Rename day',c.name); if(n){c.name=n.trim();save();this.render();} },
+  delCat(){ const c=this.cat(); if(!c) return; if(!confirm('Delete "'+c.name+'" and its lifts?'))return;
+    DB.categories.splice(DB.active,1); DB.active=Math.max(0,DB.active-1); save(); this.render(); },
+  exportData(){
+    const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='lift-backup-'+todayStr()+'.json'; a.click(); toast('Backup downloaded');
+  },
+  importData(e){
+    const f=e.target.files[0]; if(!f) return;
+    const rd=new FileReader();
+    rd.onload=()=>{ try{ const d=JSON.parse(rd.result); if(!d.categories) throw 0;
+      if(!confirm('Replace all current data with this backup?')) return;
+      DB=d; DB.active=DB.active||0; save(); this.render(); toast('Imported');
+    }catch(err){ toast('Bad file'); } };
+    rd.readAsText(f); e.target.value='';
+  }
+};
+
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),1900);
+}
+</script>
+</body>
+</html>
