@@ -22,7 +22,8 @@
     color:var(--text); background:var(--bg); line-height:1.5;
     padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   }
-  .wrap{max-width:640px;margin:0 auto;padding:1.1rem 1rem 4rem}
+  .wrap{max-width:1040px;margin:0 auto;padding:1.1rem 1.1rem 4rem;width:100%}
+  @media(min-width:560px){ .wrap{padding:1.4rem 1.6rem 4rem} }
   header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .title{font-size:1.35rem;font-weight:800;letter-spacing:-.02em}
   .title .dot{color:var(--green)}
@@ -58,8 +59,12 @@
   .cat-title h2{font-size:1.05rem;font-weight:800}
   .cat-meta{color:var(--muted);font-size:.8rem;margin-bottom:.8rem;line-height:1.45}
 
+  /* lifts: single column on phone, multi-column grid on wider screens */
+  #lifts{display:grid;grid-template-columns:1fr;gap:.7rem}
+  @media(min-width:640px){ #lifts{grid-template-columns:repeat(2,1fr);gap:.8rem} }
+  @media(min-width:960px){ #lifts{grid-template-columns:repeat(3,1fr)} }
   .lift{background:var(--surface);border:1px solid var(--border);border-radius:16px;
-    padding:.85rem .9rem;margin-bottom:.7rem}
+    padding:.85rem .9rem;margin-bottom:0;align-self:start}
   .lift-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem}
   .lift-name{font-weight:700;font-size:1rem}
   .lift-scheme{font-size:.8rem;color:var(--accent);margin-top:.1rem;font-weight:600}
