@@ -175,7 +175,7 @@
    ============================================================ */
 const PIN = "0000";
 const KEY = "gv_lift_v2";
-const VERSION = "v6 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
+const VERSION = "v7 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
 
 /* ---------- helpers ---------- */
 function todayStr(){
@@ -271,7 +271,11 @@ function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
     sessionStorage.setItem('gv_lift_unlocked','1');
     App.init();
   };
-  if(sessionStorage.getItem('gv_lift_unlocked')==='1'){ unlock(); return; }
+  // Defer the auto-unlock to a microtask/tick: on a REFRESH this runs synchronously
+  // during parse, before `const App` below is initialized (temporal dead zone), which
+  // threw a ReferenceError and left a blank shell. setTimeout runs it after the whole
+  // script has defined App. (Fresh loads were fine because the PIN click already fires late.)
+  if(sessionStorage.getItem('gv_lift_unlocked')==='1'){ setTimeout(unlock,0); return; }
   document.getElementById('keypad').addEventListener('click', e=>{
     const b=e.target.closest('button'); if(!b) return;
     const act=b.dataset.act;
