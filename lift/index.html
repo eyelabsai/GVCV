@@ -81,11 +81,17 @@
   .lift-name{font-weight:700;font-size:1rem}
   .lift-scheme{font-size:.8rem;color:var(--accent);margin-top:.1rem;font-weight:600}
   .lift-target{color:var(--yellow)}
-  .lift-cur{font-size:.8rem;color:var(--muted);margin-top:.25rem}
-  .lift-cur b{color:var(--cool)}
-  .recent{margin-top:.4rem;display:flex;flex-direction:column;gap:.15rem}
-  .recent .rz{font-size:.74rem;color:var(--muted)}
-  .recent .rz i{color:#7b8494;font-style:normal;margin-right:.35rem;font-variant-numeric:tabular-nums}
+  .stats{margin-top:.5rem}
+  .stat-last{font-size:.83rem;color:var(--cool);font-weight:700;display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap}
+  .stat-last .tag{color:var(--muted);font-weight:700;font-size:.62rem;letter-spacing:.06em}
+  .stat-last .dt{color:var(--muted);font-weight:500;font-size:.76rem}
+  .stat-last .none{color:var(--muted);font-weight:500}
+  .pr-badge{display:inline-block;white-space:nowrap;color:var(--pr);font-weight:800;font-size:.66rem;
+    border:1px solid var(--pr);border-radius:6px;padding:.06rem .4rem;margin-top:.35rem;letter-spacing:.02em}
+  .recent{margin-top:.45rem;padding-top:.4rem;border-top:1px solid rgba(255,255,255,.06);
+    display:flex;flex-direction:column;gap:.2rem}
+  .recent .rz{font-size:.75rem;color:var(--muted);display:flex;gap:.5rem}
+  .recent .rz i{color:#7b8494;font-style:normal;font-variant-numeric:tabular-nums;min-width:2.6em}
   .pr-badge{color:var(--pr);font-weight:700;font-size:.7rem;border:1px solid var(--pr);
     border-radius:6px;padding:.02rem .32rem;margin-left:.35rem}
   .lift-actions{display:flex;gap:.4rem;flex-shrink:0}
@@ -178,7 +184,7 @@
    ============================================================ */
 const PIN = "0000";
 const KEY = "gv_lift_v2";
-const VERSION = "v8 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
+const VERSION = "v9 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
 
 /* ---------- helpers ---------- */
 function todayStr(){
@@ -362,20 +368,26 @@ const App = {
     const last=l.sessions[l.sessions.length-1];
     const best=l.sessions.reduce((m,s)=>Math.max(m,topWeight(s)),0);
     const el=document.createElement('div'); el.className='lift'+(/rehab/i.test(l.name)?' rehab':'');
-    const curTxt = last ? `${fmtSets(l,last)} · ${last.date}` : 'no sessions yet';
     const showPR = best>0 && (l.bw || l.unit==='lb' || l.unit==='s');
+    const lastHtml = last
+      ? `<div class="stat-last"><span class="tag">LAST</span> <span>${fmtSets(l,last)}</span> <span class="dt">${last.date}</span></div>`
+      : `<div class="stat-last"><span class="none">no sessions yet</span></div>`;
+    const prHtml = showPR ? `<span class="pr-badge">PR ${wLabel(l,best)}</span>` : '';
     // always-visible recent history: the sessions BEFORE the latest (newest first, up to 4)
     const prev = l.sessions.slice(0,-1).slice(-4).reverse();
     const recentHtml = prev.length
-      ? `<div class="recent">${prev.map(s=>`<span class="rz"><i>${s.date.slice(5)}</i> ${fmtSets(l,s)}</span>`).join('')}</div>`
+      ? `<div class="recent">${prev.map(s=>`<span class="rz"><i>${s.date.slice(5)}</i><span>${fmtSets(l,s)}</span></span>`).join('')}</div>`
       : '';
     el.innerHTML=`
       <div class="lift-head">
         <div style="min-width:0">
           <div class="lift-name">${esc(l.name)}</div>
           <div class="lift-scheme">${esc(l.scheme||'')}${l.target?` <span class="lift-target">· ${esc(l.target)}</span>`:''}</div>
-          <div class="lift-cur"><b>${curTxt}</b>${showPR?` <span class="pr-badge">PR ${wLabel(l,best)}</span>`:''}</div>
-          ${recentHtml}
+          <div class="stats">
+            ${lastHtml}
+            ${prHtml}
+            ${recentHtml}
+          </div>
         </div>
         <div class="lift-actions">
           <button class="mini" data-log>Log</button>
