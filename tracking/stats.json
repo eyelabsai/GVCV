@@ -1,8 +1,8 @@
 {
-  "generated": "2026-08-14",
+  "generated": "2026-08-17",
   "totals": {
-    "eyes": 235,
-    "patients": 177,
+    "eyes": 243,
+    "patients": 181,
     "premium": 84,
     "standard": 89,
     "premium_pct": 49,
@@ -14,7 +14,10 @@
     "near_recorded": 11,
     "icl_dist_recorded": 17,
     "icl_near_recorded": 1,
-    "migs": 3
+    "migs": 3,
+    "femto": 98,
+    "manual_ce": 46,
+    "femto_pct": 68
   },
   "premiumVsStandard": {
     "Premium (presbyopia-correcting)": 84,
@@ -26,7 +29,7 @@
     "Toric monofocal": 17,
     "LAL": 10,
     "Enhanced monofocal": 1,
-    "ICL": 24,
+    "ICL": 32,
     "Other": 6,
     "Multifocal": 1
   },
@@ -38,13 +41,13 @@
     "Tecnis Toric (ZCU)": 17,
     "LAL (Light Adjustable)": 10,
     "Eyhance": 1,
-    "EVO ICL": 24,
+    "EVO ICL": 32,
     "Other": 6,
     "Odyssey (DRN00V)": 1
   },
   "procedure": {
     "Cataract": 176,
-    "EVO ICL": 26,
+    "EVO ICL": 34,
     "Pterygium": 2,
     "Piggyback IOL": 1,
     "LASIK / PRK": 24,
@@ -55,7 +58,7 @@
   },
   "indication": {
     "Cataract": 177,
-    "ICL": 26,
+    "ICL": 34,
     "Other surgery": 6,
     "LASIK/PRK": 24,
     "RLE": 2

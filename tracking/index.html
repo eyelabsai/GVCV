@@ -175,6 +175,7 @@
                 ${kpi(cataracts,'Cataract cases')}
                 ${kpi(t.premium,'Premium IOLs ('+t.premium_pct+'%)')}
                 ${kpi((t.toric_pct||0)+'%','Toric (astigmatism)')}
+                ${(t.femto_pct!=null)?kpi(t.femto_pct+'%','Femto (LensAR) '+(t.femto?'· '+t.femto+' eyes':'')):''}
             </div>
             ${procStrip(s.procedure)}
             <div class="tabs">
