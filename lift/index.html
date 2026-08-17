@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Lift Tracker — Gurpal Virdi</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#2e3440">
@@ -139,7 +142,7 @@
   <header>
     <div>
       <div class="title">Lift Tracker<span class="dot">.</span></div>
-      <div class="sub">5-day cycle · Phase 1 · goal 11% BF by Oct</div>
+      <div class="sub">5-day cycle · Phase 1 · goal 11% BF by Oct · <span id="ver" style="color:var(--green);font-weight:700"></span></div>
     </div>
     <button class="icon-btn" id="addCatBtn">+ Day</button>
   </header>
@@ -172,6 +175,7 @@
    ============================================================ */
 const PIN = "0000";
 const KEY = "gv_lift_v2";
+const VERSION = "v6 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
 
 /* ---------- helpers ---------- */
 function todayStr(){
@@ -305,6 +309,7 @@ function fmtSets(l,s){
 /* ---------- App ---------- */
 const App = {
   init(){
+    var vEl=document.getElementById('ver'); if(vEl) vEl.textContent=VERSION;
     try{ this.render(); }
     catch(err){ // if anything blows up, rebuild from the program so we never show a blank page
       DB=seed(); save(); this.render();
