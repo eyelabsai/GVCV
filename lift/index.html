@@ -83,6 +83,9 @@
   .lift-target{color:var(--yellow)}
   .lift-cur{font-size:.8rem;color:var(--muted);margin-top:.25rem}
   .lift-cur b{color:var(--cool)}
+  .recent{margin-top:.4rem;display:flex;flex-direction:column;gap:.15rem}
+  .recent .rz{font-size:.74rem;color:var(--muted)}
+  .recent .rz i{color:#7b8494;font-style:normal;margin-right:.35rem;font-variant-numeric:tabular-nums}
   .pr-badge{color:var(--pr);font-weight:700;font-size:.7rem;border:1px solid var(--pr);
     border-radius:6px;padding:.02rem .32rem;margin-left:.35rem}
   .lift-actions{display:flex;gap:.4rem;flex-shrink:0}
@@ -175,7 +178,7 @@
    ============================================================ */
 const PIN = "0000";
 const KEY = "gv_lift_v2";
-const VERSION = "v7 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
+const VERSION = "v8 · 2026-08-16"; // bump every deploy so the header stamp proves which code is live
 
 /* ---------- helpers ---------- */
 function todayStr(){
@@ -203,6 +206,7 @@ function seed(){ return { active:0, categories:[
     L({name:"Tricep Pushdown",unit:'lb',scheme:"71 lb · 3×8-10",target:"3×10 clean → 77.5",cue:"Elbows locked at sides, full extension.",
        sessions:[S("2026-07-31",71,[8,8,8])]}),
     L({name:"Incline DB Burnout (opt)",unit:'s',scheme:"40s · 2×12-15",target:"finisher when energy allows",cue:""}),
+    L({name:"StairMaster",unit:'',scheme:"20 min",target:"every non-cardio day (baseline, in TDEE)",cue:"Log minutes in the Reps field.",sessions:[]}),
   ]},
   {id:uid(),name:"D2 · Back",meta:"Wide grip = canonical (spares elbow). Monitor elbow + R shoulder each session. Eccentric rehab every other day.",lifts:[
     L({name:"Front Facing Pull-ups (wide)",unit:'',bw:true,scheme:"BW · 3×8",target:"zero tinge consistent → +5",cue:"Wide grip reduces supination load on elbow.",
@@ -215,6 +219,7 @@ function seed(){ return { active:0, categories:[
        sessions:[S("2026-07-29",80,[8,8,8])]}),
     L({name:"Bayesian Curls",unit:'lb',scheme:"light · 3×12",target:"gap filler",cue:"Full stretch bottom, squeeze top.",sessions:[]}),
     L({name:"Eccentric Rehab (elbow)",unit:'lb',scheme:"10 lb · 3×10 · 4s eccentric",target:"maintenance, every other day",cue:"Palm up, full extension, assist concentric with other hand.",sessions:[]}),
+    L({name:"StairMaster",unit:'',scheme:"20 min",target:"every non-cardio day (baseline, in TDEE)",cue:"Log minutes in the Reps field.",sessions:[]}),
   ]},
   {id:uid(),name:"D3 · Cardio/Core",meta:"StairMaster 25min @ L9 preferred (min 20 regardless of equipment). Full core circuit — no skipping. Log reps in Reps field; StairMaster: minutes in Reps.",lifts:[
     L({name:"StairMaster",unit:'',scheme:"25 min · Level 9",target:"min 20 min",cue:"Do BEFORE pre-lift carbs / ≥2h after — maximizes fat oxidation.",sessions:[]}),
@@ -232,6 +237,7 @@ function seed(){ return { active:0, categories:[
     L({name:"Low-to-High / DB Lateral",unit:'lb',scheme:"22.5 lb · 4×10",target:"keep",cue:"10-15° forward lean, lead elbow, 2s pause, no swing.",
        sessions:[S("2026-08-01",22.5,[10,10,10,10])]}),
     L({name:"Bent-over Raises",unit:'lb',scheme:"27.5 lb · 4×15",target:"don't skip — rear delt = 3D look",cue:"Torso 90°, slight elbow bend, lead with elbows, squeeze top.",sessions:[]}),
+    L({name:"StairMaster",unit:'',scheme:"20 min",target:"every non-cardio day (baseline, in TDEE)",cue:"Log minutes in the Reps field.",sessions:[]}),
   ]},
   {id:uid(),name:"D5 · Cardio/Core",meta:"Repeat Day 3 exactly. StairMaster + full core circuit.",lifts:[
     L({name:"StairMaster",unit:'',scheme:"25 min · Level 9",target:"min 20 min",cue:"Fasted-er = more fat oxidation.",sessions:[]}),
@@ -358,12 +364,18 @@ const App = {
     const el=document.createElement('div'); el.className='lift'+(/rehab/i.test(l.name)?' rehab':'');
     const curTxt = last ? `${fmtSets(l,last)} · ${last.date}` : 'no sessions yet';
     const showPR = best>0 && (l.bw || l.unit==='lb' || l.unit==='s');
+    // always-visible recent history: the sessions BEFORE the latest (newest first, up to 4)
+    const prev = l.sessions.slice(0,-1).slice(-4).reverse();
+    const recentHtml = prev.length
+      ? `<div class="recent">${prev.map(s=>`<span class="rz"><i>${s.date.slice(5)}</i> ${fmtSets(l,s)}</span>`).join('')}</div>`
+      : '';
     el.innerHTML=`
       <div class="lift-head">
         <div style="min-width:0">
           <div class="lift-name">${esc(l.name)}</div>
           <div class="lift-scheme">${esc(l.scheme||'')}${l.target?` <span class="lift-target">· ${esc(l.target)}</span>`:''}</div>
           <div class="lift-cur"><b>${curTxt}</b>${showPR?` <span class="pr-badge">PR ${wLabel(l,best)}</span>`:''}</div>
+          ${recentHtml}
         </div>
         <div class="lift-actions">
           <button class="mini" data-log>Log</button>
