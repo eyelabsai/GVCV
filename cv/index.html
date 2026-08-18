@@ -253,6 +253,7 @@
             <h3 class="toc-title">Contents</h3>
             <ul class="toc-list">
                 <li><a href="#about" class="toc-link">About</a></li>
+                <li><a href="#surgical" class="toc-link">Surgical Experience</a></li>
                 <li><a href="#focus" class="toc-link">Clinical & Research Focus</a></li>
                 <li><a href="#education" class="toc-link">Education</a></li>
                 <li><a href="#research" class="toc-link">Research & Scholarship</a></li>
@@ -275,6 +276,37 @@
                     <p class="focus-intro">I offer the full spectrum of vision correction — <strong>EVO ICL, LASIK, PRK, SMILE, refractive lens exchange, and premium cataract surgery</strong> — because no two eyes are alike, and the best outcome comes from matching the right procedure to the right patient rather than a one-size-fits-all model. My approach is built on radical transparency and patient education: I want every patient fully informed about their options, candidacy, risks, and realistic outcomes. For excellent candidates, that education becomes excitement; for those who aren't ready, I'll honestly tell them to wait.</p>
                     <p class="focus-intro">I'm also the <strong>co-founder and lead engineer of <a href="https://iclfit.com" target="_blank" class="org-link">ICL Fit</a> (ICLFit.com), the leading AI-based ICL-sizing agent</strong>, and a published researcher in ICL sizing and vault prediction — because the future of vision correction is precise, data-driven, and personalized to each eye.</p>
                 </div>
+            </section>
+
+            <!-- Surgical Experience -->
+            <section id="surgical" class="cv-section">
+                <style>
+                    .surg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:4px 0 14px;}
+                    .surg-stat .surg-num{font-family:'Inter',sans-serif;font-weight:700;font-size:34px;line-height:1;letter-spacing:-1px;color:#1c3f6e;display:block;}
+                    .surg-stat .surg-lbl{font-size:13px;color:#5a6675;margin-top:7px;display:block;}
+                    .surg-note{font-size:12.5px;color:#8895a5;margin:0;}
+                    .surg-note a{color:#2563a8;text-decoration:none;font-weight:600;}
+                    @media (max-width:640px){.surg-grid{grid-template-columns:1fr 1fr;gap:20px 14px;}}
+                </style>
+                <h2 class="section-title">SURGICAL EXPERIENCE</h2>
+                <div class="section-content">
+                    <div class="surg-grid">
+                        <div class="surg-stat"><span class="surg-num" id="sv-eyes">255</span><span class="surg-lbl">Operated eyes</span></div>
+                        <div class="surg-stat"><span class="surg-num" id="sv-cat">183</span><span class="surg-lbl">Cataract surgeries</span></div>
+                        <div class="surg-stat"><span class="surg-num" id="sv-prem">86</span><span class="surg-lbl">Premium IOLs</span></div>
+                        <div class="surg-stat"><span class="surg-num" id="sv-icl">36</span><span class="surg-lbl">EVO ICL implants</span></div>
+                    </div>
+                    <p class="surg-note">Tracked surgical experience, updated continuously. <a href="/tracking/" target="_blank">See the live breakdown</a></p>
+                </div>
+                <script>
+                    fetch('/tracking/stats.json').then(r=>r.json()).then(s=>{
+                        const set=(id,v)=>{if(v!=null)document.getElementById(id).textContent=v;};
+                        set('sv-eyes', s.totals && s.totals.eyes);
+                        set('sv-cat', s.procedure && s.procedure['Cataract']);
+                        set('sv-prem', s.totals && s.totals.premium);
+                        set('sv-icl', s.procedure && s.procedure['EVO ICL']);
+                    }).catch(()=>{});
+                </script>
             </section>
 
             <!-- Clinical & Research Focus -->
