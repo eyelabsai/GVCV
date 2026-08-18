@@ -1,8 +1,8 @@
 {
   "generated": "2026-08-18",
   "totals": {
-    "eyes": 252,
-    "patients": 187,
+    "eyes": 255,
+    "patients": 190,
     "premium": 86,
     "standard": 92,
     "premium_pct": 48,
@@ -48,7 +48,7 @@
   "procedure": {
     "Cataract": 183,
     "EVO ICL": 36,
-    "Pterygium": 2,
+    "Pterygium": 5,
     "Piggyback IOL": 1,
     "LASIK / PRK": 24,
     "AC procedure": 1,
@@ -59,7 +59,7 @@
   "indication": {
     "Cataract": 184,
     "ICL": 36,
-    "Other surgery": 6,
+    "Other surgery": 9,
     "LASIK/PRK": 24,
     "RLE": 2
   },
