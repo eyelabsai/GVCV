@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gurpal Virdi, MD · AI Research | Reinforcement Learning &amp; LLM Evaluation</title>
+    <meta name="description" content="Gurpal Virdi, MD is a physician and AI researcher who builds reinforcement-learning (RL) environments and large language model (LLM) evaluations for frontier AI labs and AI startups, including rubric-based medical-AI benchmarks grounded in physician judgment.">
+    <meta name="keywords" content="Gurpal Virdi AI, physician AI researcher, reinforcement learning, RL environments, RLHF, reinforcement learning from verifiable rewards, LLM evaluation, evals, reward modeling, agentic AI, coding agents, frontier models, foundation models, medical AI evaluation, clinical reasoning benchmark, rubric evaluation, machine learning, CUDA, Triton, distributed training, vLLM">
+    <meta name="author" content="Gurpal Virdi, MD">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://gurpalvirdi.com/ai/">
+    <meta property="og:title" content="Gurpal Virdi, MD · AI Research">
+    <meta property="og:description" content="A physician and AI researcher building reinforcement-learning environments and LLM evaluations for frontier AI labs, including medical-AI benchmarks grounded in physician judgment.">
+    <meta property="og:image" content="https://gurpalvirdi.com/og-image.jpg">
+    <meta property="og:site_name" content="Gurpal Virdi, MD">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Gurpal Virdi, MD · AI Research">
+    <meta property="twitter:description" content="A physician and AI researcher building reinforcement-learning environments and LLM evaluations for frontier AI labs.">
+    <meta property="twitter:image" content="https://gurpalvirdi.com/og-image.jpg">
+
+    <meta name="theme-color" content="#f6f8fb">
+    <link rel="canonical" href="https://gurpalvirdi.com/ai/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (JSON-LD): Person / AI research -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://gurpalvirdi.com/#gurpal-virdi",
+        "name": "Gurpal Virdi, MD",
+        "jobTitle": ["Refractive & Cataract Surgeon", "AI Researcher"],
+        "description": "Physician and AI researcher who builds reinforcement-learning environments and large language model evaluations for frontier AI labs and AI startups, including rubric-based medical-AI benchmarks grounded in physician judgment.",
+        "knowsAbout": [
+            "Reinforcement Learning", "Reinforcement Learning from Human Feedback (RLHF)",
+            "Reinforcement Learning Environments", "Reinforcement Learning from Verifiable Rewards",
+            "Large Language Model Evaluation", "LLM Evals", "Reward Modeling",
+            "Agentic AI", "AI Coding Agents", "Frontier Models", "Foundation Models",
+            "Medical AI", "Clinical Reasoning Benchmarks", "Rubric-Based Evaluation",
+            "Machine Learning", "Deep Learning", "GPU Kernels", "Distributed Training"
+        ],
+        "url": "https://gurpalvirdi.com/ai/",
+        "sameAs": [
+            "https://orcid.org/0000-0003-0123-2658",
+            "https://www.wikidata.org/wiki/Q140622323",
+            "https://linkedin.com/in/gurpalvirdi"
+        ]
+    }
+    </script>
+
+    <style>
+        :root{
+            --bg:#f6f8fb; --panel:#ffffff;
+            --ink:#111a27; --ink2:#2a3646; --muted:#5a6675; --muted2:#8895a5;
+            --line:#e3e8ef; --line2:#cbd5e2; --accent:#1c3f6e; --accent2:#2563a8;
+        }
+        *{box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,sans-serif; font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased;}
+        a{color:inherit;}
+        .wrap{max-width:820px; margin:0 auto; padding:0 28px;}
+
+        header.site{position:sticky; top:0; z-index:20; background:rgba(246,248,251,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+        header.site .inner{max-width:1080px; margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between; height:66px;}
+        .brand{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; letter-spacing:-.2px; text-decoration:none; color:var(--ink);}
+        nav.top a{font-family:'Inter',sans-serif; text-decoration:none; color:var(--muted); font-size:12px; letter-spacing:.11em; text-transform:uppercase; margin-left:22px; transition:color .15s;}
+        nav.top a:hover{color:var(--accent2);}
+        nav.top a.here{color:var(--accent2); font-weight:600;}
+        @media (max-width:700px){ nav.top a:not(.here){display:none;} }
+
+        .hero{padding:64px 0 12px;}
+        .eyebrow{font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent2); font-weight:600; margin:0 0 16px;}
+        h1{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(28px,4vw,40px); line-height:1.1; letter-spacing:-.6px; margin:0 0 18px; color:var(--ink);}
+        .lead{font-size:19px; color:var(--ink2); margin:0;}
+
+        main{padding:20px 0 40px;}
+        main p{margin:0 0 20px; color:var(--ink2);}
+        h2{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:20px; letter-spacing:-.2px; margin:40px 0 12px; color:var(--ink);}
+
+        .tags{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 8px;}
+        .tag{border:1px solid var(--line); background:var(--panel); border-radius:8px; padding:6px 12px; font-size:13px; color:var(--ink2); font-weight:500;}
+
+        .back{display:inline-block; margin-top:36px; font-size:13px; letter-spacing:.05em; text-transform:uppercase; font-weight:600; color:var(--accent2); text-decoration:none;}
+        footer.site{border-top:1px solid var(--line); margin-top:24px; padding:26px 0; color:var(--muted); font-size:14px;}
+        footer.site .wrap{display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between;}
+        footer.site a{color:var(--muted); text-decoration:none; margin-right:16px;}
+        footer.site a:hover{color:var(--accent);}
+        @media (max-width:600px){ body{font-size:16px;} .wrap{padding:0 20px;} header.site .inner{padding:0 20px;} }
+    </style>
+</head>
+<body>
+    <header class="site">
+        <div class="inner">
+            <a href="/" class="brand">Gurpal Virdi, MD</a>
+            <nav class="top">
+                <a href="/#about">About</a>
+                <a href="/#care">What I do</a>
+                <a href="/ai/" class="here">AI Research</a>
+                <a href="/cv/">CV</a>
+                <a href="/#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="wrap">
+            <p class="eyebrow">AI Research</p>
+            <h1>Reinforcement learning &amp; the evaluation of frontier AI.</h1>
+            <p class="lead">Outside of medicine, I work with frontier AI labs and AI startups on reinforcement learning and the evaluation of large language models.</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="wrap">
+            <p>I build reinforcement-learning environments and evaluation harnesses that train and measure frontier models, spanning agentic coding agents, tool use, and reasoning. The environments pose real, verifiable tasks in sandboxed execution with automated reward and verification (RLHF and reinforcement learning from verifiable rewards), so models can be trained and benchmarked at scale against ground truth.</p>
+            <p>The tasks run deep into ML systems and GPU work: CUDA, Triton and Pallas kernels, distributed training (FSDP, ZeRO, NCCL), optimizer internals, and high-throughput inference (vLLM), alongside full-stack software engineering and infrastructure.</p>
+
+            <h2>Medical-AI evaluation</h2>
+            <p>As a physician, I focus on the part where my two fields meet: evaluating medical AI. I build rubric-based health benchmarks in which frontier models are graded against physician-written criteria for accuracy, completeness, safety, and communication, with model-based graders validated against physician judgment. It is the same problem as the clinic: measuring performance honestly against the standard of an expert.</p>
+
+            <h2>Focus areas</h2>
+            <div class="tags">
+                <span class="tag">Reinforcement learning</span>
+                <span class="tag">RL environments</span>
+                <span class="tag">RLHF &amp; verifiable rewards</span>
+                <span class="tag">LLM evaluation</span>
+                <span class="tag">Reward modeling</span>
+                <span class="tag">Agentic coding agents</span>
+                <span class="tag">Frontier &amp; foundation models</span>
+                <span class="tag">GPU kernels (CUDA · Triton · Pallas)</span>
+                <span class="tag">Distributed training (FSDP · ZeRO · NCCL)</span>
+                <span class="tag">Medical-AI evaluation</span>
+            </div>
+
+            <a href="/" class="back">← Back to home</a>
+        </div>
+    </main>
+
+    <footer class="site">
+        <div class="wrap">
+            <div>© <span id="yr">2026</span> Gurpal Virdi, MD</div>
+            <div>
+                <a href="/">Home</a>
+                <a href="/cv/">CV</a>
+                <a href="https://linkedin.com/in/gurpalvirdi" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+    <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
