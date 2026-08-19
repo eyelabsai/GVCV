@@ -73,7 +73,15 @@
         nav.top a{font-family:'Inter',sans-serif; text-decoration:none; color:var(--muted); font-size:12px; letter-spacing:.11em; text-transform:uppercase; margin-left:22px; transition:color .15s;}
         nav.top a:hover{color:var(--accent2);}
         nav.top a.here{color:var(--accent2); font-weight:600;}
-        @media (max-width:700px){ nav.top a:not(.here){display:none;} }
+        .menu-btn{display:none; background:none; border:0; color:var(--ink); cursor:pointer; padding:6px; line-height:0;}
+        .menu-btn svg{width:24px; height:24px;}
+        @media (max-width:700px){
+            .menu-btn{display:block;}
+            nav.top{position:absolute; top:66px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--line); display:none; flex-direction:column; padding:6px 20px 14px; box-shadow:0 16px 30px -22px rgba(18,36,64,.4);}
+            nav.top.open{display:flex;}
+            nav.top a{margin:0; padding:13px 0; font-size:13px; border-bottom:1px solid var(--line);}
+            nav.top a:last-child{border-bottom:0;}
+        }
 
         .hero{padding:64px 0 12px;}
         .eyebrow{font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent2); font-weight:600; margin:0 0 16px;}
@@ -99,7 +107,10 @@
     <header class="site">
         <div class="inner">
             <a href="/" class="brand">Gurpal Virdi, MD</a>
-            <nav class="top">
+            <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <nav class="top" id="nav">
                 <a href="/#about">About</a>
                 <a href="/#care">What I do</a>
                 <a href="/ai/" class="here">AI Research</a>
@@ -153,6 +164,13 @@
             </div>
         </div>
     </footer>
-    <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+    <script>
+        document.getElementById('yr').textContent = new Date().getFullYear();
+        (function(){
+            var btn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+            btn.addEventListener('click', function(){ var open = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', open); });
+            nav.addEventListener('click', function(e){ if (e.target.tagName === 'A'){ nav.classList.remove('open'); btn.setAttribute('aria-expanded', false); } });
+        })();
+    </script>
 </body>
 </html>
