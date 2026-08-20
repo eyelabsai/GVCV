@@ -1,53 +1,53 @@
 {
-  "generated": "2026-08-19",
+  "generated": "2026-08-20",
   "totals": {
-    "eyes": 255,
-    "patients": 190,
-    "premium": 86,
-    "standard": 92,
+    "eyes": 265,
+    "patients": 196,
+    "premium": 89,
+    "standard": 97,
     "premium_pct": 48,
-    "iol": 178,
-    "toric": 39,
+    "iol": 186,
+    "toric": 40,
     "toric_pct": 22,
     "va_recorded": 120,
-    "pow1_recorded": 38,
+    "pow1_recorded": 43,
     "near_recorded": 11,
     "icl_dist_recorded": 26,
     "icl_near_recorded": 1,
-    "migs": 3,
-    "femto": 100,
-    "manual_ce": 51,
-    "femto_pct": 66
+    "migs": 4,
+    "femto": 104,
+    "manual_ce": 55,
+    "femto_pct": 65
   },
   "premiumVsStandard": {
-    "Premium (presbyopia-correcting)": 86,
-    "Standard monofocal": 92
+    "Premium (presbyopia-correcting)": 89,
+    "Standard monofocal": 97
   },
   "category": {
-    "Monofocal": 74,
-    "EDOF": 75,
-    "Toric monofocal": 17,
+    "Monofocal": 78,
+    "EDOF": 78,
+    "Toric monofocal": 18,
     "LAL": 10,
     "Enhanced monofocal": 1,
-    "ICL": 34,
+    "ICL": 36,
     "Other": 8,
     "Multifocal": 1
   },
   "family": {
-    "Tecnis (ZCB00)": 54,
-    "Envy (ETNU/ENU)": 55,
+    "Tecnis (ZCB00)": 58,
+    "Envy (ETNU/ENU)": 58,
     "PureSee (DEN00V)": 20,
     "Tecnis (DCB00)": 20,
-    "Tecnis Toric (ZCU)": 17,
+    "Tecnis Toric (ZCU)": 18,
     "LAL (Light Adjustable)": 10,
     "Eyhance": 1,
-    "EVO ICL": 34,
+    "EVO ICL": 36,
     "Other": 8,
     "Odyssey (DRN00V)": 1
   },
   "procedure": {
-    "Cataract": 183,
-    "EVO ICL": 36,
+    "Cataract": 191,
+    "EVO ICL": 38,
     "Pterygium": 5,
     "Piggyback IOL": 1,
     "LASIK / PRK": 24,
@@ -57,18 +57,18 @@
     "RLE (refractive lens exch)": 2
   },
   "indication": {
-    "Cataract": 184,
-    "ICL": 36,
+    "Cataract": 192,
+    "ICL": 38,
     "Other surgery": 9,
     "LASIK/PRK": 24,
     "RLE": 2
   },
   "power": {
-    "18\u201320": 34,
-    "15\u201317.5": 21,
-    "<15": 19,
+    "18\u201320": 38,
+    "15\u201317.5": 22,
+    "<15": 20,
     "20.5\u201322": 49,
-    "22.5\u201324": 23,
+    "22.5\u201324": 25,
     "\u226524.5": 8
   },
   "va": {
@@ -79,9 +79,9 @@
   },
   "pow1": {
     "worse than 20/40": 3,
-    "20/20 or better": 22,
-    "20/25": 6,
-    "20/30\u201320/40": 7
+    "20/20 or better": 24,
+    "20/25": 7,
+    "20/30\u201320/40": 9
   },
   "near": {
     "J1 (~20/20 near)": 8,
