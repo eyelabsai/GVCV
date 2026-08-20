@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-20",
   "totals": {
-    "eyes": 266,
+    "eyes": 267,
     "patients": 197,
     "premium": 89,
     "standard": 98,
@@ -10,12 +10,12 @@
     "toric": 40,
     "toric_pct": 21,
     "va_recorded": 120,
-    "pow1_recorded": 45,
+    "pow1_recorded": 46,
     "near_recorded": 11,
     "icl_dist_recorded": 26,
     "icl_near_recorded": 1,
     "migs": 4,
-    "femto": 105,
+    "femto": 106,
     "manual_ce": 55,
     "femto_pct": 66
   },
@@ -30,7 +30,7 @@
     "LAL": 10,
     "Enhanced monofocal": 1,
     "ICL": 36,
-    "Other": 8,
+    "Other": 9,
     "Multifocal": 1
   },
   "family": {
@@ -42,11 +42,11 @@
     "LAL (Light Adjustable)": 10,
     "Eyhance": 1,
     "EVO ICL": 36,
-    "Other": 8,
+    "Other": 9,
     "Odyssey (DRN00V)": 1
   },
   "procedure": {
-    "Cataract": 192,
+    "Cataract": 193,
     "EVO ICL": 38,
     "Pterygium": 5,
     "Piggyback IOL": 1,
@@ -57,7 +57,7 @@
     "RLE (refractive lens exch)": 2
   },
   "indication": {
-    "Cataract": 193,
+    "Cataract": 194,
     "ICL": 38,
     "Other surgery": 9,
     "LASIK/PRK": 24,
@@ -79,7 +79,7 @@
   },
   "pow1": {
     "worse than 20/40": 3,
-    "20/20 or better": 24,
+    "20/20 or better": 25,
     "20/25": 10,
     "20/30\u201320/40": 8
   },
