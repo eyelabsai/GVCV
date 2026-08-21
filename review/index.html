@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Share Your Experience — Dr. Gurpal Virdi</title>
+<title>Share Your Experience, Dr. Gurpal Virdi</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#5e81ac">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     CONFIG — Google review target lives in the <script> below
+     CONFIG, Google review target lives in the <script> below
      (GOOGLE_REVIEW_URL). Verified Place ID: ChIJR68fZ1233IcRryGL4bUgn2I
      Procedure can be pre-set via URL: /review?p=cataract|icl|lasik|other
      ============================================================ */
@@ -108,7 +108,7 @@
   <!-- STEP 1: personalize first -->
   <div class="card">
     <div class="hero-title">Tell us about your visit</div>
-    <div class="hero-sub">Tap what's true for you — your review builds itself below.</div>
+    <div class="hero-sub">Tap what's true for you, your review builds itself below.</div>
     <div class="group-label">What did you have done?</div>
     <div class="chips" id="procChips"></div>
     <div class="group-label">What stood out? <span style="font-weight:500;text-transform:none;letter-spacing:0">(tap a few)</span></div>
@@ -136,7 +136,7 @@
 
   <div class="acct-note">
     <span class="acct-ico">ⓘ</span>
-    <span>Reviews post on <b>Google</b>, so you'll need to be signed in to your Google (Gmail) account on this phone — most already are.</span>
+    <span>Reviews post on <b>Google</b>, so you'll need to be signed in to your Google (Gmail) account on this phone, most already are.</span>
   </div>
 
   <div class="fine">
@@ -184,15 +184,15 @@ const CHIPS = [
 ];
 
 const PROC_OPENERS = {
-  cataract:["After my cataract surgery with Dr. Virdi,","I had cataract surgery with Dr. Virdi and","My cataract procedure with Dr. Virdi went wonderfully —"],
-  icl:["I had the EVO ICL with Dr. Virdi and","After getting the ICL done with Dr. Virdi,","My ICL experience with Dr. Virdi was fantastic —"],
-  lasik:["I had LASIK with Dr. Virdi and","After my LASIK with Dr. Virdi,","My LASIK experience with Dr. Virdi was excellent —"],
-  other:["I saw Dr. Virdi and","My visit with Dr. Virdi was excellent —","From start to finish with Dr. Virdi,"]
+  cataract:["After my cataract surgery with Dr. Virdi,","I had cataract surgery with Dr. Virdi and","My cataract procedure with Dr. Virdi went wonderfully -"],
+  icl:["I had the EVO ICL with Dr. Virdi and","After getting the ICL done with Dr. Virdi,","My ICL experience with Dr. Virdi was fantastic -"],
+  lasik:["I had LASIK with Dr. Virdi and","After my LASIK with Dr. Virdi,","My LASIK experience with Dr. Virdi was excellent -"],
+  other:["I saw Dr. Virdi and","My visit with Dr. Virdi was excellent -","From start to finish with Dr. Virdi,"]
 };
 const GENERIC_OPENERS = ["I had a wonderful experience with Dr. Virdi.","Dr. Virdi and his team were fantastic.","I couldn't be happier with my care from Dr. Virdi.","Highly positive experience with Dr. Virdi and his team."];
 const CLOSERS = ["Thank you, Dr. Virdi!","So grateful to this team.","Highly recommend."];
 
-// Chips used to seed the default (ready-on-load) review — warm, high-signal.
+// Chips used to seed the default (ready-on-load) review, warm, high-signal.
 const SEED_POOL = ["vision","experience","kind","recommend","skilled","comfortable"];
 
 /* ===================== STATE ====================== */
@@ -215,7 +215,7 @@ function buildFrom(ids){
     if(sel.length){
       parts.push(op+" "+phrOf(sel[0])+".");
       sel.slice(1).forEach(id=>parts.push(cap(phrOf(id))+"."));
-    } else parts.push(op.replace(/[—,]\s*$/,'')+" it was a great experience.");
+    } else parts.push(op.replace(/[-,]\s*$/,'')+" it was a great experience.");
   } else {
     parts.push(rand(GENERIC_OPENERS));
     sel.forEach(id=>parts.push(cap(phrOf(id))+"."));
@@ -266,7 +266,7 @@ CHIPS.forEach((c,i)=>{
     const btn=[...procWrap.children].find(c=>c.dataset.id===p);
     if(btn) btn.classList.add("on");
   }
-  regen();  // review is ready immediately — no taps required
+  regen();  // review is ready immediately, no taps required
 })();
 
 /* ===================== INTERACTIONS ============== */

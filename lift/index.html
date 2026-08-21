@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Lift Tracker — Gurpal Virdi</title>
+<title>Lift Tracker, Gurpal Virdi</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#2e3440">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -178,7 +178,7 @@
 
 <script>
 /* ============================================================
-   Lift Tracker — client-side only. PIN + localStorage.
+   Lift Tracker, client-side only. PIN + localStorage.
    PIN is a soft gate (cosmetic), not real security.
    Seeded from canonical program [Updated August 2026].
    ============================================================ */
@@ -200,12 +200,12 @@ function L(o){ return Object.assign({id:uid(),unit:'lb',scheme:'',target:'',cue:
 function S(date,w,reps){ return {date,sets:reps.map(r=>({weight:w,reps:r}))}; }
 
 function seed(){ return { active:0, categories:[
-  {id:uid(),name:"D1 · Chest",meta:"☕ Coffee required — most CNS-demanding session. Monitor R shoulder at bottom of incline (warms up).",lifts:[
+  {id:uid(),name:"D1 · Chest",meta:"☕ Coffee required, most CNS-demanding session. Monitor R shoulder at bottom of incline (warms up).",lifts:[
     L({name:"Incline BB Press",unit:'lb',scheme:"155 lb · 3×8",target:"→ 8/8/8 then 165",cue:"Controlled descent, elbows not flared, don't let shoulders take over.",
        sessions:[S("2026-07-24",155,[8,8,6]),S("2026-07-31",155,[8,7,6])]}),
     L({name:"Incline DB Press",unit:'s',scheme:"65s · 3×8-10",target:"→ test 70s (hit 8/8/8 RIR0)",cue:"Control eccentric, expect drop on set 3 at 70s.",
        sessions:[S("2026-07-31",65,[8,8,8])]}),
-    L({name:"Low-to-High Cable Fly",unit:'lb',scheme:"27 lb · 5×8-10",target:"keep — consistent",cue:"Full stretch bottom, squeeze top, zero momentum.",
+    L({name:"Low-to-High Cable Fly",unit:'lb',scheme:"27 lb · 5×8-10",target:"keep, consistent",cue:"Full stretch bottom, squeeze top, zero momentum.",
        sessions:[S("2026-07-31",27,[10,10,10,10,10])]}),
     L({name:"Dips",unit:'lb',bw:true,scheme:"+15 · 3×10",target:"3×10 clean → +20",cue:"Slight forward lean, chest forward, control descent.",
        sessions:[S("2026-07-31",15,[8,8,6])]}),
@@ -227,22 +227,22 @@ function seed(){ return { active:0, categories:[
     L({name:"Eccentric Rehab (elbow)",unit:'lb',scheme:"10 lb · 3×10 · 4s eccentric",target:"maintenance, every other day",cue:"Palm up, full extension, assist concentric with other hand.",sessions:[]}),
     L({name:"StairMaster",unit:'',scheme:"20 min",target:"every non-cardio day (baseline, in TDEE)",cue:"Log minutes in the Reps field.",sessions:[]}),
   ]},
-  {id:uid(),name:"D3 · Cardio/Core",meta:"StairMaster 25min @ L9 preferred (min 20 regardless of equipment). Full core circuit — no skipping. Log reps in Reps field; StairMaster: minutes in Reps.",lifts:[
-    L({name:"StairMaster",unit:'',scheme:"25 min · Level 9",target:"min 20 min",cue:"Do BEFORE pre-lift carbs / ≥2h after — maximizes fat oxidation.",sessions:[]}),
+  {id:uid(),name:"D3 · Cardio/Core",meta:"StairMaster 25min @ L9 preferred (min 20 regardless of equipment). Full core circuit, no skipping. Log reps in Reps field; StairMaster: minutes in Reps.",lifts:[
+    L({name:"StairMaster",unit:'',scheme:"25 min · Level 9",target:"min 20 min",cue:"Do BEFORE pre-lift carbs / ≥2h after, maximizes fat oxidation.",sessions:[]}),
     L({name:"Leg Raises",unit:'',scheme:"3×30",target:"",cue:"",sessions:[]}),
     L({name:"Russian Twists",unit:'',scheme:"4×25",target:"",cue:"",sessions:[]}),
     L({name:"Scissors",unit:'',scheme:"4×15",target:"",cue:"",sessions:[]}),
     L({name:"Flutter Kicks",unit:'',scheme:"4×15",target:"",cue:"",sessions:[]}),
   ]},
-  {id:uid(),name:"D4 · Shoulders",meta:"PT WARMUP MANDATORY: pendulum 1min · sleeper 2×30s · band pull-aparts 2×15. Shoulder ~90% — sleeper stretch is primary Rx.",lifts:[
+  {id:uid(),name:"D4 · Shoulders",meta:"PT WARMUP MANDATORY: pendulum 1min · sleeper 2×30s · band pull-aparts 2×15. Shoulder ~90%, sleeper stretch is primary Rx.",lifts:[
     L({name:"DB Shoulder Press (standing)",unit:'s',scheme:"45s · 4×8",target:"4×8 RIR1-2 all sets → 50s",cue:"Controlled, don't let traps take over.",
        sessions:[S("2026-08-01",45,[8,7,8])]}),
     L({name:"Cable Laterals Heavy",unit:'lb',scheme:"16.5 lb · 4×8 strict",target:"build to 4×12 → then 22 (no 18 at Crunch)",cue:"Lead with elbow, stop at shoulder height, 2s pause.",
        sessions:[S("2026-08-01",16.5,[8,8,8])]}),
-    L({name:"Cable Laterals Slow",unit:'lb',scheme:"11 lb · 3×8 tempo",target:"don't add weight — tempo",cue:"3s up, 2s pause, 3s down.",sessions:[]}),
+    L({name:"Cable Laterals Slow",unit:'lb',scheme:"11 lb · 3×8 tempo",target:"don't add weight, tempo",cue:"3s up, 2s pause, 3s down.",sessions:[]}),
     L({name:"Low-to-High / DB Lateral",unit:'lb',scheme:"22.5 lb · 4×10",target:"keep",cue:"10-15° forward lean, lead elbow, 2s pause, no swing.",
        sessions:[S("2026-08-01",22.5,[10,10,10,10])]}),
-    L({name:"Bent-over Raises",unit:'lb',scheme:"27.5 lb · 4×15",target:"don't skip — rear delt = 3D look",cue:"Torso 90°, slight elbow bend, lead with elbows, squeeze top.",sessions:[]}),
+    L({name:"Bent-over Raises",unit:'lb',scheme:"27.5 lb · 4×15",target:"don't skip, rear delt = 3D look",cue:"Torso 90°, slight elbow bend, lead with elbows, squeeze top.",sessions:[]}),
     L({name:"StairMaster",unit:'',scheme:"20 min",target:"every non-cardio day (baseline, in TDEE)",cue:"Log minutes in the Reps field.",sessions:[]}),
   ]},
   {id:uid(),name:"D5 · Cardio/Core",meta:"Repeat Day 3 exactly. StairMaster + full core circuit.",lifts:[
@@ -312,7 +312,7 @@ function wLabel(l,w){
 function trim(n){ return (Math.round(n*10)/10).toString(); }
 function topWeight(s){ return Math.max(...s.sets.map(x=>x.weight)); }
 function fmtSets(l,s){
-  if(!s || !s.sets || !s.sets.length) return '—';
+  if(!s || !s.sets || !s.sets.length) return '-';
   const w=topWeight(s);
   const n=s.sets.length;
   const top=s.sets.find(x=>x.weight===w) || s.sets[0];
@@ -345,7 +345,7 @@ const App = {
   },
   cat(){ return DB.categories[DB.active]; },
   render(){
-    // never render a blank shell — if we somehow have no days, restore the program
+    // never render a blank shell, if we somehow have no days, restore the program
     if(!DB.categories || !DB.categories.length){ DB=seed(); save(); }
     if(DB.active>=DB.categories.length || DB.active<0) DB.active=0;
     const tabs=document.getElementById('tabs'); tabs.innerHTML='';
@@ -395,7 +395,7 @@ const App = {
         </div>
       </div>
       <div class="log-row" data-form style="display:none">
-        <div class="field"><label>${l.unit===''&&!l.bw?'—':(l.bw?'Added':'Weight')}</label>
+        <div class="field"><label>${l.unit===''&&!l.bw?'-':(l.bw?'Added':'Weight')}</label>
           <input type="number" inputmode="decimal" data-w placeholder="${last?trim(topWeight(last)):''}" ${l.unit===''&&!l.bw?'disabled style="opacity:.4"':''}></div>
         <div class="field"><label>${l.unit===''&&!l.bw?'Reps/Min':'Reps'}</label>
           <input type="number" inputmode="numeric" data-r placeholder="${last?last.sets[0].reps:''}"></div>
@@ -447,7 +447,7 @@ const App = {
   },
   addLift(){
     const n=prompt('Lift name'); if(!n) return;
-    const sc=prompt('Scheme (e.g. "135 lb · 3×8") — optional','')||'';
+    const sc=prompt('Scheme (e.g. "135 lb · 3×8"), optional','')||'';
     this.cat().lifts.push(L({name:n.trim(),scheme:sc.trim()}));
     save(); this.render();
   },

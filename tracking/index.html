@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgical Tracking — Gurpal Virdi, MD</title>
+    <title>Surgical Tracking, Gurpal Virdi, MD</title>
     <!-- Private personal dashboard: de-identified aggregate data only. Not for indexing. -->
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#f6f8fb">
@@ -98,14 +98,14 @@
         <header>
             <div class="eyebrow">Surgical Logbook</div>
             <h1>Cataract &amp; Refractive Tracking <span class="badge">De-identified</span></h1>
-            <p class="sub">Aggregate outcomes for cases performed by Gurpal Virdi, MD · updated <span id="gen">—</span></p>
+            <p class="sub">Aggregate outcomes for cases performed by Gurpal Virdi, MD · updated <span id="gen">-</span></p>
         </header>
 
         <div id="app"></div>
 
         <footer>
-            Aggregate, de-identified statistics only — no patient identifiers, dates, or individual
-            records are stored or shown here. Post-op visual acuity is <strong>post-op day 1 (POD1)</strong> — uncorrected distance in the
+            Aggregate, de-identified statistics only, no patient identifiers, dates, or individual
+            records are stored or shown here. Post-op visual acuity is <strong>post-op day 1 (POD1)</strong>, uncorrected distance in the
             operated eye. POD1 is early; acuity typically improves as corneal edema clears.
         </footer>
     </div>
@@ -191,7 +191,7 @@
               <div class="grid">
                 ${card('mix','Monofocal vs Premium','Premium = presbyopia-correcting (EDOF, multifocal, LAL)')}
                 ${card('cat','Lens category','Distribution across optic classes')}
-                ${(s.indication&&Object.keys(s.indication).length)?card('indic','Indication — why the surgery','Cataract vs refractive lens exchange (RLE) vs ICL vs LASIK/PRK'):''}
+                ${(s.indication&&Object.keys(s.indication).length)?card('indic','Indication, why the surgery','Cataract vs refractive lens exchange (RLE) vs ICL vs LASIK/PRK'):''}
                 ${card('proc','Procedure mix','Case types across all surgery days')}
                 ${card('pow','IOL power distribution','Implanted lens power (diopters)')}
               </div>
@@ -199,30 +199,30 @@
 
             <div class="panel" data-panel="lens">
               <div class="grid">
-                ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('defocus','Defocus curve — mean logMAR','Presbyopia-correcting EDOF/trifocal, distance-target eyes. Lower/higher = sharper (axis flipped). POD1-heavy for now.',true):''}
-                ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('cumdist','Cumulative VA — Distance','% of eyes at each acuity or better (uncorrected). Reads like Kang 2026 Fig 1.'):''}
-                ${(s.va_cumulative&&s.va_cumulative.overall.intermediate.n)?card('cumint','Cumulative VA — Intermediate','% achieving each acuity or better at intermediate (60 cm)'):''}
-                ${(s.va_cumulative&&s.va_cumulative.overall.near.n)?card('cumnear','Cumulative VA — Near','% achieving each acuity or better at near (from Jaeger, 40 cm)'):''}
-                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rangevis','Range of vision — premium eyes','% of presbyopia-correcting eyes at each acuity, split by working distance (D / I / N)',true):''}
-                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrange','Range of vision — by platform','Distance / intermediate / near, % 20/20-or-better, per premium platform',true):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('defocus','Defocus curve, mean logMAR','Presbyopia-correcting EDOF/trifocal, distance-target eyes. Lower/higher = sharper (axis flipped). POD1-heavy for now.',true):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.distance.n)?card('cumdist','Cumulative VA, Distance','% of eyes at each acuity or better (uncorrected). Reads like Kang 2026 Fig 1.'):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.intermediate.n)?card('cumint','Cumulative VA, Intermediate','% achieving each acuity or better at intermediate (60 cm)'):''}
+                ${(s.va_cumulative&&s.va_cumulative.overall.near.n)?card('cumnear','Cumulative VA, Near','% achieving each acuity or better at near (from Jaeger, 40 cm)'):''}
+                ${(s.range_of_vision&&s.range_of_vision.n&&s.range_of_vision.n.distance)?card('rangevis','Range of vision, premium eyes','% of presbyopia-correcting eyes at each acuity, split by working distance (D / I / N)',true):''}
+                ${(s.platform_range&&Object.keys(s.platform_range).length)?card('platrange','Range of vision, by platform','Distance / intermediate / near, % 20/20-or-better, per premium platform',true):''}
                 ${card('fam','Lens by family / model','Which platforms are being implanted',true)}
               </div>
             </div>
 
             <div class="panel" data-panel="cataract">
               <div class="grid">
-                ${card('va','Cataract — distance VA, POD1','IOL distance-target eyes, uncorrected, ~post-op day 1 — improves as edema clears')}
-                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Cataract — distance VA, POW1','IOL distance-target eyes at ~post-op week 1 — edema cleared, closer to final'):''}
-                ${(s.near&&Object.keys(s.near).length)?card('near','Cataract — near-target outcomes','Mini-monovision eyes — reading acuity (Jaeger); not meant for 20/20 distance'):''}
+                ${card('va','Cataract, distance VA, POD1','IOL distance-target eyes, uncorrected, ~post-op day 1, improves as edema clears')}
+                ${(s.pow1&&Object.keys(s.pow1).length)?card('pow1','Cataract, distance VA, POW1','IOL distance-target eyes at ~post-op week 1, edema cleared, closer to final'):''}
+                ${(s.near&&Object.keys(s.near).length)?card('near','Cataract, near-target outcomes','Mini-monovision eyes, reading acuity (Jaeger); not meant for 20/20 distance'):''}
               </div>
             </div>
 
             <div class="panel" data-panel="refractive">
               <div class="grid">
-                ${(s.refractive&&Object.keys(s.refractive).length)?card('refr','Refractive VA — all (LASIK + ICL)','POD1 uncorrected distance, refractive procedures combined (eye counts)'):''}
-                ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA — LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
-                ${(s.icl_dist&&Object.keys(s.icl_dist).length)?card('icldist','EVO ICL — distance outcomes','ICL eyes with a plano (distance) target — POD1 uncorrected distance VA'):''}
-                ${(s.icl_near&&Object.keys(s.icl_near).length)?card('iclnear','EVO ICL — near-target outcomes','ICL eyes with a mini-monovision (near) target — reading acuity (Jaeger)'):''}
+                ${(s.refractive&&Object.keys(s.refractive).length)?card('refr','Refractive VA, all (LASIK + ICL)','POD1 uncorrected distance, refractive procedures combined (eye counts)'):''}
+                ${(s.refractive_split&&Object.keys(s.refractive_split).length)?card('refrsplit','Refractive VA, LASIK vs ICL','POD1 uncorrected distance, split by procedure (eye counts)'):''}
+                ${(s.icl_dist&&Object.keys(s.icl_dist).length)?card('icldist','EVO ICL, distance outcomes','ICL eyes with a plano (distance) target, POD1 uncorrected distance VA'):''}
+                ${(s.icl_near&&Object.keys(s.icl_near).length)?card('iclnear','EVO ICL, near-target outcomes','ICL eyes with a mini-monovision (near) target, reading acuity (Jaeger)'):''}
               </div>
             </div>
 
@@ -239,17 +239,17 @@
                   <span style="color:var(--muted);font-weight:500">▲ Higher = better vision (logMAR axis inverted)</span>
                 </div>
                 <div style="margin-top:.75rem;font-size:.8rem;color:var(--muted);background:rgba(95,122,69,.08);border-radius:8px;padding:.55rem .8rem">
-                  <b>Note:</b> the green overlay is my own <b>Envy (EDOF)</b> series — a different lens class than these two trifocals, single-surgeon and currently POD1-heavy (small n, no POM1 yet). Shown for orientation, <b>not</b> a head-to-head. It updates live as I log cases.
+                  <b>Note:</b> the green overlay is my own <b>Envy (EDOF)</b> series, a different lens class than these two trifocals, single-surgeon and currently POD1-heavy (small n, no POM1 yet). Shown for orientation, <b>not</b> a head-to-head. It updates live as I log cases.
                 </div>
               </div>
               <div class="card" style="margin-bottom:1.25rem">
                 <h2>Uncorrected distance vision over time</h2>
-                <div class="hint">Platforms start equal, but Odyssey pulls ahead in distance by week 1 and holds it at 1 month (p=0.003, p=0.004). Lower logMAR = sharper — axis flipped so up = better.</div>
+                <div class="hint">Platforms start equal, but Odyssey pulls ahead in distance by week 1 and holds it at 1 month (p=0.003, p=0.004). Lower logMAR = sharper, axis flipped so up = better.</div>
                 <div class="chart-box tall"><canvas id="absdist"></canvas></div>
                 <div id="exp-absdist" class="explain"></div>
               </div>
               <div class="grid">
-                <div class="card"><h2>Post-op Day 1 — all three distances</h2><div class="hint">Early on, PanOptix leads at intermediate &amp; near (p=0.003, p=0.035); distance is a tie (p=0.742).</div><div class="chart-box"><canvas id="abspod1"></canvas></div><div id="exp-abspod1" class="explain"></div></div>
+                <div class="card"><h2>Post-op Day 1, all three distances</h2><div class="hint">Early on, PanOptix leads at intermediate &amp; near (p=0.003, p=0.035); distance is a tie (p=0.742).</div><div class="chart-box"><canvas id="abspod1"></canvas></div><div id="exp-abspod1" class="explain"></div></div>
                 <div class="card"><h2>How the story evolves</h2><div class="hint">Odyssey's distance edge grows as edema clears; PanOptix's early intermediate/near lead evens out by POW1/POM1.</div><div class="chart-box"><canvas id="absgap"></canvas></div><div id="exp-absgap" class="explain"></div></div>
               </div>
               <div class="card" style="margin-top:1.25rem">
@@ -268,14 +268,14 @@
                 </table>
               </div>
               <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:1rem 1.2rem;margin-top:1.25rem;font-size:.92rem">
-                <b>Take-home:</b> Odyssey delivered <b>superior uncorrected distance</b> vision at POW1 and POM1, while <b>matching</b> PanOptix at intermediate and near by those visits. PanOptix's early (POD1) intermediate/near advantage washed out as eyes settled — Odyssey may offer better distance <b>without sacrificing</b> intermediate or near.
+                <b>Take-home:</b> Odyssey delivered <b>superior uncorrected distance</b> vision at POW1 and POM1, while <b>matching</b> PanOptix at intermediate and near by those visits. PanOptix's early (POD1) intermediate/near advantage washed out as eyes settled, Odyssey may offer better distance <b>without sacrificing</b> intermediate or near.
               </div>
             </div>
 
             <div class="panel" data-panel="projection">
               <div style="background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.35rem;margin-bottom:1.25rem">
                 <div class="eyebrow">Fellowship volume projection</div>
-                <h2 style="font-size:1.25rem;font-weight:700;margin:.3rem 0 .5rem">Projected case volume — refractive fellowship (Jul 1 2026 → Jul 1 2027)</h2>
+                <h2 style="font-size:1.25rem;font-weight:700;margin:.3rem 0 .5rem">Projected case volume, refractive fellowship (Jul 1 2026 → Jul 1 2027)</h2>
                 <div id="projmeta" style="color:var(--muted);font-size:.9rem"></div>
                 <div style="height:12px;background:#e5e9f0;border-radius:999px;margin-top:.8rem;overflow:hidden">
                   <div id="projbar" style="height:100%;width:0;background:linear-gradient(90deg,#5e81ac,#5f7a45);border-radius:999px;transition:width .6s ease"></div>
@@ -283,11 +283,11 @@
               </div>
               <div class="grid" id="projcards"></div>
               <div style="background:#fff;border:1px solid var(--border);border-left:4px solid #ebcb8b;border-radius:12px;padding:1rem 1.2rem;margin-top:1.25rem;font-size:.88rem;color:var(--muted)">
-                <b>Method:</b> straight-line extrapolation — (cases so far ÷ fellowship days elapsed) × 365. Surgical volume typically <b>ramps</b> through a fellowship, so the early-months projection tends to <b>under</b>-estimate the full-year total. Updates live with the calendar and every push.
+                <b>Method:</b> straight-line extrapolation, (cases so far ÷ fellowship days elapsed) × 365. Surgical volume typically <b>ramps</b> through a fellowship, so the early-months projection tends to <b>under</b>-estimate the full-year total. Updates live with the calendar and every push.
               </div>
             </div>`;
 
-        // Fellowship projection — straight-line run-rate to Jul 1 2027
+        // Fellowship projection, straight-line run-rate to Jul 1 2027
         if(document.getElementById('projcards')){
             const FS=new Date('2026-07-01T00:00:00'), FE=new Date('2027-07-01T00:00:00'), now=new Date();
             const cn=now<FS?FS:(now>FE?FE:now), day=86400000;
@@ -312,7 +312,7 @@
                 </div>`).join('');
         }
 
-        // Tab switching — charts live in hidden panels, so resize on show.
+        // Tab switching, charts live in hidden panels, so resize on show.
         const CHARTS=[];
         const mkChart=(el,cfg)=>{const c=new Chart(el,cfg);CHARTS.push(c);return c;};
         document.querySelectorAll('.tab').forEach(tb=>tb.addEventListener('click',()=>{
@@ -345,7 +345,7 @@
             datasets:[{data:c.map(x=>x[1]),backgroundColor:PALETTE,borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
-        // Indication doughnut — Cataract vs RLE vs ICL vs LASIK/PRK (fixed colors)
+        // Indication doughnut, Cataract vs RLE vs ICL vs LASIK/PRK (fixed colors)
         if(typeof indic!=='undefined' && indic && s.indication){
             const icol={'Cataract':'#5e81ac','RLE':'#5f7a45','ICL':'#b48ead','LASIK/PRK':'#88c0d0','Other surgery':'#4c566a','Other':'#d8dee9'};
             const im=sortObj(s.indication);
@@ -369,7 +369,7 @@
             datasets:[{data:pl.map(k=>s.power[k]),backgroundColor:pl.map((_,i)=>PALETTE[i%PALETTE.length]),borderRadius:6}]},
             options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
 
-        // Family horizontal bar — % of IOLs, count shown inline
+        // Family horizontal bar, % of IOLs, count shown inline
         const f = sortObj(s.family);
         const ftot = f.reduce((a,x)=>a+x[1],0);
         const fpct = f.map(x=>Math.round(100*x[1]/ftot));
@@ -381,7 +381,7 @@
                 datalabels:{display:true,anchor:'end',align:'end',offset:4,clamp:true,formatter:(v,c)=>v+'%  ('+f[c.dataIndex][1]+')',color:'#4c566a',font:{weight:'700',size:11}}},
                 scales:{x:{beginAtZero:true,max:fmax,grid:{display:false},ticks:{stepSize:10,callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:12}}}}}});
 
-        // Range of vision — premium eyes, stacked % by working distance (D/I/N)
+        // Range of vision, premium eyes, stacked % by working distance (D/I/N)
         if(typeof rangevis!=='undefined' && rangevis && s.range_of_vision){
             const rv=s.range_of_vision, rows=['distance','intermediate','near'],
                   rowlab={distance:'Distance',intermediate:'Intermediate',near:'Near'};
@@ -399,7 +399,7 @@
                     scales:{x:{stacked:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},y:{stacked:true,grid:{display:false}}}}});
         }
 
-        // Range of vision — by platform, % 20/20 (or J1 near) or better
+        // Range of vision, by platform, % 20/20 (or J1 near) or better
         if(typeof platrange!=='undefined' && platrange && s.platform_range){
             const pr=s.platform_range, plats=Object.keys(pr), dists=['distance','intermediate','near'],
                   dl={distance:'Distance',intermediate:'Intermediate',near:'Near'},
@@ -415,7 +415,7 @@
                     scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // VA bar (ordered) — shared scale/colors for POD1 and POW1
+        // VA bar (ordered), shared scale/colors for POD1 and POW1
         const order = ['20/20 or better','20/25','20/30–20/40','worse than 20/40'];
         const vacolor={'20/20 or better':'#a3be8c','20/25':'#88c0d0','20/30–20/40':'#ebcb8b','worse than 20/40':'#d08770'};
         const vlabels = order.filter(k=>s.va[k]);
@@ -431,7 +431,7 @@
             va.closest('.chart-box').innerHTML = '<p style="color:#6b7280;font-size:.9rem;padding:1rem 0">No post-op VA recorded yet.</p>';
         }
 
-        // Refractive VA — all (LASIK + ICL combined), POD1 distance — % axis, count on hover
+        // Refractive VA, all (LASIK + ICL combined), POD1 distance, % axis, count on hover
         if(s.refractive && Object.keys(s.refractive).length && typeof refr!=='undefined' && refr){
             const rl=order.filter(k=>s.refractive[k]); const rt=rl.reduce((a,k)=>a+s.refractive[k],0);
             mkChart(refr,{type:'bar',data:{labels:rl,
@@ -442,7 +442,7 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // Refractive VA — LASIK vs ICL grouped bars, POD1 distance — % within each procedure
+        // Refractive VA, LASIK vs ICL grouped bars, POD1 distance, % within each procedure
         if(s.refractive_split && Object.keys(s.refractive_split).length && typeof refrsplit!=='undefined' && refrsplit){
             const groups=Object.keys(s.refractive_split);
             const gc={'LASIK':'#5e81ac','ICL':'#a3be8c'};
@@ -455,7 +455,7 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // Near-target outcomes (mini-monovision) — Jaeger reading buckets
+        // Near-target outcomes (mini-monovision), Jaeger reading buckets
         if(s.near && Object.keys(s.near).length && typeof near!=='undefined' && near){
             const norder=['J1 (~20/20 near)','J2–J3 (~20/25–30 near)','J4+ (weaker near)'];
             const ncolor={'J1 (~20/20 near)':'#a3be8c','J2–J3 (~20/25–30 near)':'#88c0d0','J4+ (weaker near)':'#ebcb8b'};
@@ -468,7 +468,7 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // EVO ICL — distance-target (plano) outcomes, POD1 uncorrected distance VA
+        // EVO ICL, distance-target (plano) outcomes, POD1 uncorrected distance VA
         if(s.icl_dist && Object.keys(s.icl_dist).length && typeof icldist!=='undefined' && icldist){
             const il=order.filter(k=>s.icl_dist[k]); const it=il.reduce((a,k)=>a+s.icl_dist[k],0);
             mkChart(icldist,{type:'bar',data:{labels:il,
@@ -479,7 +479,7 @@
                     scales:{y:{beginAtZero:true,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
         }
 
-        // EVO ICL — near-target (mini-monovision) outcomes, Jaeger reading
+        // EVO ICL, near-target (mini-monovision) outcomes, Jaeger reading
         if(s.icl_near && Object.keys(s.icl_near).length && typeof iclnear!=='undefined' && iclnear){
             const norder=['J1 (~20/20 near)','J2–J3 (~20/25–30 near)','J4+ (weaker near)'];
             const ncolor={'J1 (~20/20 near)':'#a3be8c','J2–J3 (~20/25–30 near)':'#88c0d0','J4+ (weaker near)':'#ebcb8b'};
@@ -509,7 +509,7 @@
                 options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},datalabels:{display:false},
                     tooltip:{callbacks:{title:i=>i[0].label+' or better',label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
                     scales:{y:{beginAtZero:true,max:100,grid:{color:'#eef1f6'},ticks:{callback:v=>v+'%'},title:{display:true,text:'cumulative % of eyes'}},
-                        x:{grid:{display:false},title:{display:true,text:'uncorrected VA — logMAR 0.0 → 0.5'}}}}});
+                        x:{grid:{display:false},title:{display:true,text:'uncorrected VA, logMAR 0.0 → 0.5'}}}}});
         }
         if(typeof cumdist!=='undefined' && cumdist) cumChart(cumdist,'distance');
         if(typeof cumint!=='undefined' && cumint) cumChart(cumint,'intermediate');
@@ -525,7 +525,7 @@
             mkChart(defocus,{type:'line',data:{labels:lab,datasets:ds},
                 options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
                     datalabels:{align:'top',offset:6,color:'#4c566a',font:{weight:'600',size:10},formatter:v=>v==null?'':'20/'+Math.round(20*Math.pow(10,v))},
-                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y==null?'—':c.parsed.y.toFixed(3)+' logMAR ('+'20/'+Math.round(20*Math.pow(10,c.parsed.y))+')')}}},
+                    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y==null?'-':c.parsed.y.toFixed(3)+' logMAR ('+'20/'+Math.round(20*Math.pow(10,c.parsed.y))+')')}}},
                     scales:{y:{reverse:true,title:{display:true,text:'mean logMAR (up = sharper)'},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
         }
 
@@ -535,7 +535,7 @@
             const times=['POD1','POW1','POM1'];
             const odDist=[0.164,0.062,0.048], panDist=[0.151,0.138,0.164];
             const pD={POD1:'p=0.742 (NS)',POW1:'p=0.003',POM1:'p=0.004'};
-            // My live EDOF series pulled from stats.json — each platform auto-appears
+            // My live EDOF series pulled from stats.json, each platform auto-appears
             // once it clears n>=5 at its best-populated distance timepoint.
             const MYCOL={'Envy (ETNU/ENU)':'#5f7a45','PureSee (DEN00V)':'#b48ead','Vivity (DFT)':'#bf616a'};
             const MYSHORT={'Envy (ETNU/ENU)':'Envy','PureSee (DEN00V)':'PureSee','Vivity (DFT)':'Vivity'};
@@ -555,7 +555,7 @@
                 options:{plugins:{legend:{position:'bottom'},
                     datalabels:{align:'top',offset:6,formatter:v=>v==null?'':asn(v),color:c=>colorsD[c.datasetIndex],font:{weight:'700',size:11}},
                     tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(c.datasetIndex<2?(pD[times[c.dataIndex]]||''):('n='+nAt(myPlats[c.datasetIndex-2],times[c.dataIndex],'distance')))}}},
-                    scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance — logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+                    scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance, logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
             }
             if(typeof abspod1!=='undefined' && abspod1){
                 const dsets=[
@@ -585,16 +585,16 @@
                 +`Key: 0.0 = 20/20 · 0.1 ≈ 20/25 · 0.2 ≈ 20/32 · 0.3 ≈ 20/40 · 0.5 ≈ 20/63.<br>`
                 +`<b>What it shows:</b> everyone starts blurry on day 1 (~20/30, from swelling). Published <b>Odyssey</b> sharpens to ~20/20 by week 1 and holds. `
                 +`My <b>Envy</b> tracks the Odyssey curve and reaches 20/20-or-better by 1 month. My <b>PureSee</b> starts blurriest on day 1 (denser cataracts by selection) but climbs steeply toward the pack.`
-                +`<div class="nrow">My-series n (distance, POD1→POW1→POM1): Envy ${nStr('Envy (ETNU/ENU)','distance')} · PureSee ${nStr('PureSee (DEN00V)','distance')} · Odyssey ${nStr('Odyssey (DRN00V)','distance')}. Published: Odyssey n=102, PanOptix n=96. <b>Any endpoint at n=1 is a single eye</b> — a marker, not a trend yet.</div>`;
+                +`<div class="nrow">My-series n (distance, POD1→POW1→POM1): Envy ${nStr('Envy (ETNU/ENU)','distance')} · PureSee ${nStr('PureSee (DEN00V)','distance')} · Odyssey ${nStr('Odyssey (DRN00V)','distance')}. Published: Odyssey n=102, PanOptix n=96. <b>Any endpoint at n=1 is a single eye</b>, a marker, not a trend yet.</div>`;
             const eP=document.getElementById('exp-abspod1');
             if(eP) eP.innerHTML=
                 `<b>How to read it:</b> a day-1 snapshot; bars pointing <b>down = sharper</b> (lower logMAR).<br>`
-                +`<b>What it shows:</b> at <b>distance</b> everyone's similar (~20/30) except my PureSee (deep bar, ~20/60 — denser eyes). At <b>intermediate/near</b>, published PanOptix leads early because trifocal light-splitting helps before swelling clears. My Envy matches at distance and holds intermediate.`
+                +`<b>What it shows:</b> at <b>distance</b> everyone's similar (~20/30) except my PureSee (deep bar, ~20/60, denser eyes). At <b>intermediate/near</b>, published PanOptix leads early because trifocal light-splitting helps before swelling clears. My Envy matches at distance and holds intermediate.`
                 +`<div class="nrow">Day-1 n: Envy ${nAt('Envy (ETNU/ENU)','POD1','distance')} · PureSee ${nAt('PureSee (DEN00V)','POD1','distance')} · Odyssey ${nAt('Odyssey (DRN00V)','POD1','distance')} · published 102 / 96.</div>`;
             const eG=document.getElementById('exp-absgap');
             if(eG) eG.innerHTML=
                 `<b>How to read it:</b> this is <b>published Odyssey minus PanOptix</b> at distance only. Bars above 0 = Odyssey sharper.<br>`
-                +`<b>What it shows:</b> day 1 it's ~0 (a tie — PanOptix a hair better). By week 1 the gap opens to ~+0.07 and by 1 month ~+0.12 logMAR — Odyssey ends about <b>one line sharper</b> at distance. This is the published head-to-head; my own series isn't in this bar.`
+                +`<b>What it shows:</b> day 1 it's ~0 (a tie, PanOptix a hair better). By week 1 the gap opens to ~+0.07 and by 1 month ~+0.12 logMAR, Odyssey ends about <b>one line sharper</b> at distance. This is the published head-to-head; my own series isn't in this bar.`
                 +`<div class="nrow">Published cohort: Odyssey n=102 · PanOptix n=96.</div>`;
             const tb=document.getElementById('absbody');
             if(tb){
@@ -603,13 +603,13 @@
                     ['POD1','Intermediate',0.023,-0.066,'0.003',PAN,'PanOptix'],
                     ['POD1','Near',0.150,0.091,'0.035',PAN,'PanOptix'],
                     ['POW1','Distance',0.062,0.138,'0.003',OD,'Odyssey'],
-                    ['POW1','Intermediate','—','—','ns','#6b7280','Comparable'],
-                    ['POW1','Near','—','—','ns','#6b7280','Comparable'],
+                    ['POW1','Intermediate','-','-','ns','#6b7280','Comparable'],
+                    ['POW1','Near','-','-','ns','#6b7280','Comparable'],
                     ['POM1','Distance',0.048,0.164,'0.004',OD,'Odyssey'],
-                    ['POM1','Intermediate','—','—','ns','#6b7280','Similar'],
-                    ['POM1','Near','—','—','ns','#6b7280','Similar']];
+                    ['POM1','Intermediate','-','-','ns','#6b7280','Similar'],
+                    ['POM1','Near','-','-','ns','#6b7280','Similar']];
                 tb.innerHTML=rows.map(r=>{
-                    const sig=(r[4]!=='—'&&r[4]!=='ns'&&parseFloat(r[4])<0.05)?'font-weight:700':'color:#9aa5b5';
+                    const sig=(r[4]!=='-'&&r[4]!=='ns'&&parseFloat(r[4])<0.05)?'font-weight:700':'color:#9aa5b5';
                     return '<tr><td style="text-align:left;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+r[0]+'</td>'+
                         '<td style="text-align:left;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+r[1]+'</td>'+
                         '<td style="text-align:center;padding:.5rem .5rem;border-bottom:1px solid #eef1f6">'+cell(r[2])+'</td>'+
@@ -620,7 +620,7 @@
             }
         })();
 
-        // POW1 VA (settled) — same buckets/colors as POD1, only if data + card present
+        // POW1 VA (settled), same buckets/colors as POD1, only if data + card present
         if(s.pow1 && Object.keys(s.pow1).length && typeof pow1!=='undefined' && pow1){
             const wl=order.filter(k=>s.pow1[k]); const wt=wl.reduce((a,k)=>a+s.pow1[k],0);
             mkChart(pow1,{type:'bar',data:{labels:wl,
