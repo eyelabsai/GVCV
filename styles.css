@@ -843,3 +843,55 @@ html {
     .skill-title { font-size: 10px !important; }
     .skill-list li { font-size: 9.5px !important; }
 }
+
+/* ============================================================
+   PDF/print: flatten section "cards" and tighten every row.
+   The boxed cards + per-item margins waste space and cause
+   half-page gaps when a card can't fit; strip it all for print.
+   ============================================================ */
+@media print {
+    .cv-section,
+    .cv-section:nth-child(odd),
+    .cv-section:nth-child(even),
+    #education, #leadership, #honors {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+        padding: 0 !important;
+        margin: 0 0 9px 0 !important;
+        page-break-inside: auto !important;
+    }
+    .section-content { padding: 0 !important; }
+
+    /* Award / education / service / cert: name line + org line, tight */
+    .education-item, #education .education-item,
+    .service-item, #leadership .service-item,
+    .award-item, #honors .award-item,
+    .certification-item {
+        display: block !important;
+        gap: 0 !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 0 4px 0 !important;
+        line-height: 1.25 !important;
+        page-break-inside: avoid;
+    }
+    .degree-info { display: block !important; gap: 0 !important; margin: 0 !important; }
+    .award-name, .degree, .position, .cert-name {
+        display: block !important; font-size: 10.5px !important; font-weight: 700 !important; margin: 0 !important; line-height: 1.25 !important;
+    }
+    .awarding-body, .organization, .institution, .cert-org {
+        display: inline !important; font-size: 9.5px !important; margin: 0 !important; color: var(--text-secondary) !important;
+    }
+    .year {
+        display: inline !important; font-size: 9.5px !important; margin: 0 0 0 6px !important; color: var(--text-muted) !important;
+    }
+    /* awarding-body already carries the year for most awards; drop the duplicate year span there */
+    #honors .award-item .year { display: none !important; }
+
+    .publication-item, .presentation-item, .book-item {
+        border: none !important; padding: 0 !important; margin: 0 0 3px 0 !important; page-break-inside: avoid;
+    }
+}
