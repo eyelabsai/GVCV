@@ -12,7 +12,24 @@
 4. Tally the URLs. The domains/threads that keep feeding answers = your off-site target list.
 5. Note where **icl.fit / iclsurgery.com / gurpalvirdi.com / Virdi / Hirabayashi / VAULT** appear (or don't).
 
-> Non-deterministic — one run isn't a measurement. Same prompts, monthly, watch the trend.
+> Non-deterministic — one run isn't a measurement. **Run each prompt 5–10× per engine for a mention *rate*, not a screenshot. Log the DATE of every run** (the date is the only variable you can truly pin — models/retrieval change under you). Same prompts, monthly, watch the trend.
+
+**Split results into two buckets** — they behave completely differently:
+- **Named** prompts (contain "Gurpal Virdi" / "ICL Fit" / "VAULT") typically score 80–90% — flattering and near-meaningless.
+- **Descriptive** prompts ("best ICL surgeon," "how is an ICL sized") are the real test and usually score <10% for a new entity. Track these separately or you'll fool yourself.
+
+---
+
+## Tier 0 — Identity check (DO THIS FIRST, before mention tracking)
+
+Purpose: make sure the engines even know *who Gurpal is*. A low visibility score is often a **category error** (filed under the wrong heading — e.g. confused with a UK police officer of the same name) wearing the costume of a competitive loss. You can't tell them apart without this. Run each across **ChatGPT, Claude, Gemini, Perplexity** and **compare the four answers to each other** (not just to reality):
+
+- Who is Gurpal Virdi, MD?
+- What does Gurpal Virdi specialize in, and where is he based?
+- What is ICL Fit (icl.fit)?
+- Who founded ICL Fit?
+
+**Score = do the four engines agree** on category (ophthalmologist / refractive surgeon), focus (ICL sizing / AI), and affiliation? Disagreement, a wrong city, or a merged-identity = an **identity problem**, and the fix is consistent About page + directories + (later) a Google Business Profile — cheaper and more urgent than chasing "best ICL" citations.
 
 ---
 
