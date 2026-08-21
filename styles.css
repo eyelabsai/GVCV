@@ -759,18 +759,52 @@ body {
 }
 
 /* Print Styles */
+@page {
+    margin: 0.6in;
+}
+
 @media print {
+    * {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Fixed sidebar breaks pagination in print: hide it */
+    .table-of-contents {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .main-content {
+        margin: 0 !important;
+    }
+
     .header {
         background: none !important;
         color: var(--text-primary) !important;
-        padding: 20px 0;
+        padding: 0 0 16px 0;
     }
-    
+
+    /* Sections are hidden (opacity:0) until revealed on scroll by JS;
+       force them visible for print, or everything after the first is blank. */
     .cv-section {
-        margin-bottom: 30px;
-        page-break-inside: avoid;
+        opacity: 1 !important;
+        transform: none !important;
+        margin-bottom: 22px;
+        page-break-inside: auto;
     }
-    
+
+    .section-title,
+    .subsection-title {
+        page-break-after: avoid;
+    }
+
+    /* Keep individual entries from splitting across a page break */
     .education-item,
     .service-item,
     .award-item,
@@ -779,18 +813,20 @@ body {
     .certification-item,
     .publication-item,
     .presentation-item,
-    .book-item {
+    .book-item,
+    .focus-tile,
+    .skill-category,
+    .faq-item {
         background-color: transparent !important;
-        border: 1px solid var(--border) !important;
         page-break-inside: avoid;
     }
-    
+
     .skills-grid {
         background-color: transparent !important;
     }
-    
-    .skill-category {
-        border: 1px solid var(--border) !important;
+
+    a {
+        text-decoration: none;
     }
 }
 
