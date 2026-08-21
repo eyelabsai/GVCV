@@ -81,7 +81,8 @@
         "founder": [
             {"@type": "Organization", "name": "Bimini AI", "url": "https://www.biminiai.com"},
             {"@type": "Organization", "name": "ICL Fit", "url": "https://icl.fit"},
-            {"@type": "Organization", "name": "IOL Reference", "url": "https://iolreference.com"}
+            {"@type": "Organization", "name": "IOL Reference", "url": "https://iolreference.com"},
+            {"@type": "Organization", "name": "EyeLabs AI", "url": "https://eyelabs.ai"}
         ],
         "url": "https://gurpalvirdi.com",
         "email": "gvirdimd@gmail.com",
@@ -173,7 +174,7 @@
         .prose a{color:var(--accent2); text-decoration:none; font-weight:500;}
         .prose a:hover{text-decoration:underline;}
 
-        .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+        .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;}
         .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px; text-decoration:none; color:inherit; display:block; transition:border-color .15s, transform .15s;}
         .card:hover{border-color:var(--line2); transform:translateY(-2px);}
         .card .k{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent2); font-weight:600; margin:0 0 10px;}
@@ -194,7 +195,6 @@
             .hero .grid{grid-template-columns:1fr; gap:30px;}
             .portrait{order:-1; max-width:200px; margin:0 auto;}
             .proc-grid{grid-template-columns:1fr 1fr;}
-            .cards{grid-template-columns:1fr;}
         }
         @media (max-width:600px){
             body{font-size:16px;}
@@ -289,6 +289,12 @@
                         <h3>IOL Reference</h3>
                         <p>Creator of IOL Reference, the intraocular lens database used by cataract surgeons worldwide.</p>
                         <span class="go">iolreference.com →</span>
+                    </a>
+                    <a class="card" href="https://eyelabs.ai" target="_blank" rel="noopener">
+                        <p class="k">Founder</p>
+                        <h3>EyeLabs AI</h3>
+                        <p>Founder of EyeLabs AI, building AI tools for modern ophthalmology.</p>
+                        <span class="go">eyelabs.ai →</span>
                     </a>
                 </div>
             </div>
