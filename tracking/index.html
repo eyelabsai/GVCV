@@ -248,6 +248,12 @@
                 <div class="chart-box tall"><canvas id="absdist"></canvas></div>
                 <div id="exp-absdist" class="explain"></div>
               </div>
+              <div class="card" style="margin-bottom:1.25rem">
+                <h2>My cases only — uncorrected distance over time</h2>
+                <div class="hint">Just my own eyes, one line per lens platform I've implanted — no published comparators. Same flipped axis: higher = sharper. n shrinks at later visits; a single-eye endpoint is a marker, not a trend.</div>
+                <div class="chart-box tall"><canvas id="mydist"></canvas></div>
+                <div id="exp-mydist" class="explain"></div>
+              </div>
               <div class="grid">
                 <div class="card"><h2>Post-op Day 1, all three distances</h2><div class="hint">Early on, PanOptix leads at intermediate &amp; near (p=0.003, p=0.035); distance is a tie (p=0.742).</div><div class="chart-box"><canvas id="abspod1"></canvas></div><div id="exp-abspod1" class="explain"></div></div>
                 <div class="card"><h2>How the story evolves</h2><div class="hint">Odyssey's distance edge grows as edema clears; PanOptix's early intermediate/near lead evens out by POW1/POM1.</div><div class="chart-box"><canvas id="absgap"></canvas></div><div id="exp-absgap" class="explain"></div></div>
@@ -556,6 +562,23 @@
                     datalabels:{align:'top',offset:6,formatter:v=>v==null?'':asn(v),color:c=>colorsD[c.datasetIndex],font:{weight:'700',size:11}},
                     tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  '+(c.datasetIndex<2?(pD[times[c.dataIndex]]||''):('n='+nAt(myPlats[c.datasetIndex-2],times[c.dataIndex],'distance')))}}},
                     scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance, logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+            }
+            // ---- My cases only: distance over time, my platforms, no published overlays ----
+            if(typeof mydist!=='undefined' && mydist){
+                const MYALL={'Envy (ETNU/ENU)':['Envy','#5f7a45'],'PureSee (DEN00V)':['PureSee','#b48ead'],'Odyssey (DRN00V)':['Odyssey','#5e81ac'],'PanOptix (TFNT)':['PanOptix','#d08770'],'Vivity (DFT)':['Vivity','#bf616a']};
+                const mine=Object.keys(MYALL).filter(p=>PTP[p] && times.some(t=>PTP[p][t]&&PTP[p][t].distance&&PTP[p][t].distance.n>0));
+                const mcol=mine.map(p=>MYALL[p][1]);
+                const dsM=mine.map(p=>({label:MYALL[p][0]+' (my series)',data:times.map(t=>at(p,t,'distance')),
+                    borderColor:MYALL[p][1],backgroundColor:MYALL[p][1],tension:.25,borderWidth:3,pointRadius:5,pointHoverRadius:7,spanGaps:true}));
+                mkChart(mydist,{type:'line',data:{labels:times,datasets:dsM},
+                options:{plugins:{legend:{position:'bottom'},
+                    datalabels:{align:'top',offset:6,formatter:v=>v==null?'':asn(v),color:c=>mcol[c.datasetIndex],font:{weight:'700',size:11}},
+                    tooltip:{callbacks:{label:c=>c.parsed.y==null?'':c.dataset.label+': '+c.parsed.y.toFixed(3)+' logMAR ('+asn(c.parsed.y)+')  n='+nAt(mine[c.datasetIndex],times[c.dataIndex],'distance')}}},
+                    scales:{y:{reverse:true,title:{display:true,text:'uncorrected distance, logMAR'},ticks:{callback:v=>v.toFixed(2)},grid:{color:'#eef1f6'}},x:{grid:{display:false}}}}});
+                const eM=document.getElementById('exp-mydist');
+                if(eM){const nStr=p=>times.map(t=>nAt(p,t,'distance')).filter(x=>x>0).join('→')||'0';
+                    eM.innerHTML=`<b>My cases only.</b> Every line is my own plano-targeted eyes — no published Odyssey/PanOptix curves to lean on. `
+                    +`<div class="nrow">My n (distance, POD1→POW1→POM1): `+mine.map(p=>MYALL[p][0]+' '+nStr(p)).join(' · ')+`. A line ending at n=1 is a single eye — a data point, not a trend yet.</div>`;}
             }
             if(typeof abspod1!=='undefined' && abspod1){
                 const dsets=[
