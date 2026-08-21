@@ -895,3 +895,34 @@ html {
         border: none !important; padding: 0 !important; margin: 0 0 3px 0 !important; page-break-inside: avoid;
     }
 }
+
+/* PDF/print: collapse Interests/Skills into tight inline lines */
+@media print {
+    #interests .skills-grid { display: block !important; gap: 0 !important; }
+    #interests .skill-category {
+        display: block !important;
+        margin: 0 0 4px 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: none !important;
+    }
+    #interests .skill-title {
+        display: inline !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    #interests .skill-title::after { content: ": "; font-weight: 400; }
+    #interests .skill-list { display: inline !important; margin: 0 !important; padding: 0 !important; }
+    #interests .skill-list li {
+        display: inline !important;
+        font-size: 9.5px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: var(--text-secondary) !important;
+    }
+    #interests .skill-list li::before { content: none !important; }
+    #interests .skill-list li:not(:last-child)::after { content: " · "; color: var(--text-muted); }
+}
