@@ -1,18 +1,18 @@
 {
-  "generated": "2026-08-20",
+  "generated": "2026-08-21",
   "totals": {
-    "eyes": 267,
-    "patients": 197,
+    "eyes": 269,
+    "patients": 198,
     "premium": 89,
     "standard": 98,
     "premium_pct": 48,
     "iol": 187,
     "toric": 40,
     "toric_pct": 21,
-    "va_recorded": 120,
-    "pow1_recorded": 46,
-    "near_recorded": 11,
-    "icl_dist_recorded": 26,
+    "va_recorded": 126,
+    "pow1_recorded": 47,
+    "near_recorded": 12,
+    "icl_dist_recorded": 30,
     "icl_near_recorded": 1,
     "migs": 4,
     "femto": 106,
@@ -29,7 +29,7 @@
     "Toric monofocal": 18,
     "LAL": 10,
     "Enhanced monofocal": 1,
-    "ICL": 36,
+    "ICL": 38,
     "Other": 9,
     "Multifocal": 1
   },
@@ -41,13 +41,13 @@
     "Tecnis Toric (ZCU)": 18,
     "LAL (Light Adjustable)": 10,
     "Eyhance": 1,
-    "EVO ICL": 36,
+    "EVO ICL": 38,
     "Other": 9,
     "Odyssey (DRN00V)": 1
   },
   "procedure": {
     "Cataract": 193,
-    "EVO ICL": 38,
+    "EVO ICL": 40,
     "Pterygium": 5,
     "Piggyback IOL": 1,
     "LASIK / PRK": 24,
@@ -58,7 +58,7 @@
   },
   "indication": {
     "Cataract": 194,
-    "ICL": 38,
+    "ICL": 40,
     "Other surgery": 9,
     "LASIK/PRK": 24,
     "RLE": 2
@@ -72,25 +72,25 @@
     "\u226524.5": 8
   },
   "va": {
-    "20/30\u201320/40": 30,
+    "20/30\u201320/40": 33,
     "20/25": 23,
-    "20/20 or better": 39,
-    "worse than 20/40": 28
+    "20/20 or better": 41,
+    "worse than 20/40": 29
   },
   "pow1": {
     "worse than 20/40": 3,
     "20/20 or better": 25,
-    "20/25": 10,
+    "20/25": 11,
     "20/30\u201320/40": 8
   },
   "near": {
-    "J1 (~20/20 near)": 8,
+    "J1 (~20/20 near)": 9,
     "J2\u2013J3 (~20/25\u201330 near)": 2,
     "J4+ (weaker near)": 1
   },
   "refractive": {
-    "20/20 or better": 24,
-    "20/25": 8,
+    "20/20 or better": 27,
+    "20/25": 9,
     "20/30\u201320/40": 8
   },
   "refractive_split": {
@@ -100,14 +100,14 @@
       "20/30\u201320/40": 3
     },
     "ICL": {
-      "20/20 or better": 19,
-      "20/25": 3,
+      "20/20 or better": 22,
+      "20/25": 4,
       "20/30\u201320/40": 5
     }
   },
   "icl_dist": {
-    "20/20 or better": 19,
-    "20/25": 3,
+    "20/20 or better": 22,
+    "20/25": 4,
     "20/30\u201320/40": 4
   },
   "icl_near": {
@@ -119,23 +119,23 @@
         "20/25": 12,
         "worse than 20/40": 7,
         "20/20 or better": 21,
-        "20/30\u201320/40": 11
+        "20/30\u201320/40": 12
       },
       "intermediate": {
         "20/20 or better": 38,
-        "20/30\u201320/40": 7,
+        "20/30\u201320/40": 8,
         "worse than 20/40": 4
       },
       "near": {
-        "J1 (~20/20 near)": 25,
+        "J1 (~20/20 near)": 26,
         "J2\u2013J3 (~20/25\u201330 near)": 13,
         "J4+ (weaker near)": 5
       }
     },
     "n": {
-      "distance": 51,
-      "intermediate": 49,
-      "near": 43
+      "distance": 52,
+      "intermediate": 50,
+      "near": 44
     }
   },
   "platform_range": {
@@ -144,19 +144,19 @@
         "20/25": 10,
         "worse than 20/40": 5,
         "20/20 or better": 18,
-        "20/30\u201320/40": 9
+        "20/30\u201320/40": 10
       },
       "intermediate": {
-        "20/30\u201320/40": 5,
+        "20/30\u201320/40": 6,
         "20/20 or better": 32,
         "worse than 20/40": 3
       },
       "near": {
-        "J1 (~20/20 near)": 24,
+        "J1 (~20/20 near)": 25,
         "J2\u2013J3 (~20/25\u201330 near)": 13,
         "J4+ (weaker near)": 5
       },
-      "n": 42
+      "n": 43
     },
     "PureSee (DEN00V)": {
       "distance": {
@@ -185,40 +185,40 @@
     ],
     "overall": {
       "distance": {
-        "n": 51,
-        "mean": 0.154,
+        "n": 52,
+        "mean": 0.155,
         "snellen": 29,
         "cum": [
-          22,
-          57,
-          78,
-          80,
+          21,
+          56,
+          79,
+          81,
           90,
           96
         ]
       },
       "intermediate": {
-        "n": 49,
-        "mean": -0.032,
+        "n": 50,
+        "mean": -0.025,
         "snellen": 19,
         "cum": [
+          74,
           76,
-          78,
-          86,
-          86,
+          84,
+          84,
           92,
           96
         ]
       },
       "near": {
-        "n": 43,
-        "mean": 0.12,
+        "n": 44,
+        "mean": 0.118,
         "snellen": 26,
         "cum": [
-          58,
-          58,
-          88,
-          88,
+          59,
+          59,
+          89,
+          89,
           93,
           93
         ]
@@ -227,38 +227,38 @@
     "platform": {
       "Envy (ETNU/ENU)": {
         "distance": {
-          "n": 42,
-          "mean": 0.128,
+          "n": 43,
+          "mean": 0.13,
           "snellen": 27,
           "cum": [
-            24,
-            57,
+            23,
+            56,
             81,
-            83,
+            84,
             93,
             98
           ]
         },
         "intermediate": {
-          "n": 40,
-          "mean": -0.035,
-          "snellen": 18,
+          "n": 41,
+          "mean": -0.027,
+          "snellen": 19,
           "cum": [
-            80,
-            80,
-            85,
-            85,
-            92,
+            78,
+            78,
+            83,
+            83,
+            93,
             95
           ]
         },
         "near": {
-          "n": 42,
-          "mean": 0.123,
-          "snellen": 27,
+          "n": 43,
+          "mean": 0.12,
+          "snellen": 26,
           "cum": [
-            57,
-            57,
+            58,
+            58,
             88,
             88,
             93,
@@ -313,16 +313,16 @@
     "Envy (ETNU/ENU)": {
       "POD1": {
         "distance": {
-          "mean": 0.161,
-          "n": 42
+          "mean": 0.162,
+          "n": 43
         },
         "intermediate": {
-          "mean": 0.008,
-          "n": 41
+          "mean": 0.015,
+          "n": 42
         },
         "near": {
-          "mean": 0.133,
-          "n": 42
+          "mean": 0.13,
+          "n": 43
         }
       },
       "POW1": {
@@ -341,7 +341,7 @@
       },
       "POM1": {
         "distance": {
-          "mean": -0.04,
+          "mean": 0.02,
           "n": 1
         },
         "intermediate": {
