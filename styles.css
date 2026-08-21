@@ -224,64 +224,14 @@ body {
 }
 
 .section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: -24px -24px 20px -24px;
-    padding: 16px 24px;
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
-    color: white;
-    border-radius: 12px 12px 0 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 14px 0;
+    padding: 0 0 7px 0;
+    border-bottom: 2px solid var(--accent-color);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    box-shadow: 0 3px 15px rgba(94, 129, 172, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Individual section title colors */
-#education .section-title {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    box-shadow: 0 3px 15px rgba(76, 86, 106, 0.2);
-}
-
-#leadership .section-title {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-soft) 100%);
-    box-shadow: 0 3px 15px rgba(180, 142, 173, 0.2);
-}
-
-#honors .section-title {
-    background: linear-gradient(135deg, var(--accent-warm) 0%, var(--accent-color) 100%);
-    box-shadow: 0 3px 15px rgba(208, 135, 112, 0.2);
-}
-
-#research .section-title {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    box-shadow: 0 3px 15px rgba(76, 86, 106, 0.2);
-}
-
-/* Compact section titles for first three sections */
-#education .section-title,
-#leadership .section-title,
-#honors .section-title {
-    margin: -16px -16px 12px -16px;
-    padding: 12px 16px;
-}
-
-.section-title::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    letter-spacing: 0.08em;
 }
 
 .section-content {
@@ -486,27 +436,12 @@ body {
 }
 
 .subsection-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 16px;
-    padding: 10px 16px;
-    background: linear-gradient(135deg, rgba(129, 161, 193, 0.08) 0%, rgba(136, 192, 208, 0.12) 100%);
-    border-left: 3px solid var(--accent-color);
-    border-radius: 0 8px 8px 0;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(129, 161, 193, 0.1);
-}
-
-.subsection-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent-color) 0%, var(--accent-cool) 50%, transparent 80%);
-    border-radius: 0 0 8px 0;
+    margin: 16px 0 8px 0;
+    padding: 0 0 4px 0;
+    border-bottom: 1px solid var(--border);
 }
 
 .publication-item,
