@@ -1597,10 +1597,57 @@
         }
       ],
       "probe": null
+    },
+    {
+      "date": "2026-08-22T12:34:00.567Z",
+      "researchers": [
+        {
+          "name": "Gurpal Virdi",
+          "orcid": "0000-0003-0123-2658",
+          "wikidata": {
+            "qid": "Q140622323",
+            "exists": true,
+            "statements": 4,
+            "sitelinks": 0
+          },
+          "works": 7,
+          "pubmed": 8
+        },
+        {
+          "name": "Matt Hirabayashi",
+          "orcid": "0000-0002-0925-5494",
+          "wikidata": null,
+          "works": 17,
+          "pubmed": 22
+        }
+      ],
+      "sites": [
+        {
+          "domain": "gurpalvirdi.com",
+          "status": 200
+        },
+        {
+          "domain": "iclsurgery.com",
+          "status": 200
+        },
+        {
+          "domain": "icl.fit",
+          "status": 200
+        },
+        {
+          "domain": "iolreference.com",
+          "status": 200
+        },
+        {
+          "domain": "refractivefoundations.com",
+          "status": 200
+        }
+      ],
+      "probe": null
     }
   ],
   "latest": {
-    "date": "2026-08-21T12:41:34.556Z",
+    "date": "2026-08-22T12:34:00.567Z",
     "researchers": [
       {
         "name": "Gurpal Virdi",
